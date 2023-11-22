@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "451952942569",
+    "project_id": "e-dervices-fyp",
+    "storage_bucket": "e-dervices-fyp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:451952942569:android:50c0f6ead3c6cbb1bcff78",
+        "android_client_info": {
+          "package_name": "com.example.e_services_fyp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDc05cXbtvAS2cDLPUvFEJlgmIyEc91zYM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
