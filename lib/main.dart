@@ -1,5 +1,9 @@
+import 'package:e_services_fyp/Pages/splashScreen/view.dart';
+import 'package:e_services_fyp/utils/routes/routes.dart';
+import 'package:e_services_fyp/utils/routes/routesNames.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,10 +22,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-
-      home: Scaffold(),
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      // home: SplashView(),
+      initialRoute: AppPages.splashView,
+      getPages: AppRoutes.routes,
     );
   }
 }
