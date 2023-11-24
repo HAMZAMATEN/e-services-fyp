@@ -42,6 +42,7 @@ dependencies:
   get:
   shared_preferences:
   animated_text_kit:
+  google_maps_flutter:
 
 dev_dependencies:
   flutter_test:

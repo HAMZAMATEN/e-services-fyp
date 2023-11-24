@@ -1,5 +1,11 @@
+import 'package:e_services_fyp/Pages/application_view/bindings.dart';
+import 'package:e_services_fyp/Pages/application_view/view.dart';
 import 'package:e_services_fyp/Pages/home/bindings.dart';
 import 'package:e_services_fyp/Pages/home/view.dart';
+import 'package:e_services_fyp/Pages/profile_view/bindings.dart';
+import 'package:e_services_fyp/Pages/profile_view/view.dart';
+import 'package:e_services_fyp/Pages/scheduled_view/bindings.dart';
+import 'package:e_services_fyp/Pages/scheduled_view/view.dart';
 import 'package:e_services_fyp/Pages/signup/bindings.dart';
 import 'package:e_services_fyp/Pages/signup/view.dart';
 import 'package:e_services_fyp/Pages/splashScreen/bindings.dart';
@@ -26,9 +32,29 @@ class AppRoutes{
     ),
 
     GetPage(
+      name: AppPages.applicationView,
+      page: ()=> ApplicationView(),
+      binding: ApplicationBindings(),
+      transition: Transition.zoom,
+    ),
+    GetPage(
+      name: AppPages.scheduledView,
+      page: ()=> ScheduledView(),
+      binding: ScheduledBindings(),
+      transition: Transition.zoom,
+    ),
+
+    GetPage(
       name: AppPages.homeView,
       page: ()=> HomeView(),
       binding: HomeBindings(),
+      transition: Transition.zoom,
+    ),
+
+    GetPage(
+      name: AppPages.userProfileView,
+      page: ()=> ProfileView(),
+      binding: ProfileBindings(),
       transition: Transition.zoom,
     ),
 

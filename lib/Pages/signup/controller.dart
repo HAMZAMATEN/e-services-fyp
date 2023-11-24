@@ -58,7 +58,7 @@ class SignupController extends GetxController with GetTickerProviderStateMixin {
       setLoading(false);
       StorePrefrences sp = StorePrefrences();
       sp.setIsFirstOpen(true);
-      Get.offAllNamed(AppPages.homeView);
+      Get.offAllNamed(AppPages.applicationView);
       print('success');
     }).catchError((error, stackTrace) {
       print("Error occurred");
@@ -99,7 +99,7 @@ class SignupController extends GetxController with GetTickerProviderStateMixin {
         } else {
           StorePrefrences sp = StorePrefrences();
           sp.setIsFirstOpen(true);
-          Get.offAllNamed(AppPages.homeView);
+          Get.offAllNamed(AppPages.applicationView);
           setLoading(false);
         }
 
