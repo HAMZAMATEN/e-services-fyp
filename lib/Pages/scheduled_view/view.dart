@@ -44,6 +44,7 @@ class ScheduledView extends GetView<ScheduledController> {
                     height: 70,
                     width: 400,
                     padding: EdgeInsets.only(left: 20),
+
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       color: AppColors.iconsColor,
