@@ -1,7 +1,13 @@
 import 'package:e_services_fyp/Pages/signup/controller.dart';
+import 'package:e_services_fyp/Pages/signup/pages/customer_sign_up.dart';
+import 'package:e_services_fyp/Pages/signup/pages/login.dart';
+import 'package:e_services_fyp/Pages/signup/pages/service_provider_signUP.dart';
+import 'package:e_services_fyp/res/colors.dart';
 import 'package:e_services_fyp/res/widgets/custom_text_field.dart';
+import 'package:e_services_fyp/utils/compnents/round_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SignupView extends GetView<SignupController> {
   const SignupView({Key? key}) : super(key: key);
@@ -30,14 +36,27 @@ class SignupView extends GetView<SignupController> {
               child: TabBar(
                 isScrollable: true,
                 labelPadding: EdgeInsets.symmetric(horizontal: 20),
-                labelColor: Colors.cyan,
+                labelColor: AppColors.iconsColor,
+                indicatorColor: AppColors.iconsColor,
                 unselectedLabelColor: Colors.grey,
+                unselectedLabelStyle: GoogleFonts.poppins(
+                  fontSize: 14,
+                ),
+                labelStyle: GoogleFonts.poppins(
+                  fontSize: 14,
+                ),
+
                 tabs: [
+
                   Tab(
-                    text: 'Customer',
+                    text: 'Login',
                   ),
                   Tab(
-                    text: 'Service Provider',
+                    text: 'Customer\n   SignUp',
+
+                  ),
+                  Tab(
+                    text: 'Service Provider\n         SignUp',
                   )
                 ],
                 controller: controller.tabController,
@@ -52,23 +71,9 @@ class SignupView extends GetView<SignupController> {
               child: TabBarView(
                 controller: controller.tabController,
                 children: [
-                  Scaffold(
-                    backgroundColor: Colors.white,
-                    body: Column(
-                      children: [
-                        CustomTextField(
-                            contr: TextEditingController(),
-                            descrip: 'Name',
-                            textInputAction: TextInputAction.next,
-                            keyboardType: TextInputType.name,
-                            obsecure: false,
-                            icon: Icons.person,
-                        ),
-                      ],
-                    )
-                  ),
-                  Scaffold(
-                    body: Text('2'),),
+                  LoginPage(),
+                  CustomerSignUp(),
+                  ServiceProviderView(),
                 ],
               ),
             ),)

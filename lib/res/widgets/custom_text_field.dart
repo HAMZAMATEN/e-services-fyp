@@ -1,5 +1,6 @@
 import 'package:e_services_fyp/res/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CustomTextField extends StatelessWidget {
   final TextInputType keyboardType;
@@ -45,6 +46,9 @@ class CustomTextField extends StatelessWidget {
           obscureText: obsecure,
           keyboardType: keyboardType,
           onChanged: onChange,
+          style: GoogleFonts.poppins(
+            fontSize: 17,
+          ),
 
           // focusNode: focNode,
           decoration: InputDecoration(
@@ -54,29 +58,12 @@ class CustomTextField extends StatelessWidget {
             ),
             border: InputBorder.none,
             hintText: descrip,
+            hintStyle: GoogleFonts.poppins(
+              fontSize: 17,
+            ),
           ),
         ),
       ),
     );
-    // return Padding(
-    //   padding: EdgeInsets.symmetric(horizontal: 0, vertical: 5),
-    //   child: TextField(
-    //     controller: contr,
-    //     textInputAction: textInputAction,
-    //     obscureText: obsecure,
-    //     keyboardType: keyboardType,
-    //     onChanged: onChange,
-    //
-    //     // focusNode: focNode,
-    //     decoration: InputDecoration(
-    //       prefixIcon: Icon(
-    //         icon,
-    //         color: Colors.deepPurple,
-    //       ),
-    //       border: InputBorder.none,
-    //       hintText: descrip,
-    //     ),
-    //   ),
-    // );
   }
 }
