@@ -40,8 +40,8 @@ class SplashView extends GetView<SplashController> {
                     Container(
                       child: AnimatedTextKit(
                         isRepeatingAnimation: true,
-                        repeatForever: true,
-
+                        // repeatForever: true,
+                        totalRepeatCount: 3,
                         animatedTexts: [
                           TypewriterAnimatedText('On Door Step',textStyle: Theme.of(context).textTheme.headlineMedium!.copyWith(color: Colors.deepPurple),speed: Duration(milliseconds: 100)),
 

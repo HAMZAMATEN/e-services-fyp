@@ -12,6 +12,18 @@ class SplashController extends GetxController{
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   void Navigate() async{
+    final currentUser = await auth.currentUser;
+
+    if(auth.currentUser != null){
+      if(await checkUser(currentUser!.uid.toString())){
+        Future.delayed(Duration(seconds: 3), ()=> Get.offNamed(AppPages.providerHomeView));
+      }else{
+        Future.delayed(Duration(seconds: 3), ()=> Get.offNamed(AppPages.applicationView));
+      }
+    }else{
+      Future.delayed(Duration(seconds: 3), ()=> Get.offNamed(AppPages.onBoardingView));
+    }
+
     // if(sp.getIsFirstOpen()==true){
     //   final currentUserId = await auth.currentUser!.uid.toString();
     //   if( await checkUser(currentUserId)){
@@ -21,20 +33,20 @@ class SplashController extends GetxController{
     // }else{
     // Future.delayed(Duration(seconds: 3), ()=> Get.offNamed(AppPages.onBoardingView));
     // }
-    if(sp.getIsFirstOpen() != true ){
-      Future.delayed(Duration(seconds: 3), ()=> Get.offNamed(AppPages.onBoardingView));
-    }else {
-      final currentUserId = await auth.currentUser;
-      if(currentUserId != null){
-        if(checkUser(currentUserId.uid.toString())==true){
-          Future.delayed(Duration(seconds: 3), ()=> Get.offNamed(AppPages.providerHomeView));
-        }else {
-          Future.delayed(Duration(seconds: 3), ()=> Get.offNamed(AppPages.homeView));
-        }
-      }else {
-        Future.delayed(Duration(seconds: 3), ()=> Get.offNamed(AppPages.signUpView));
-      }
-    }
+    // if(sp.getIsFirstOpen() != true ){
+    //   Future.delayed(Duration(seconds: 3), ()=> Get.offNamed(AppPages.onBoardingView));
+    // }else {
+    //   final currentUserId = await auth.currentUser;
+    //   if(currentUserId != null){
+    //     if(checkUser(currentUserId.uid.toString())==true){
+    //       Future.delayed(Duration(seconds: 3), ()=> Get.offNamed(AppPages.providerHomeView));
+    //     }else {
+    //       Future.delayed(Duration(seconds: 3), ()=> Get.offNamed(AppPages.homeView));
+    //     }
+    //   }else {
+    //     Future.delayed(Duration(seconds: 3), ()=> Get.offNamed(AppPages.signUpView));
+    //   }
+    // }
 
   }
 
@@ -47,14 +59,8 @@ class SplashController extends GetxController{
         .get();
     if (serviceData.docs.isNotEmpty) {
       return true;
-      // sp.setIsFirstOpen(true);
-      // Get.offAllNamed(AppPages.providerHomeView);
-      // setLoading(false);
     } else {
       return false;
-      // sp.setIsFirstOpen(true);
-      // Get.offAllNamed(AppPages.applicationView);
-      // setLoading(false);
     }
   }
 }

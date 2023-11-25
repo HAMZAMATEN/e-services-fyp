@@ -2,6 +2,8 @@ import 'package:e_services_fyp/Pages/OnBoardingPages/bindings.dart';
 import 'package:e_services_fyp/Pages/OnBoardingPages/view.dart';
 import 'package:e_services_fyp/Pages/application_view/bindings.dart';
 import 'package:e_services_fyp/Pages/application_view/view.dart';
+import 'package:e_services_fyp/Pages/catogery_view/bindings.dart';
+import 'package:e_services_fyp/Pages/catogery_view/view.dart';
 import 'package:e_services_fyp/Pages/home/bindings.dart';
 import 'package:e_services_fyp/Pages/home/view.dart';
 import 'package:e_services_fyp/Pages/profile_view/bindings.dart';
@@ -50,6 +52,12 @@ class AppRoutes{
       page: ()=> ScheduledView(),
       binding: ScheduledBindings(),
       transition: Transition.zoom,
+    ),
+    GetPage(
+      name: AppPages.catogeryView,
+      page: ()=> CategoryView(),
+      binding: CatogeryBindings(),
+      transition: Transition.rightToLeft,
     ),
 
     GetPage(
