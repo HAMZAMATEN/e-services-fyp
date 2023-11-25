@@ -2,6 +2,7 @@ import 'package:e_services_fyp/Pages/scheduled_view/controller.dart';
 import 'package:e_services_fyp/res/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import '../../../res/colors.dart';
 
 class PersonData extends GetView<ScheduledController> {
@@ -55,13 +56,44 @@ class PersonData extends GetView<ScheduledController> {
         SizedBox(
           height: 10,
         ),
-        CustomTextField(
-            contr: controller.state.timeCon,
-            descrip: 'Time',
-            textInputAction: TextInputAction.next,
-            keyboardType: TextInputType.text,
-            obsecure: false,
-            icon: Icons.timer),
+        Obx(() => CustomTextFieldForDateTime(
+          descrip: DateFormat.yMd().format(controller.state.selectedDate.value),
+          textInputAction: TextInputAction.next,
+          keyboardType: TextInputType.datetime,
+          obsecure: false,
+          icon: Icons.view_day_outlined,
+          suffixIcon: InkWell(
+            onTap: (){
+              controller.getDateFromUser(context);
+            },
+            child: Icon(
+              Icons.calendar_month_outlined,
+              color: AppColors.iconsColor,
+            ),
+          ),
+          readOnly: true,
+        )),
+
+        SizedBox(
+          height: 10,
+        ),
+        Obx(() => CustomTextFieldForDateTime(
+          descrip: controller.state.selectedTime.value,
+          textInputAction: TextInputAction.next,
+          keyboardType: TextInputType.datetime,
+          obsecure: false,
+          icon: Icons.timer,
+          suffixIcon: InkWell(
+            onTap: (){
+              controller.getTimeFromUser(context);
+            },
+            child: Icon(
+              Icons.access_time_outlined,
+              color: AppColors.iconsColor,
+            ),
+          ),
+          readOnly: true,
+        )),
 
         // RoundButton(
         //   title: "Save",

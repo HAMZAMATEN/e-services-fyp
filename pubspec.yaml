@@ -43,6 +43,11 @@ dependencies:
   shared_preferences:
   animated_text_kit:
   google_maps_flutter:
+  image_picker:
+  firebase_storage:
+  date_picker_plus:
+  intl:
+  date_time_picker:
 
 dev_dependencies:
   flutter_test:

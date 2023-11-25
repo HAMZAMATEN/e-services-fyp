@@ -93,7 +93,7 @@ class CustomerSignUp extends GetView<SignupController> {
                                     .trim(),
                                 email: controller
                                     .state.signUpEmailController.text
-                                    .trim(),
+                                    .trim(), photoUrl: '',
                               );
                               controller.storeUser(
                                   user,

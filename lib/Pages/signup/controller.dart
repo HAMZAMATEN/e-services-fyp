@@ -36,8 +36,10 @@ class SignupController extends GetxController with GetTickerProviderStateMixin {
         StorePrefrences sp = StorePrefrences();
         sp.setIsFirstOpen(true);
         createUser(userinfo);
-        clearControllers();
         Snackbar.showSnackBar('Success', 'Successfully create an account.',Icons.done_all);
+        setLoading(false);
+        clearControllers();
+
       }).onError((error, stackTrace) {
         setLoading(false);
       });

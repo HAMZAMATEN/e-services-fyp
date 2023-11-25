@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_services_fyp/Pages/home/controller.dart';
 import 'package:e_services_fyp/Pages/profile_view/controller.dart';
+import 'package:e_services_fyp/Pages/profile_view/update/update.dart';
 import 'package:e_services_fyp/Pages/splashScreen/controller.dart';
 import 'package:e_services_fyp/res/colors.dart';
 import 'package:e_services_fyp/res/text_widget.dart';
@@ -40,18 +43,37 @@ class ProfileView extends GetView<ProfileController> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Stack(children: [
-                          SizedBox(
+                          Container(
                             width: 120,
                             height: 120,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              border: Border.all(
+                                width: 2,
+                                color: AppColors.iconsColor,
+                              ),
+                            ),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(100),
-                              child: const Image(
-                                image: AssetImage(
-                                  "assets/images/service_provider2.png",
-                                ),
-                                fit: BoxFit.cover,
-                              ),
-                              //color: Colors.white,
+                              child: controller.image == null
+                                  ? snapshot.data!['photoUrl'].toString() == ''
+                                      ? Center(
+                                          child: Icon(
+                                            Icons.person,
+                                            size: 50,
+                                            color: AppColors.iconsColor,
+                                          ),
+                                        )
+                                      : Image(
+                                          image: NetworkImage(snapshot
+                                              .data!['photoUrl']
+                                              .toString()),
+                                          fit: BoxFit.cover,
+                                        )
+                                  : Image.file(
+                                      File(controller.image!.path).absolute,
+                                      fit: BoxFit.cover,
+                                    ),
                             ),
                           ),
                           Positioned(
@@ -59,14 +81,16 @@ class ProfileView extends GetView<ProfileController> {
                             right: 0,
                             child: GestureDetector(
                               onTap: () {
-                                // Get.toNamed(AppRoutes.UpdateProfileScreen);
+                                Get.to(
+                                  UpdateScreen(),
+                                );
                               },
                               child: Container(
                                 height: 30,
                                 width: 30,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(100),
-                                  color: Colors.blueAccent,
+                                  color: AppColors.iconsColor,
                                 ),
                                 child: Icon(
                                   Icons.edit,
