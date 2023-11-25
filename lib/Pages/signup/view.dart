@@ -39,6 +39,7 @@ class SignupView extends GetView<SignupController> {
                 labelColor: AppColors.iconsColor,
                 indicatorColor: AppColors.iconsColor,
                 unselectedLabelColor: Colors.grey,
+                tabAlignment: TabAlignment.center,
                 unselectedLabelStyle: GoogleFonts.poppins(
                   fontSize: 14,
                 ),
@@ -65,7 +66,7 @@ class SignupView extends GetView<SignupController> {
             Expanded(
               flex: 5,
               child: Container(
-              margin: EdgeInsets.only(top: 30),
+              margin: EdgeInsets.only(top: 10),
               // height: MediaQuery.of(context).size.height,
               width: double.infinity,
               child: TabBarView(

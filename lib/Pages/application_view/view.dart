@@ -1,6 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:e_services_fyp/Pages/application_view/controller.dart';
 import 'package:e_services_fyp/Pages/home/controller.dart';
+import 'package:e_services_fyp/Pages/home/view.dart';
 import 'package:e_services_fyp/Pages/profile_view/view.dart';
 import 'package:e_services_fyp/Pages/scheduled_view/view.dart';
 import 'package:e_services_fyp/Pages/splashScreen/controller.dart';
@@ -18,14 +19,7 @@ class ApplicationView extends GetView<ApplicationController> {
   @override
   Widget build(BuildContext context) {
     var navbarItem = [
-      BottomNavigationBarItem(
-        icon: Image.asset(
-          "assets/icons/home.png",
-          width: 35,
-          height: 35,
-        ),
-        label: "Home",
-      ),
+
       BottomNavigationBarItem(
         icon: Image.asset(
           "assets/icons/bookings.png",
@@ -41,6 +35,14 @@ class ApplicationView extends GetView<ApplicationController> {
           height: 35,
         ),
         label: "Categories",
+      ),
+      BottomNavigationBarItem(
+        icon: Image.asset(
+          "assets/icons/home.png",
+          width: 35,
+          height: 40,
+        ),
+        label: "Home",
       ),
       BottomNavigationBarItem(
         icon: Image.asset(
@@ -60,9 +62,10 @@ class ApplicationView extends GetView<ApplicationController> {
       ),
     ];
     var navBody = [
-      Text('HomeScreen'),
-      Text('BookingView'),
-      Text('CategoryView'),
+
+      Center(child: Text('BookingView')),
+      Center(child: Text('CategoryView')),
+      HomeView(),
       ScheduledView(),
       ProfileView(),
     ];
@@ -78,7 +81,7 @@ class ApplicationView extends GetView<ApplicationController> {
       ),
       bottomNavigationBar: Obx(
         () => Container(
-          height: 80,
+          height: 90,
           child: BottomNavigationBar(
             currentIndex: controller.state.currentNavIndex.value,
             selectedItemColor: AppColors.iconsColor,

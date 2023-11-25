@@ -1,11 +1,60 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_services_fyp/Pages/splashScreen/state.dart';
+import 'package:e_services_fyp/utils/prefrences/storage_prefs.dart';
 import 'package:e_services_fyp/utils/routes/routesNames.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 class SplashController extends GetxController{
   final state = SplashState();
+  final sp = StorePrefrences();
+  FirebaseAuth auth = FirebaseAuth.instance;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  void Navigate(){
-    Future.delayed(Duration(seconds: 3), ()=> Get.offNamed(AppPages.signUpView));
+  void Navigate() async{
+    // if(sp.getIsFirstOpen()==true){
+    //   final currentUserId = await auth.currentUser!.uid.toString();
+    //   if( await checkUser(currentUserId)){
+    //
+    //   }
+    //   Future.delayed(Duration(seconds: 3), ()=> Get.offNamed(AppPages.signUpView));
+    // }else{
+    // Future.delayed(Duration(seconds: 3), ()=> Get.offNamed(AppPages.onBoardingView));
+    // }
+    if(sp.getIsFirstOpen() != true ){
+      Future.delayed(Duration(seconds: 3), ()=> Get.offNamed(AppPages.onBoardingView));
+    }else {
+      final currentUserId = await auth.currentUser;
+      if(currentUserId != null){
+        if(checkUser(currentUserId.uid.toString())==true){
+          Future.delayed(Duration(seconds: 3), ()=> Get.offNamed(AppPages.providerHomeView));
+        }else {
+          Future.delayed(Duration(seconds: 3), ()=> Get.offNamed(AppPages.homeView));
+        }
+      }else {
+        Future.delayed(Duration(seconds: 3), ()=> Get.offNamed(AppPages.signUpView));
+      }
+    }
+
+  }
+
+
+  Future<bool> checkUser (String uid) async {
+
+    final serviceData = await firestore
+        .collection('serviceProviders')
+        .where('id', isEqualTo: uid)
+        .get();
+    if (serviceData.docs.isNotEmpty) {
+      return true;
+      // sp.setIsFirstOpen(true);
+      // Get.offAllNamed(AppPages.providerHomeView);
+      // setLoading(false);
+    } else {
+      return false;
+      // sp.setIsFirstOpen(true);
+      // Get.offAllNamed(AppPages.applicationView);
+      // setLoading(false);
+    }
   }
 }

@@ -19,7 +19,9 @@ class HomeView extends GetView<HomeController> {
       backgroundColor: Colors.white,
       body: Container(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text("Home"),
             RoundButton(
                 title: 'LogOut',
                 onPress: () {

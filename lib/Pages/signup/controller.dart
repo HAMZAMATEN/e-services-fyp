@@ -18,6 +18,8 @@ class SignupController extends GetxController with GetTickerProviderStateMixin {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
+  StorePrefrences stp = StorePrefrences();
+
   setLoading(value) {
     state.loading.value = value;
   }
@@ -53,7 +55,7 @@ class SignupController extends GetxController with GetTickerProviderStateMixin {
         .doc(auth.currentUser!.uid)
         .set(user.toJson())
         .whenComplete(() {
-      print('Successfully created account');
+      print('Account created Successfully');
 
       setLoading(false);
       StorePrefrences sp = StorePrefrences();
@@ -162,6 +164,7 @@ class SignupController extends GetxController with GetTickerProviderStateMixin {
           .doc(auth.currentUser!.uid.toString())
           .set(serviceProviderModel.toJson())
           .then((value) {
+            stp.setIsFirstOpen(true);
         // Get.to(() => CompanyApprovalPage());
         Get.offAllNamed(AppPages.providerHomeView);
         // auth.signOut();

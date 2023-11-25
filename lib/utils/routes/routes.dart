@@ -1,3 +1,5 @@
+import 'package:e_services_fyp/Pages/OnBoardingPages/bindings.dart';
+import 'package:e_services_fyp/Pages/OnBoardingPages/view.dart';
 import 'package:e_services_fyp/Pages/application_view/bindings.dart';
 import 'package:e_services_fyp/Pages/application_view/view.dart';
 import 'package:e_services_fyp/Pages/home/bindings.dart';
@@ -22,6 +24,12 @@ class AppRoutes{
       name: AppPages.splashView,
         page: ()=> SplashView(),
       binding: SplashBindings(),
+      transition: Transition.zoom,
+    ),
+    GetPage(
+      name: AppPages.onBoardingView,
+      page: ()=> OnBoardingView(),
+      binding: OnBoardingBindings(),
       transition: Transition.zoom,
     ),
     GetPage(

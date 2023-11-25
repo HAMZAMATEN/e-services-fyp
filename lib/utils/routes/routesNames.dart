@@ -1,5 +1,6 @@
 class AppPages {
   static final String splashView = '/';
+  static final String onBoardingView = '/onBoardingView';
   static final String signUpView = '/signUpView';
   static final String applicationView = '/applicationView';
 
