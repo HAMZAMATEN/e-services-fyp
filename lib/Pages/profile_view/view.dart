@@ -7,6 +7,7 @@ import 'package:e_services_fyp/Pages/profile_view/controller.dart';
 import 'package:e_services_fyp/Pages/profile_view/update/update.dart';
 import 'package:e_services_fyp/Pages/splashScreen/controller.dart';
 import 'package:e_services_fyp/res/colors.dart';
+import 'package:e_services_fyp/res/session_controller.dart';
 import 'package:e_services_fyp/res/text_widget.dart';
 import 'package:e_services_fyp/utils/compnents/round_button.dart';
 import 'package:e_services_fyp/utils/compnents/snackbar_widget.dart';
@@ -244,20 +245,14 @@ class ProfileView extends GetView<ProfileController> {
                           height: 10,
                         ),
 
-                        RoundButton(
-                            title: 'LogOut',
-                            onPress: () {
-                              FirebaseAuth.instance
-                                  .signOut()
-                                  .then(
-                                    (value) =>
-                                        Get.offAllNamed(AppPages.signUpView),
-                                  )
-                                  .then((value) {
-                                Snackbar.showSnackBar('Success',
-                                    'Successfully logOut.', Icons.done_all);
-                              });
-                            }),
+                       Obx((){
+                         return controller.state.logoutLoading.value ? Container(child: Center(child: CircularProgressIndicator(color: AppColors.iconsColor,))) :  RoundButton(
+                           title: 'LogOut',
+                           onPress: () {
+                             controller.handleLogout();
+                           },
+                         );
+                       }),
                       ]);
                 } else if (snapshot.hasError) {
                   return Center(

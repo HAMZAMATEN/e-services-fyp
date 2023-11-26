@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_services_fyp/Pages/signup/state.dart';
+import 'package:e_services_fyp/res/session_controller.dart';
 import 'package:e_services_fyp/utils/models/service_provide_model.dart';
 import 'package:e_services_fyp/utils/routes/routesNames.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -33,6 +34,7 @@ class SignupController extends GetxController with GetTickerProviderStateMixin {
           .createUserWithEmailAndPassword(email: email, password: password)
           .then((value) {
         userinfo.id = auth.currentUser!.uid.toString();
+        SessionController().userId = value.user!.uid.toString();
         StorePrefrences sp = StorePrefrences();
         sp.setIsFirstOpen(true);
         createUser(userinfo);
@@ -41,12 +43,15 @@ class SignupController extends GetxController with GetTickerProviderStateMixin {
         clearControllers();
 
       }).onError((error, stackTrace) {
+        Snackbar.showSnackBar("Error", error.toString(), Icons.error_outline);
         setLoading(false);
       });
     } on FirebaseAuthException catch (e) {
+      Snackbar.showSnackBar("Error", e.toString(), Icons.error_outline);
       setLoading(false);
-    } catch (_) {
+    } catch (e) {
       setLoading(false);
+      Snackbar.showSnackBar("Error", e.toString(), Icons.error_outline);
     }
   }
 
@@ -65,7 +70,7 @@ class SignupController extends GetxController with GetTickerProviderStateMixin {
       Get.offAllNamed(AppPages.applicationView);
       print('success');
     }).catchError((error, stackTrace) {
-      print("Error occurred");
+      Snackbar.showSnackBar("Error", error.toString(), Icons.error_outline);
       setLoading(false);
     });
   }
@@ -91,6 +96,7 @@ class SignupController extends GetxController with GetTickerProviderStateMixin {
       var user = await auth
           .signInWithEmailAndPassword(email: email, password: password)
           .then((value) async {
+            SessionController().userId = value.user!.uid.toString();
         final serviceData = await firestore
             .collection('serviceProviders')
             .where('id', isEqualTo: auth.currentUser!.uid.toString())
@@ -112,11 +118,14 @@ class SignupController extends GetxController with GetTickerProviderStateMixin {
         state.loginEmailController.clear();
         state.loginPasswordController.clear();
       }).onError((error, stackTrace) {
+        Snackbar.showSnackBar("Error", error.toString(), Icons.error_outline);
         setLoading(false);
       });
     } on FirebaseAuthException catch (e) {
+      Snackbar.showSnackBar("Error", e.toString(), Icons.error_outline);
       setLoading(false);
-    } catch (_) {
+    } catch (e) {
+      Snackbar.showSnackBar("Error", e.toString(), Icons.error_outline);
       setLoading(false);
     }
   }
@@ -132,7 +141,7 @@ class SignupController extends GetxController with GetTickerProviderStateMixin {
       await auth
           .createUserWithEmailAndPassword(email: email, password: password)
           .then((value) {
-        print("Information Received");
+        SessionController().userId = value.user!.uid.toString();
         // toastInfo(msg: "You'll receive confirmation \nmail shortly");
 
         // Get.to(() => SignUpMsg());
@@ -146,13 +155,15 @@ class SignupController extends GetxController with GetTickerProviderStateMixin {
       }).onError((error, stackTrace) {
         state.loading.value = false;
         // toastInfo(msg: error.toString());
-        print('error');
+        Snackbar.showSnackBar("Error", error.toString(), Icons.error_outline);
       });
     } on FirebaseAuthException catch (e) {
+      Snackbar.showSnackBar("Error", e.toString(), Icons.error_outline);
       // final ex = SignUpWithEmailAndPasswordFailure.code(e.code);
       // toastInfo(msg: ex.toString());
       state.loading.value = false;
-    } catch (_) {
+    } catch (e) {
+      Snackbar.showSnackBar("Error", e.toString(), Icons.error_outline);
       state.loading.value = false;
     }
   }
@@ -166,6 +177,7 @@ class SignupController extends GetxController with GetTickerProviderStateMixin {
           .doc(auth.currentUser!.uid.toString())
           .set(serviceProviderModel.toJson())
           .then((value) {
+
             stp.setIsFirstOpen(true);
         // Get.to(() => CompanyApprovalPage());
         Get.offAllNamed(AppPages.providerHomeView);
@@ -174,11 +186,13 @@ class SignupController extends GetxController with GetTickerProviderStateMixin {
         setLoading(false);
       }).onError((error, stackTrace) {
         setLoading(false);
+        Snackbar.showSnackBar("Error", error.toString(), Icons.error_outline);
         // toastInfo(msg: error.toString());
       });
     } catch (e) {
       // toastInfo(msg: e.toString());
       setLoading(false);
+      Snackbar.showSnackBar("Error", e.toString(), Icons.error_outline);
     }
   }
 
