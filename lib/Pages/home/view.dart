@@ -146,6 +146,7 @@ class HomeView extends GetView<HomeController> {
                     ),
                     //categories
                     SingleChildScrollView(
+
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         children: [
@@ -190,10 +191,10 @@ class HomeView extends GetView<HomeController> {
 
                     SizedBox(
                       height: 300,
-                      child: ListView(
-                        shrinkWrap: true,
+                      child: SingleChildScrollView(
+                        // shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
-                        children: [
+                        child:Row(children: [
                           ServiceContainer(
                             imageUrl: 'assets/images/featured smart_device.png',
                             price: 20.0,
@@ -244,7 +245,7 @@ class HomeView extends GetView<HomeController> {
                                 'assets/images/service_provider1.png',
                             serviceLable: "Repairing",
                           ),
-                        ],
+                        ]),
                       ),
                     ),
                   ]),

@@ -48,7 +48,8 @@ dependencies:
   date_picker_plus:
   intl:
   date_time_picker:
-
+  geolocator:
+  geocoding:
 dev_dependencies:
   flutter_test:
     sdk: flutter

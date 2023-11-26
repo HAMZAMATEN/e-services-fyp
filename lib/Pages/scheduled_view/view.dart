@@ -1,6 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:e_services_fyp/Pages/home/controller.dart';
 import 'package:e_services_fyp/Pages/scheduled_view/controller.dart';
+import 'package:e_services_fyp/Pages/scheduled_view/widgets/map_screen.dart';
 import 'package:e_services_fyp/Pages/scheduled_view/widgets/scheduled_widget.dart';
 import 'package:e_services_fyp/Pages/splashScreen/controller.dart';
 import 'package:e_services_fyp/utils/compnents/round_button.dart';
@@ -10,6 +11,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 
 import '../../res/colors.dart';
@@ -118,34 +120,40 @@ class ScheduledView extends GetView<ScheduledController> {
                 height: 10,
               ),
               InkWell(
-                onTap: () {},
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 30),
-                  child: Container(
-                    height: 70,
-                    width: 400,
-                    padding: EdgeInsets.only(left: 20),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: AppColors.iconsColor,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.map_outlined,
-                          color: AppColors.textFieldBgColor,
+                onTap: () {
+                  Get.to(LocationSelectionScreen());
+                },
+                child: Obx(() => Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 30),
+                      child: Container(
+                        height: 70,
+                        width: 400,
+                        padding: EdgeInsets.only(left: 20),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: AppColors.iconsColor,
                         ),
-                        SizedBox(
-                          width: 10,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.map_outlined,
+                              color: AppColors.textFieldBgColor,
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            TextWidget(
+                              title: controller.state.selectedLatLng.value ==
+                                      LatLng(32.082466, 72.669128)
+                                  ? "Select Location on Map"
+                                  : controller.state.selectedAddress.value
+                                      .toString(),
+                            ),
+                          ],
                         ),
-                        TextWidget(
-                          title: "Select Location on Map",
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                      ),
+                    )),
               ),
               SizedBox(
                 height: 30,
@@ -179,6 +187,8 @@ class ScheduledView extends GetView<ScheduledController> {
                           time: formattedTime.toString(),
                           service:
                               controller.state.serviceOffering.value.toString(),
+                          lat: controller.state.selectedLatLng.value.latitude,
+                          lang: controller.state.selectedLatLng.value.longitude,
                         );
                         controller.storeDataInFirebase(scm);
                       }
@@ -191,7 +201,4 @@ class ScheduledView extends GetView<ScheduledController> {
       ),
     );
   }
-
-
-
 }

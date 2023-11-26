@@ -9,16 +9,15 @@ import 'package:e_services_fyp/utils/models/scheduled_Service_model.dart';
 import 'package:e_services_fyp/utils/routes/routesNames.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 
 class ScheduledController extends GetxController {
   final state = ScheduledState();
-
-  void selectLocation(LatLng location) {
-    state.selectedLocation.value = location;
-  }
+  Set<Marker> markers = {};
 
   setLoading(value) {
     state.loading.value = value;
@@ -68,7 +67,13 @@ class ScheduledController extends GetxController {
           .collection('scheduledServices')
           .doc(doc_id)
           .set(scheduledServiceModel.toJson())
-          .then((value) {
+          .then((value) async {
+        await FirebaseFirestore.instance
+            .collection('scheduledServices')
+            .doc(doc_id)
+            .set(scheduledServiceModel.toJson()).then((value) {
+              print('object');
+        });
         print('success');
         clearValues();
         Snackbar.showSnackBar(
@@ -92,7 +97,80 @@ class ScheduledController extends GetxController {
     state.selectedDate.value = DateTime.now();
     state.selectedTime.value =
         DateFormat("hh:mm a").format(DateTime.now()).toString();
+    state.selectedLatLng.value = LatLng(32.082466, 72.669128);
+    state.selectedAddress.value = '';
   }
 
 
+
+
+  void onMapTap(LatLng latLng) async {
+    state.selectedLatLng.value = latLng;
+
+    List<Placemark> placemarks = await placemarkFromCoordinates(latLng.latitude, latLng.longitude);
+    if (placemarks.isNotEmpty) {
+      Placemark placemark = placemarks.first;
+      state.selectedAddress.value = '${placemark.street}, ${placemark.locality}, ${placemark.country}';
+      // You can customize the address format as needed
+    }
+
+    if (state.mapController != null) {
+      state.mapController!.animateCamera(CameraUpdate.newLatLng(latLng));
+    }
+    updateMarker(latLng);
+  }
+
+
+  void updateMarker(LatLng latLng) {
+    markers = {
+      Marker(
+        markerId: MarkerId('currentLocation'),
+        position: latLng,
+        infoWindow: InfoWindow(
+          title: 'Current Location',
+        ),
+        icon: BitmapDescriptor.defaultMarker,
+      )
+    };
+  }
+  void navigateToCurrentLocation() async {
+  LocationPermission permission = await Geolocator.requestPermission();
+
+    Position position = await Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high,
+    );
+  print('position' + position.longitude.toString() +"\n"+ position.latitude.toString());
+
+    LatLng latLng = LatLng(position.latitude, position.longitude);
+
+  print('lat lang : ' + latLng.toString());
+
+    state.mapController?.animateCamera(CameraUpdate.newLatLngZoom(latLng, 15.0));
+    updateMarker(latLng); // Update marker at the current location
+
+    state.selectedLatLng.value = latLng;
+
+    List<Placemark> placemarks = await placemarkFromCoordinates(latLng.latitude, latLng.longitude);
+    if (placemarks.isNotEmpty) {
+      Placemark placemark = placemarks.first;
+      state.selectedAddress.value = '${placemark.street}, ${placemark.administrativeArea}, ${placemark.subAdministrativeArea} , ${placemark.country}';
+      print('address : '+ state.selectedAddress.value.toString());
+    }
+  }
 }
+// void navigateToCurrentLocation() async {
+//   print('object12');
+//   LocationPermission permission = await Geolocator.requestPermission();
+//
+//   Position position = await Geolocator.getCurrentPosition(
+//     desiredAccuracy: LocationAccuracy.medium,
+//   );
+//   print('position' + position.longitude.toString() +"\n"+ position.latitude.toString());
+//
+//   LatLng latLng = LatLng(position.latitude, position.longitude);
+//
+//   print('lat lang : ' + latLng.toString());
+//
+//   state.mapController?.animateCamera(CameraUpdate.newLatLngZoom(latLng, 15.0));
+//   updateMarker(latLng); // Update marker at the current location
+// }

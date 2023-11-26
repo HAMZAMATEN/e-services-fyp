@@ -9,6 +9,9 @@ class ScheduledServiceModel {
   final String date;
   final String time;
   final String service;
+  final String status;
+  final double lat;
+  final double lang;
 
   ScheduledServiceModel({
     this.id = '',
@@ -19,6 +22,9 @@ class ScheduledServiceModel {
     required this.date,
     required this.time,
     required this.service,
+    this.status = 'Pending',
+    required this.lat,
+    required this.lang,
   });
 
   toJson() {
@@ -31,6 +37,9 @@ class ScheduledServiceModel {
       'date': date,
       'time': time,
       'service': service,
+      'status': status,
+      'lat' : lat,
+      'lang' : lang,
     };
   }
 
@@ -47,6 +56,9 @@ class ScheduledServiceModel {
       date: json['date'],
       time: json['time'],
       service: json['service'],
+      status: json['status'],
+      lang: json['lang'],
+      lat: json['lat'],
     );
   }
 }

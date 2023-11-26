@@ -11,6 +11,7 @@ import 'package:e_services_fyp/res/session_controller.dart';
 import 'package:e_services_fyp/res/text_widget.dart';
 import 'package:e_services_fyp/utils/compnents/round_button.dart';
 import 'package:e_services_fyp/utils/compnents/snackbar_widget.dart';
+import 'package:e_services_fyp/utils/routes/routes.dart';
 import 'package:e_services_fyp/utils/routes/routesNames.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -102,7 +103,7 @@ class ProfileView extends GetView<ProfileController> {
                           ),
                         ]),
                         SizedBox(
-                          height: 40,
+                          height: 20,
                         ),
                         // GestureDetector(
                         //   onTap: () {
@@ -135,30 +136,40 @@ class ProfileView extends GetView<ProfileController> {
                             color: Colors.indigoAccent,
                             size: 30,
                           ),
-                          title: Text(
-                            'Wallet Balance',
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
+                          title: InkWell(
+                            onTap: () {
+                            },
+                            child: TextWidget(
+                              title: 'Wallet Balance',
+                              textColor: Colors.black,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                          trailing: Text(
-                            '\$100.00',
-                            style: TextStyle(
-                                color: Colors.indigoAccent,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold),
+                          trailing: TextWidget(
+                            title: '\$100.00',
+                            textColor: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
 
                         ListTile(
                           leading: Icon(
-                            Icons.favorite,
+                            Icons.schedule,
                             color: Colors.indigoAccent,
                             size: 30,
                           ),
-                          title: Text(
-                            'Favorite Services',
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
+                          title: InkWell(
+                            onTap: () {
+                              Get.toNamed(AppPages.scheduledServicesView);
+                            },
+                            child: TextWidget(
+                              title: 'Scheduled Services',
+                              textColor: Colors.black,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                           trailing: Icon(
                             Icons.arrow_forward_ios_rounded,
@@ -174,10 +185,15 @@ class ProfileView extends GetView<ProfileController> {
                             color: Colors.indigoAccent,
                             size: 30,
                           ),
-                          title: Text(
-                            'Favorite Providers',
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
+                          title: InkWell(
+                            onTap: () {
+                            },
+                            child: TextWidget(
+                              title: 'Favourite Providers',
+                              textColor: Colors.black,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                           trailing: Icon(
                             Icons.arrow_forward_ios_rounded,
@@ -192,10 +208,15 @@ class ProfileView extends GetView<ProfileController> {
                             color: Colors.indigoAccent,
                             size: 30,
                           ),
-                          title: Text(
-                            'Change Password',
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
+                          title: InkWell(
+                            onTap: () {
+                            },
+                            child: TextWidget(
+                              title: 'Change Password',
+                              textColor: Colors.black,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                           trailing: Icon(
                             Icons.arrow_forward_ios_rounded,
@@ -211,10 +232,15 @@ class ProfileView extends GetView<ProfileController> {
                             color: Colors.indigoAccent,
                             size: 30,
                           ),
-                          title: Text(
-                            'Rate Us',
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
+                          title: InkWell(
+                            onTap: () {
+                            },
+                            child: TextWidget(
+                              title: 'Rate Us',
+                              textColor: Colors.black,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                           trailing: Icon(
                             Icons.arrow_forward_ios_rounded,
@@ -230,10 +256,16 @@ class ProfileView extends GetView<ProfileController> {
                             color: Colors.indigoAccent,
                             size: 30,
                           ),
-                          title: Text(
-                            'About App',
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
+                          title: InkWell(
+                            onTap: () {
+                              Get.toNamed(AppPages.aboutUsView);
+                            },
+                            child: TextWidget(
+                              title: 'About Us',
+                              textColor: Colors.black,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                           trailing: Icon(
                             Icons.arrow_forward_ios_rounded,

@@ -7,7 +7,10 @@ import 'package:intl/intl.dart';
 class ScheduledState {
   Rx<DateTime> selectedDate = DateTime.now().obs;
   RxString selectedTime = DateFormat("hh:mm a").format(DateTime.now()).toString().obs;
-  Rx<LatLng> selectedLocation = LatLng(32.082466, 72.669128).obs;
+
+  final selectedLatLng = LatLng(32.082466, 72.669128).obs; // Define an observable for selectedLatLng
+  final selectedAddress = ''.obs;
+  GoogleMapController? mapController;
 
   Rx<String> serviceOffering = 'Select'.obs;
 
