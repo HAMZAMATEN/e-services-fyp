@@ -4,6 +4,7 @@ import 'package:e_services_fyp/Pages/splashScreen/controller.dart';
 import 'package:e_services_fyp/res/colors.dart';
 import 'package:e_services_fyp/res/text_widget.dart';
 import 'package:e_services_fyp/service_provider_pages/provider_home/controller.dart';
+import 'package:e_services_fyp/service_provider_pages/shedule_offers/view.dart';
 import 'package:e_services_fyp/utils/compnents/round_button.dart';
 import 'package:e_services_fyp/utils/routes/routesNames.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -58,7 +59,7 @@ class SPHomeView extends GetView<SPHomeController> {
                       fontSize: 14,
                     ),
                     tabs: [
-                      Tab(text: 'DASHBOARD'),
+                      Tab(text: 'Offerings'),
                       Tab(text: 'ORDERS'),
                       Tab(text: 'INVENTORY'),
                     ],
@@ -68,7 +69,7 @@ class SPHomeView extends GetView<SPHomeController> {
               SliverFillRemaining(
                 child: TabBarView(
                   children: [
-                    Scaffold(),
+                    ScheduleOffersView(),
                     Scaffold(),
                     Scaffold(),
                     // DashBoardView(),
