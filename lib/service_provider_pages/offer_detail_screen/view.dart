@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_services_fyp/res/colors.dart';
+import 'package:e_services_fyp/res/session_controller.dart';
 import 'package:e_services_fyp/service_provider_pages/offer_detail_screen/controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,12 +15,12 @@ class OfferDetailScreen extends StatelessWidget {
   Widget _returnDetails(
       BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot, int index) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10),
+      padding: EdgeInsets.symmetric(horizontal: 2),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(height: 50.0),
+          SizedBox(height: 30.0),
 
           // Product or Order Icon in a Circle Avatar with shadow
           Center(
@@ -43,7 +44,7 @@ class OfferDetailScreen extends StatelessWidget {
             ),
           ),
 
-          SizedBox(height: 15),
+          SizedBox(height: 25),
 
           // Using a card to make it pop a bit more
           Card(
@@ -72,8 +73,10 @@ class OfferDetailScreen extends StatelessWidget {
                             snapshot.data!.docs[index]['date'].toString())),
                     _detailText(
                         'Time ',
-                        controller.convertMillisecondsToHrsMM(
-                            snapshot.data!.docs[index]['time'].toString())),
+                        controller.convertTime(snapshot.data!.docs[index]['time'].toString()),
+                        // controller.convertMillisecondsToHrsMM(
+                        //     snapshot.data!.docs[index]['time'].toString())
+                    ),
                     _detailText('Service ',
                         snapshot.data!.docs[index]['service'].toString()),
                     _detailText('Description ',
@@ -87,6 +90,9 @@ class OfferDetailScreen extends StatelessWidget {
                     Center(
                       child: ElevatedButton(
                         onPressed: () {
+                          showConfirmationDialog(context);
+                          // print(SessionController().userId.toString());
+
                           // Get.to(()=>OrderItemsView(customerId:controller.orderDetails!.customerId, orderId: orderId));
                         }, // Implement the onTap functionality here
                         style: ElevatedButton.styleFrom(
@@ -102,7 +108,7 @@ class OfferDetailScreen extends StatelessWidget {
                           ),
                         ),
                         child: Text(
-                          'Confirm Details',
+                          'Confirm Order',
                           style: TextStyle(fontSize: 18),
                         ),
                       ),
@@ -143,6 +149,43 @@ class OfferDetailScreen extends StatelessWidget {
     );
   }
 
+
+  void showConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Confirm Order',style: TextStyle(color: AppColors.iconsColor),),
+          content: Text('Do you want to confirm this order?'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                controller.cancelOrder(id, SessionController().userId.toString()).then((value){
+                  Navigator.pop(context);
+                });
+               // Close the dialog
+                // Handle rejection logic here
+                // print('Order Rejected');
+              },
+              child: Text('Cancel',style: TextStyle(color: AppColors.rejectColor),),
+            ),
+            TextButton(
+              onPressed: () {
+                controller.confirmOrder(id, SessionController().userId.toString()).then((value){
+                  Navigator.pop(context);
+                });
+                // Close the dialog
+
+
+              },
+              child: Text('Confirm',style: TextStyle(color: AppColors.accept),),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -166,7 +209,21 @@ class OfferDetailScreen extends StatelessWidget {
             return ListView.builder(
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (BuildContext context, index) {
-                  return _returnDetails(context, snapshot, index);
+                  return Column(
+                    children: [
+                      index==0? Container(height: 60,width: double.infinity,color: Colors.white,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          IconButton(onPressed: (){
+                            Get.back();
+                          }, icon: Icon(Icons.arrow_back)),
+                        ],
+                      ),
+                      ) : Container(),
+                      _returnDetails(context, snapshot, index),
+                    ],
+                  );
                 });
           },
         ),

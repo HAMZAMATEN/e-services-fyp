@@ -5,5 +5,8 @@ class AppColors {
   static final Color textFieldBgColor = Colors.grey.shade100;
   static final Color grey = Colors.grey;
   static final Color textColor = Colors.black;
+  static final Color rejectColor = Colors.red;
+  static final Color accept = Colors.green;
+
 
 }

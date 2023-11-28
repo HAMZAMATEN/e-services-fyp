@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_services_fyp/Pages/splashScreen/state.dart';
+import 'package:e_services_fyp/res/session_controller.dart';
 import 'package:e_services_fyp/utils/prefrences/storage_prefs.dart';
 import 'package:e_services_fyp/utils/routes/routesNames.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -15,6 +16,7 @@ class SplashController extends GetxController{
     final currentUser = await auth.currentUser;
 
     if(auth.currentUser != null){
+      SessionController().userId = currentUser!.uid.toString();
       if(await checkUser(currentUser!.uid.toString())){
         Future.delayed(Duration(seconds: 3), ()=> Get.offNamed(AppPages.providerHomeView));
       }else{

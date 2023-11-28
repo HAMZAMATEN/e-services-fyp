@@ -3,6 +3,7 @@ import 'package:e_services_fyp/Pages/home/controller.dart';
 import 'package:e_services_fyp/Pages/splashScreen/controller.dart';
 import 'package:e_services_fyp/res/colors.dart';
 import 'package:e_services_fyp/res/text_widget.dart';
+import 'package:e_services_fyp/service_provider_pages/Orders/view.dart';
 import 'package:e_services_fyp/service_provider_pages/provider_home/controller.dart';
 import 'package:e_services_fyp/service_provider_pages/shedule_offers/view.dart';
 import 'package:e_services_fyp/utils/compnents/round_button.dart';
@@ -70,7 +71,7 @@ class SPHomeView extends GetView<SPHomeController> {
                 child: TabBarView(
                   children: [
                     ScheduleOffersView(),
-                    Scaffold(),
+                    OrdersView(),
                     Scaffold(),
                     // DashBoardView(),
                     // OrderHomeView(),

@@ -1,13 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:e_services_fyp/service_provider_pages/offer_detail_screen/state.dart';
+import 'package:e_services_fyp/Pages/scheduled_view/state.dart';
+import 'package:e_services_fyp/res/session_controller.dart';
 import 'package:e_services_fyp/utils/compnents/snackbar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-class OfferDetailController extends GetxController {
-  final state = OfferDetailState();
-  final ref = FirebaseFirestore.instance.collection('scheduledServices');
+class ScheduledOrdersController extends GetxController {
+  final state = ScheduledState();
+  final ref = FirebaseFirestore.instance.collection('scheduledServices').where('provider', isEqualTo: SessionController().userId.toString()).snapshots();
+  final orderRef = FirebaseFirestore.instance.collection('scheduledServices');
 
   String convertMillisecondsToDateFormat(String millisec) {
     int milliseconds = int.parse(millisec);
@@ -28,31 +30,20 @@ class OfferDetailController extends GetxController {
   String convertTime(String time) {
     int milliseconds = int.parse(time);
     DateTime dateTimeFromMilliseconds =
-        DateTime.fromMillisecondsSinceEpoch(milliseconds);
-
+    DateTime.fromMillisecondsSinceEpoch(milliseconds);
+    print(dateTimeFromMilliseconds.toString()+"dtime");
     // Formatting the DateTime object into a time string
     String formattedTime =
-        DateFormat("hh:mm a").format(dateTimeFromMilliseconds);
-
+    DateFormat("hh:mm a").format(dateTimeFromMilliseconds);
+    print(formattedTime.toString() + "dtime");
     return formattedTime;
+
+    // return formattedTime;
   }
 
-  Future<void> confirmOrder(String id, String providerId) async {
-    try {
-      await ref.doc(id).update(
-          {'provider': providerId, 'status': 'confirmed'}).then((value) {
-        Snackbar.showSnackBar(
-            "Confirmation", "Order Confirmed", Icons.done_all);
-      }).onError((error, stackTrace) {
-        Snackbar.showSnackBar("Error", error.toString(), Icons.error);
-      });
-    } catch (e) {
-      Snackbar.showSnackBar("Error", e.toString(), Icons.error);
-    }
-  }
   Future<void> cancelOrder(String id, String providerId) async {
     try {
-      await ref.doc(id).update(
+      await orderRef.doc(id).update(
           {'provider': '',
             'status': 'Pending'
           }).then((value) {
@@ -65,4 +56,5 @@ class OfferDetailController extends GetxController {
       Snackbar.showSnackBar("Error", e.toString(), Icons.error);
     }
   }
+
 }
