@@ -16,19 +16,39 @@ class ScheduleOffersView extends GetView<ScheduleOffersController> {
       elevation: 5.0,
       margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
       child: Container(
-        decoration: BoxDecoration(color: Colors.white),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+                color: Colors.white,
+                blurRadius: 1
+            ),
+            BoxShadow(
+              color: Colors.black,
+              blurRadius: 2
+            ),
+          ],
+          borderRadius: BorderRadius.circular(5),
+          border: Border.all(
+            color: Colors.white24,
+            width: 0.01,
+          )
+        ),
         child: ListTile(
-          onTap: (){
-            Get.to(()=>OfferDetailScreen(id: snapshot.data!.docs[index]['id'].toString(),));
-
+          onTap: () {
+            Get.to(() => OfferDetailScreen(
+                  id: snapshot.data!.docs[index]['id'].toString(),
+                ));
           },
-          contentPadding:
-              EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+          contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
           leading: Container(
             padding: EdgeInsets.only(right: 12.0, top: 10),
             decoration: BoxDecoration(
-                border: Border(
-                    right: BorderSide(width: 1.0, color: Colors.grey[200]!))),
+              border: Border(
+                right: BorderSide(width: 1.0, color: Colors.grey[200]!),
+
+              ),
+            ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -36,6 +56,7 @@ class ScheduleOffersView extends GetView<ScheduleOffersController> {
                 Icon(
                   Icons.home_repair_service,
                   size: 40,
+                  color: AppColors.iconsColor,
                 ),
               ],
             ),
