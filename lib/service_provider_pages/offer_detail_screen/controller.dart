@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 class OfferDetailController extends GetxController {
   final state = OfferDetailState();
   final ref = FirebaseFirestore.instance.collection('scheduledServices');
+  final spRef = FirebaseFirestore.instance.collection('serviceProviders');
 
   String convertMillisecondsToDateFormat(String millisec) {
     int milliseconds = int.parse(millisec);
@@ -38,9 +39,18 @@ class OfferDetailController extends GetxController {
   }
 
   Future<void> confirmOrder(String id, String providerId) async {
+
+
     try {
+      DocumentSnapshot user = await spRef.doc(providerId).get();
+      String pName = user['providerName'];
+      String pNumber = user['phone'];
       await ref.doc(id).update(
-          {'provider': providerId, 'status': 'confirmed'}).then((value) {
+          {'provider': providerId,
+            'status': 'confirmed',
+          'providerName' : pName,
+            'ProviderNumber' : pNumber,
+          }).then((value) {
         Snackbar.showSnackBar(
             "Confirmation", "Order Confirmed", Icons.done_all);
       }).onError((error, stackTrace) {
@@ -54,7 +64,9 @@ class OfferDetailController extends GetxController {
     try {
       await ref.doc(id).update(
           {'provider': '',
-            'status': 'Pending'
+            'status': 'Pending',
+            'providerName': '',
+            'ProviderNumber': '',
           }).then((value) {
         Snackbar.showSnackBar(
             "Confirmation", "Order Cancelled", Icons.done_all);
