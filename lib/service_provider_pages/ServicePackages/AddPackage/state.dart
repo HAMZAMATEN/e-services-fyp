@@ -5,7 +5,7 @@ class AddPackageState {
 
   RxBool infoLoading = true.obs;
 
-  String serviceImage = '';
+  final serviceImage = ''.obs;
   final TextEditingController providerNameController = TextEditingController();
   final TextEditingController providerPhoneController = TextEditingController();
   final TextEditingController providerEmailController = TextEditingController();

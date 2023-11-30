@@ -1,9 +1,9 @@
 import 'dart:io';
-import 'dart:js_interop';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_services_fyp/res/session_controller.dart';
 import 'package:e_services_fyp/service_provider_pages/ServicePackages/AddPackage/state.dart';
+import 'package:e_services_fyp/utils/compnents/snackbar_widget.dart';
 import 'package:e_services_fyp/utils/models/service_package_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
@@ -13,7 +13,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../utils/models/user_model.dart';
 
-class AddPackageController extends GetxController {
+class AddPackageController extends GetxController with GetTickerProviderStateMixin{
   final state = AddPackageState();
   final userId = SessionController().userId.toString();
   final userRef = FirebaseFirestore.instance.collection('serviceProviders');
@@ -34,9 +34,14 @@ class AddPackageController extends GetxController {
     }
   }
 
- Future<void> uploadTourData (BuildContext context, ServicePackageModel model) async {
+ Future<void> uploadServiceData (BuildContext context, ServicePackageModel model) async {
+    String timeStamp = DateTime.timestamp().microsecondsSinceEpoch.toString();
     try{
-      // await allServiceRef.add();
+      await allServiceRef.doc(timeStamp).set(model.toJson()).then((value){
+        uploadImage(context, timeStamp);
+      }).onError((error, stackTrace){
+
+      });
     }catch(e){
 
     }
@@ -54,31 +59,31 @@ class AddPackageController extends GetxController {
   XFile? get image => _image;
 
   Future pickedImageFromGallery(
-      BuildContext context, ServicePackageModel packageModel) async {
+      BuildContext context) async {
     final pickedImage =
     await picker.pickImage(source: ImageSource.gallery, imageQuality: 100);
 
     if (pickedImage != null) {
       _image = XFile(pickedImage.path);
-      uploadImage(context, packageModel);
+
       update();
     }
   }
 
   //
   Future pickedImageFromCamera(
-      BuildContext context, ServicePackageModel packageModel) async {
+      BuildContext context) async {
     final pickedImage =
     await picker.pickImage(source: ImageSource.camera, imageQuality: 100);
 
     if (pickedImage != null) {
       _image = XFile(pickedImage.path);
-      uploadImage(context, packageModel);
+
       update();
     }
   }
 
-  void showImage(context, userModel) {
+  void showImage(context) {
     showDialog(
       context: context,
       builder: (context) {
@@ -91,7 +96,8 @@ class AddPackageController extends GetxController {
                 ListTile(
                   onTap: () {
                     print('inside');
-                    pickedImageFromCamera(context, userModel);
+                    // pickedImageFromCamera(context, userModel);
+                    pickedImageFromCamera(context);
                     print('insideqw21');
 
                     Navigator.pop(context);
@@ -101,7 +107,8 @@ class AddPackageController extends GetxController {
                 ),
                 ListTile(
                   onTap: () {
-                    pickedImageFromGallery(context, userModel);
+                    pickedImageFromGallery(context);
+                    // pickedImageFromGallery(context, userModel);
                     Navigator.pop(context);
                   },
                   leading: Icon(Icons.image),
@@ -115,31 +122,41 @@ class AddPackageController extends GetxController {
     );
   }
 
-  Future uploadImage(BuildContext context, ServicePackageModel packageModel) async {
+  Future uploadImage(BuildContext context, String timeStamp) async {
     // setLoading(true);
-    firebase_storage.Reference storageRef = firebase_storage
-        .FirebaseStorage.instance
-        .ref('/serviceImage' + DateTime.now().toString());
-    firebase_storage.UploadTask uploadTask =
-    storageRef.putFile(File(image!.path).absolute);
+    try{
+      firebase_storage.Reference storageRef = firebase_storage
+          .FirebaseStorage.instance
+          .ref('/serviceImage' + timeStamp);
+      firebase_storage.UploadTask uploadTask =
+      storageRef.putFile(File(image!.path).absolute);
 
-    await Future.value(uploadTask);
+      await Future.value(uploadTask);
 
-    state.serviceImage = await storageRef.getDownloadURL();
+      String imageUrl = await storageRef.getDownloadURL();
 
-    FirebaseFirestore.instance
-        .collection('allServices')
-        .doc(auth.currentUser!.uid.toString())
-        .update({
-      'imageUrl': state.serviceImage.toString(),
-    }).then((value) {
-      // setLoading(false);
-      Get.snackbar('Congrats', 'Update successfully');
-      _image = null;
-    }).onError((error, stackTrace) {
-      // setLoading(false);
-      Get.snackbar('Error is', error.toString());
-    });
+
+      FirebaseFirestore.instance
+          .collection('allServices')
+          .doc(timeStamp)
+          .update({
+        'id' : timeStamp,
+        'imageUrl': imageUrl,
+      }).then((value) {
+        // setLoading(false);
+        Snackbar.showSnackBar("Congratulation", "Added Successfully", Icons.error_outline);
+        _image = null;
+        state.serviceImage.value='';
+      }).onError((error, stackTrace) {
+        // setLoading(false);
+       ;
+        Snackbar.showSnackBar("Error", error.toString(), Icons.error_outline);
+      });
+    }catch(e){
+      Snackbar.showSnackBar("Error", e.toString(), Icons.error_outline);
+    }
+
+
   }
 
 
