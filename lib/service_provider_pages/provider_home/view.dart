@@ -5,6 +5,7 @@ import 'package:e_services_fyp/res/colors.dart';
 import 'package:e_services_fyp/res/text_widget.dart';
 import 'package:e_services_fyp/service_provider_pages/Orders/view.dart';
 import 'package:e_services_fyp/service_provider_pages/ServicePackages/view.dart';
+import 'package:e_services_fyp/service_provider_pages/drawer/view.dart';
 import 'package:e_services_fyp/service_provider_pages/provider_home/controller.dart';
 import 'package:e_services_fyp/service_provider_pages/shedule_offers/view.dart';
 import 'package:e_services_fyp/utils/compnents/round_button.dart';
@@ -15,18 +16,29 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SPHomeView extends GetView<SPHomeController> {
-  const SPHomeView({Key? key}) : super(key: key);
+  SPHomeView({Key? key}) : super(key: key);
+
+
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
+        drawer: BuildDrawer.buildDrawer(context),
+        key: _scaffoldKey,
         body: SafeArea(
           child: CustomScrollView(
             slivers: [
               SliverAppBar(
                 automaticallyImplyLeading: false,
+                leading: InkWell(
+                  onTap: (){
+                    _scaffoldKey.currentState!.openDrawer();
+                  },
+                  child: Icon(Icons.menu , color: Colors.white,),
+                ),
                 title: TextWidget(
                   title: 'Administration',
                   textColor: AppColors.textFieldBgColor,

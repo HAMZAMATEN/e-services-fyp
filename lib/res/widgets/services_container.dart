@@ -50,7 +50,7 @@ class ServiceContainer extends StatelessWidget {
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: 5),
                   Image.asset(
                     imageUrl,
                     height: 150,

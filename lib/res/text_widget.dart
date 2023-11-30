@@ -28,6 +28,7 @@ class TextWidget extends StatelessWidget {
     return Text(
       title,
       textAlign: textAlign,
+      overflow: TextOverflow.ellipsis,
       style: GoogleFonts.poppins(
         decoration: decoration,
         decorationColor: decorationColor,
@@ -35,6 +36,7 @@ class TextWidget extends StatelessWidget {
         fontSize: fontSize,
         fontWeight: fontWeight,
         fontStyle: fontStyle,
+
       ),
     );
   }

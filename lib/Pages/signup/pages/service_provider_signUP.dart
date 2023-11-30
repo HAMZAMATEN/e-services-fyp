@@ -175,7 +175,8 @@ class ServiceProviderView extends GetView<SignupController> {
                                       .state.serviceProviderEmailController.text
                                       .trim(),
                                   service:
-                                      controller.state.serviceOffering.value);
+                                      controller.state.serviceOffering.value,
+                                  imageUrl: '');
                               controller.storeServiceProvider(
                                 spm,
                                 context,

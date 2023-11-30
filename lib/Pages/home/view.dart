@@ -190,7 +190,7 @@ class HomeView extends GetView<HomeController> {
                     ),
 
                     SizedBox(
-                      height: 300,
+                      height: 320,
                       child: SingleChildScrollView(
                         // shrinkWrap: true,
                         scrollDirection: Axis.horizontal,

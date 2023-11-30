@@ -18,6 +18,8 @@ import 'package:e_services_fyp/Pages/splashScreen/bindings.dart';
 import 'package:e_services_fyp/Pages/splashScreen/view.dart';
 import 'package:e_services_fyp/service_provider_pages/provider_home/bindings.dart';
 import 'package:e_services_fyp/service_provider_pages/provider_home/view.dart';
+import 'package:e_services_fyp/service_provider_pages/sp_profile_view/bindings.dart';
+import 'package:e_services_fyp/service_provider_pages/sp_profile_view/view.dart';
 import 'package:e_services_fyp/utils/routes/routesNames.dart';
 import 'package:get/get.dart';
 
@@ -90,6 +92,11 @@ class AppRoutes{
       name: AppPages.providerHomeView,
       page: ()=> SPHomeView(),
       binding: SPHomeBindings(),
+      transition: Transition.zoom,
+    ),GetPage(
+      name: AppPages.providerProfileView,
+      page: ()=> SpProfileView(),
+      binding: SpProfileBindings(),
       transition: Transition.zoom,
     ),
 

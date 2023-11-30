@@ -13,6 +13,7 @@ class AppPages {
   static final String catogeryView = '/catogeryView';
 
   static final String providerHomeView = '/providerHomeView';
+  static final String providerProfileView = '/providerProfileView';
 
 
 }
