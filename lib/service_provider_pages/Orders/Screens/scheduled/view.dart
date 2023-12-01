@@ -136,6 +136,31 @@ class ScheduledOrdersView extends GetView<ScheduledOrdersController> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0, // Remove the elevation if you don't want a shadow
+        automaticallyImplyLeading: false, // Remove the back button
+        flexibleSpace: Padding(
+          padding: EdgeInsets.only(bottom: 8.0, top: 20),
+          child: Container(
+            height: 60,
+            width: double.infinity,
+            color: Colors.white,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(); // Use Navigator to go back
+                  },
+                  icon: Icon(Icons.arrow_back),
+                ),
+                // Add more widgets as needed
+              ],
+            ),
+          ),
+        ),
+      ),
       body: SafeArea(
         child: StreamBuilder<QuerySnapshot>(
           stream: controller.ref,

@@ -18,6 +18,8 @@ import 'package:e_services_fyp/Pages/splashScreen/bindings.dart';
 import 'package:e_services_fyp/Pages/splashScreen/view.dart';
 import 'package:e_services_fyp/service_provider_pages/ServicePackages/AddPackage/bindings.dart';
 import 'package:e_services_fyp/service_provider_pages/ServicePackages/AddPackage/view.dart';
+import 'package:e_services_fyp/service_provider_pages/ServicePackages/EditPackage/bindings.dart';
+import 'package:e_services_fyp/service_provider_pages/ServicePackages/EditPackage/view.dart';
 import 'package:e_services_fyp/service_provider_pages/ServicePackages/ManagePackages/bindings.dart';
 import 'package:e_services_fyp/service_provider_pages/ServicePackages/ManagePackages/view.dart';
 import 'package:e_services_fyp/service_provider_pages/provider_home/bindings.dart';
@@ -111,6 +113,12 @@ class AppRoutes {
       name: AppPages.managePackageView,
       page: () => ManagePackagesView(),
       binding: ManagePackageBindings(),
+      transition: Transition.zoom,
+    ),
+    GetPage(
+      name: AppPages.editPackageView,
+      page: () => EditPackageView(packageId: ''),
+      binding: EditPackageBindings(),
       transition: Transition.zoom,
     ),
   ];

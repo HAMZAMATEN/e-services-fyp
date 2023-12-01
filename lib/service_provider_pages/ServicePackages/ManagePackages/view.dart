@@ -2,9 +2,11 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_services_fyp/res/colors.dart';
+import 'package:e_services_fyp/service_provider_pages/ServicePackages/EditPackage/view.dart';
 // import 'package:e_services_fyp/res/widgets/service_provider_appBar.dart';
 import 'package:e_services_fyp/service_provider_pages/ServicePackages/ManagePackages/controller.dart';
 import 'package:e_services_fyp/utils/compnents/snackbar_widget.dart';
+import 'package:e_services_fyp/utils/routes/routesNames.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -73,6 +75,7 @@ class ManagePackagesView extends GetView<ManagePackageController> {
                       hourlyRate: snapshot.data!.docs[index]['hourlyRate'].toString(),
                       description: snapshot.data!.docs[index]['description'].toString(),
                       serviceCatogery: snapshot.data!.docs[index]['service'].toString(),
+                    packageId: snapshot.data!.docs[index]['id'].toString(),
                   );
                 },
               ),
@@ -90,8 +93,9 @@ class ServiceCard extends StatelessWidget {
   final String hourlyRate;
   final String description;
   final String serviceCatogery;
+  final String packageId;
 
-  ServiceCard({required this.imageUrl, required this.hourlyRate, required this.description,required this.serviceCatogery});
+  ServiceCard({required this.imageUrl, required this.hourlyRate, required this.description,required this.serviceCatogery,required this.packageId});
 
   @override
   Widget build(BuildContext context) {
@@ -127,9 +131,21 @@ class ServiceCard extends StatelessWidget {
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 5.0),
-                Text(
-                  'Description: ${description}',
-                  style: TextStyle(color: Colors.grey),
+                Row(
+                  mainAxisAlignment : MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Description: ${description}',
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                    InkWell(
+                        onTap: (){
+                          // Get.to(()=>EditPackageView(packageId: packageId));
+                          // Get.toNamed(AppPages.editPackageView,arguments: {packageId});
+                          Get.to(()=>EditPackageView(packageId: packageId));
+                        },
+                        child: Icon(Icons.change_circle_outlined,size: 30,)),
+                  ],
                 ),
                 SizedBox(height: 5.0),
                 Text(
