@@ -25,25 +25,32 @@ class AddPackageController extends GetxController with GetTickerProviderStateMix
     DocumentSnapshot userInfo = await userRef.doc(userId).get();
 
     if (userInfo.exists) {
-      state.providerNameController.text =
-          userInfo['providerName'].toString().trim();
+      state.providerNameController.text =  userInfo['providerName'].toString().trim();
       state.providerPhoneController.text = userInfo['phone'].toString().trim();
       state.providerEmailController.text = userInfo['email'].toString().trim();
       state.serviceController.text = userInfo['service'].toString().trim();
+      state.providerImageController.text = userInfo['photoUrl'].toString().trim();
       state.infoLoading.value = false;
     }
   }
 
+  void setLoading(bool val){
+    state.buttonLoading.value = val;
+  }
+
  Future<void> uploadServiceData (BuildContext context, ServicePackageModel model) async {
+    setLoading(true);
     String timeStamp = DateTime.timestamp().microsecondsSinceEpoch.toString();
     try{
       await allServiceRef.doc(timeStamp).set(model.toJson()).then((value){
         uploadImage(context, timeStamp);
       }).onError((error, stackTrace){
-
+        Snackbar.showSnackBar("Error", error.toString(), Icons.error);
+        setLoading(false);
       });
     }catch(e){
-
+      Snackbar.showSnackBar("Error", e.toString(), Icons.error);
+      setLoading(false);
     }
  }
 
@@ -65,6 +72,7 @@ class AddPackageController extends GetxController with GetTickerProviderStateMix
 
     if (pickedImage != null) {
       _image = XFile(pickedImage.path);
+      state.serviceImage.value = pickedImage.path.toString();
 
       update();
     }
@@ -78,7 +86,7 @@ class AddPackageController extends GetxController with GetTickerProviderStateMix
 
     if (pickedImage != null) {
       _image = XFile(pickedImage.path);
-
+      state.serviceImage.value = pickedImage.path.toString();
       update();
     }
   }
@@ -123,7 +131,6 @@ class AddPackageController extends GetxController with GetTickerProviderStateMix
   }
 
   Future uploadImage(BuildContext context, String timeStamp) async {
-    // setLoading(true);
     try{
       firebase_storage.Reference storageRef = firebase_storage
           .FirebaseStorage.instance
@@ -146,17 +153,27 @@ class AddPackageController extends GetxController with GetTickerProviderStateMix
         // setLoading(false);
         Snackbar.showSnackBar("Congratulation", "Added Successfully", Icons.error_outline);
         _image = null;
-        state.serviceImage.value='';
+        update();
+        clearController();
+        setLoading(false);
       }).onError((error, stackTrace) {
-        // setLoading(false);
+        setLoading(false);
        ;
         Snackbar.showSnackBar("Error", error.toString(), Icons.error_outline);
       });
     }catch(e){
+      setLoading(false);
       Snackbar.showSnackBar("Error", e.toString(), Icons.error_outline);
     }
+  }
 
-
+  void clearController (){
+    // state.providerNameController.text="";
+    // state.providerPhoneController.text="";
+    // state.providerNameController.text="";
+    state.hourlyRateController.text="";
+    state.descriptionController.text="";
+    state.serviceImage.value="";
   }
 
 

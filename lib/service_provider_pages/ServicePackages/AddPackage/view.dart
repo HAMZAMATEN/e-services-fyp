@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:e_services_fyp/Pages/profile_view/update/update.dart';
 import 'package:e_services_fyp/res/colors.dart';
+import 'package:e_services_fyp/res/session_controller.dart';
 import 'package:e_services_fyp/res/text_widget.dart';
 import 'package:e_services_fyp/res/widgets/custom_text_field.dart';
 import 'package:e_services_fyp/service_provider_pages/ServicePackages/AddPackage/controller.dart';
@@ -13,7 +14,7 @@ import 'package:get/get.dart';
 
 class AddPackageView extends GetView<AddPackageController> {
   AddPackageView({Key? key}) : super(key: key);
-  final controller = Get.put<AddPackageController>(AddPackageController());
+  // final controller = Get.put<AddPackageController>(AddPackageController());
   @override
   Widget build(BuildContext context) {
     controller.fetchDetails();
@@ -55,26 +56,29 @@ class AddPackageView extends GetView<AddPackageController> {
                           EdgeInsets.symmetric(horizontal: 8.0, vertical: 10),
                       child: Column(
                         children: [
-                          InkWell(
-                            onTap: () {
-                              controller.showImage(context);
-                            },
-                            child: Container(
-                              height: 160,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(140)),
-                              child: controller.image == null
-                                  ? Icon(Icons.image)
-                                  : ClipRRect(
-                                      borderRadius: BorderRadius.circular(10),
-                                      child: Image.file(
-                                        File(controller.image!.path).absolute,
-                                        fit: BoxFit.fitWidth,
-                                      ),
-                                    ),
-                            ),
-                          ),
+                          GetBuilder<AddPackageController>(
+                              builder: (AddPackageController){
+                            return InkWell(
+                              onTap: () {
+                                controller.showImage(context);
+                              },
+                              child: Container(
+                                height: 160,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(140)),
+                                child: controller.image == null
+                                    ? Icon(Icons.image)
+                                    : ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image.file(
+                                    File(controller.image!.path).absolute,
+                                    fit: BoxFit.fitWidth,
+                                  ),
+                                ),
+                              ),
+                            );
+                          }),
                           InkWell(
                               onTap : (){
                                 controller.showImage(context);
@@ -133,28 +137,35 @@ class AddPackageView extends GetView<AddPackageController> {
                               obsecure: false,
                               icon: Icons.description),
                           SizedBox(height: 24),
-                          RoundButton(
-                            title: 'Add Offer',
-                            onPress: () {
-                              if (controller.state.hourlyRateController.text == "" ||
-                                  controller.state.hourlyRateController.text ==
-                                      "" ||
-                                  controller.state.serviceImage == "") {
-                                Snackbar.showSnackBar("Error",
-                                    "Enter all fields", Icons.error_outline);
-                              } else {
-                                // ServicePackageModel model = ServicePackageModel(
-                                //     providerName: providerName,
-                                //     providerPhone: providerPhone,
-                                //     providerEmail: providerEmail,
-                                //     providerId: providerId,
-                                //     hourlyRate: hourlyRate,
-                                //     service: service,
-                                //     description: description,
-                                // );
-                              }
-                            },
-                          ),
+                          Obx((){
+                            return controller.state.buttonLoading.value ? Center(child: CircularProgressIndicator(color: AppColors.iconsColor,),): RoundButton(
+                              title: 'Add Offer',
+                              onPress: () {
+                                if (controller.state.hourlyRateController.text == "" ||
+                                    controller.state.hourlyRateController.text ==
+                                        "" ||
+                                    controller.state.serviceImage == "") {
+                                  Snackbar.showSnackBar("Error",
+                                      "Enter all fields", Icons.error_outline);
+                                } else {
+
+                                  ServicePackageModel package = ServicePackageModel(
+                                    providerName: controller.state.providerNameController.text.toString(),
+                                    providerPhone: controller.state.providerPhoneController.text.toString(),
+                                    providerEmail: controller.state.providerEmailController.text.toString(),
+                                    providerId: SessionController().userId.toString(),
+                                    providerImageUrl: controller.state.providerImageController.text.toString(),
+                                    hourlyRate: controller.state.hourlyRateController.text.trim().toString(),
+                                    service: controller.state.serviceController.text.trim().toString(),
+                                    description: controller.state.descriptionController.text.trim().toString(),
+                                  );
+                                  controller.uploadServiceData(context, package);
+
+
+                                }
+                              },
+                            ) ;
+                          }),
                         ],
                       ),
                     );

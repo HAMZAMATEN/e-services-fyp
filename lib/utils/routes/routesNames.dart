@@ -14,6 +14,8 @@ class AppPages {
 
   static final String providerHomeView = '/providerHomeView';
   static final String providerProfileView = '/providerProfileView';
+  static final String addPackageView = '/addPackageView';
+  static final String managePackageView = '/managePackageView';
 
 
 }

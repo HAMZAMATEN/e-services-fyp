@@ -40,7 +40,7 @@ class SPHomeView extends GetView<SPHomeController> {
                   child: Icon(Icons.menu , color: Colors.white,),
                 ),
                 title: TextWidget(
-                  title: 'Administration',
+                  title: 'Provider Home',
                   textColor: AppColors.textFieldBgColor,
                   fontSize: 25,
                 ),

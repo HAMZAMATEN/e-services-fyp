@@ -16,6 +16,10 @@ import 'package:e_services_fyp/Pages/signup/bindings.dart';
 import 'package:e_services_fyp/Pages/signup/view.dart';
 import 'package:e_services_fyp/Pages/splashScreen/bindings.dart';
 import 'package:e_services_fyp/Pages/splashScreen/view.dart';
+import 'package:e_services_fyp/service_provider_pages/ServicePackages/AddPackage/bindings.dart';
+import 'package:e_services_fyp/service_provider_pages/ServicePackages/AddPackage/view.dart';
+import 'package:e_services_fyp/service_provider_pages/ServicePackages/ManagePackages/bindings.dart';
+import 'package:e_services_fyp/service_provider_pages/ServicePackages/ManagePackages/view.dart';
 import 'package:e_services_fyp/service_provider_pages/provider_home/bindings.dart';
 import 'package:e_services_fyp/service_provider_pages/provider_home/view.dart';
 import 'package:e_services_fyp/service_provider_pages/sp_profile_view/bindings.dart';
@@ -23,82 +27,91 @@ import 'package:e_services_fyp/service_provider_pages/sp_profile_view/view.dart'
 import 'package:e_services_fyp/utils/routes/routesNames.dart';
 import 'package:get/get.dart';
 
-class AppRoutes{
+class AppRoutes {
   static final List<GetPage> routes = [
-
     GetPage(
       name: AppPages.splashView,
-        page: ()=> SplashView(),
+      page: () => SplashView(),
       binding: SplashBindings(),
       transition: Transition.zoom,
     ),
     GetPage(
       name: AppPages.onBoardingView,
-      page: ()=> OnBoardingView(),
+      page: () => OnBoardingView(),
       binding: OnBoardingBindings(),
       transition: Transition.zoom,
     ),
     GetPage(
       name: AppPages.signUpView,
-      page: ()=> SignupView(),
+      page: () => SignupView(),
       binding: SignupBindings(),
       transition: Transition.zoom,
     ),
-
     GetPage(
       name: AppPages.applicationView,
-      page: ()=> ApplicationView(),
+      page: () => ApplicationView(),
       binding: ApplicationBindings(),
       transition: Transition.zoom,
     ),
     GetPage(
       name: AppPages.scheduledView,
-      page: ()=> ScheduledView(),
+      page: () => ScheduledView(),
       binding: ScheduledBindings(),
       transition: Transition.zoom,
     ),
     GetPage(
       name: AppPages.catogeryView,
-      page: ()=> CategoryView(),
+      page: () => CategoryView(),
       binding: CatogeryBindings(),
       transition: Transition.rightToLeft,
     ),
-
     GetPage(
       name: AppPages.homeView,
-      page: ()=> HomeView(),
+      page: () => HomeView(),
       binding: HomeBindings(),
       transition: Transition.zoom,
     ),
-
     GetPage(
       name: AppPages.userProfileView,
-      page: ()=> ProfileView(),
+      page: () => ProfileView(),
       binding: ProfileBindings(),
       transition: Transition.zoom,
-    ),GetPage(
+    ),
+    GetPage(
       name: AppPages.scheduledServicesView,
-      page: ()=> ScheduledServicesScreen(),
+      page: () => ScheduledServicesScreen(),
       binding: ScheduledServicesBindings(),
       transition: Transition.zoom,
-    ),GetPage(
+    ),
+    GetPage(
       name: AppPages.aboutUsView,
-      page: ()=> AboutUsScreen(),
+      page: () => AboutUsScreen(),
       binding: ABoutUsBindings(),
       transition: Transition.zoom,
     ),
-
     GetPage(
       name: AppPages.providerHomeView,
-      page: ()=> SPHomeView(),
+      page: () => SPHomeView(),
       binding: SPHomeBindings(),
       transition: Transition.zoom,
-    ),GetPage(
+    ),
+    GetPage(
       name: AppPages.providerProfileView,
-      page: ()=> SpProfileView(),
+      page: () => SpProfileView(),
       binding: SpProfileBindings(),
       transition: Transition.zoom,
     ),
-
+    GetPage(
+      name: AppPages.addPackageView,
+      page: () => AddPackageView(),
+      binding: AddPacakageBindings(),
+      transition: Transition.zoom,
+    ),
+    GetPage(
+      name: AppPages.managePackageView,
+      page: () => ManagePackagesView(),
+      binding: ManagePackageBindings(),
+      transition: Transition.zoom,
+    ),
   ];
 }
