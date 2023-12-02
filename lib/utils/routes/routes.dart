@@ -2,6 +2,8 @@ import 'package:e_services_fyp/Pages/OnBoardingPages/bindings.dart';
 import 'package:e_services_fyp/Pages/OnBoardingPages/view.dart';
 import 'package:e_services_fyp/Pages/application_view/bindings.dart';
 import 'package:e_services_fyp/Pages/application_view/view.dart';
+import 'package:e_services_fyp/Pages/booking_view/bindings.dart';
+import 'package:e_services_fyp/Pages/booking_view/view.dart';
 import 'package:e_services_fyp/Pages/catogery_view/bindings.dart';
 import 'package:e_services_fyp/Pages/catogery_view/view.dart';
 import 'package:e_services_fyp/Pages/home/bindings.dart';
@@ -83,6 +85,14 @@ class AppRoutes {
       name: AppPages.scheduledServicesView,
       page: () => ScheduledServicesScreen(),
       binding: ScheduledServicesBindings(),
+      transition: Transition.zoom,
+    ),
+
+
+    GetPage(
+      name: AppPages.bookingView,
+      page: () => BookingView(),
+      binding: BookingBindings(),
       transition: Transition.zoom,
     ),
     GetPage(

@@ -8,6 +8,7 @@ class AppPages {
   static final String userProfileView = '/userProfileView';
   static final String aboutUsView = '/aboutUsView';
   static final String scheduledServicesView = '/scheduledServicesView';
+  static final String bookingView = '/bookingView';
 
   static final String scheduledView = '/scheduledView';
   static final String catogeryView = '/catogeryView';
