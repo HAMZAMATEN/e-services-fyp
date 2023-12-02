@@ -23,13 +23,14 @@ class AddPackageController extends GetxController with GetTickerProviderStateMix
   Future<void> fetchDetails() async {
     state.infoLoading.value = true;
     DocumentSnapshot userInfo = await userRef.doc(userId).get();
+    DocumentSnapshot providerInfo = await userRef.doc(SessionController().userId.toString()).get();
 
     if (userInfo.exists) {
       state.providerNameController.text =  userInfo['providerName'].toString().trim();
       state.providerPhoneController.text = userInfo['phone'].toString().trim();
       state.providerEmailController.text = userInfo['email'].toString().trim();
       state.serviceController.text = userInfo['service'].toString().trim();
-      state.providerImageController.text = userInfo['photoUrl'].toString().trim();
+      state.providerImageController.text = providerInfo['photoUrl'].toString().trim();
       state.infoLoading.value = false;
     }
   }

@@ -1,4 +1,4 @@
-import 'dart:developer';
+// import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_services_fyp/res/colors.dart';
@@ -6,7 +6,7 @@ import 'package:e_services_fyp/service_provider_pages/ServicePackages/EditPackag
 // import 'package:e_services_fyp/res/widgets/service_provider_appBar.dart';
 import 'package:e_services_fyp/service_provider_pages/ServicePackages/ManagePackages/controller.dart';
 import 'package:e_services_fyp/utils/compnents/snackbar_widget.dart';
-import 'package:e_services_fyp/utils/routes/routesNames.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -134,10 +134,16 @@ class ServiceCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment : MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      'Description: ${description}',
-                      style: TextStyle(color: Colors.grey),
+                    Flexible(
+                      child: Text(
+                        'Description: ${description}',
+                        style: TextStyle(color: Colors.grey),
+                      ),
                     ),
+                    // Text(
+                    //   'Description: ${description}',
+                    //   style: TextStyle(color: Colors.grey),
+                    // ),
                     InkWell(
                         onTap: (){
                           // Get.to(()=>EditPackageView(packageId: packageId));

@@ -57,11 +57,11 @@ class ScheduleOffersController extends GetxController {
     int milliseconds = int.parse(time);
     DateTime dateTimeFromMilliseconds =
         DateTime.fromMillisecondsSinceEpoch(milliseconds);
-print(dateTimeFromMilliseconds.toString()+"dtime");
+// print(dateTimeFromMilliseconds.toString()+"dtime");
     // Formatting the DateTime object into a time string
     String formattedTime =
         DateFormat("hh:mm a").format(dateTimeFromMilliseconds);
-    print(formattedTime.toString() + "dtime");
+    // print(formattedTime.toString() + "dtime");
     return formattedTime;
 
     // return formattedTime;

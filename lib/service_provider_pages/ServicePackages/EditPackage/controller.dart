@@ -21,21 +21,34 @@ final userRef = FirebaseFirestore.instance.collection('serviceProviders');
 final allServiceRef = FirebaseFirestore.instance.collection('allServices');
 final auth = FirebaseAuth.instance;
 
+  final picker = ImagePicker();
+
+  firebase_storage.FirebaseStorage storage =
+      firebase_storage.FirebaseStorage.instance;
+
+  XFile? _image;
+
+  XFile? get image => _image;
+
 Future<void> fetchDetails(String packageId) async {
   state.packageId = packageId;
   print(packageId);
   state.infoLoading.value = true;
   DocumentSnapshot userInfo = await allServiceRef.doc(state.packageId).get();
+  DocumentSnapshot providerInfo = await userRef.doc(SessionController().userId.toString()).get();
 
   if (userInfo.exists) {
     state.providerNameController.text =  userInfo['providerName'].toString().trim();
     state.providerPhoneController.text = userInfo['providerPhone'].toString().trim();
     state.providerEmailController.text = userInfo['providerEmail'].toString().trim();
     state.serviceController.text = userInfo['service'].toString().trim();
-    state.providerImageController.text = userInfo['providerImageUrl'].toString().trim();
     state.hourlyRateController.text = userInfo['hourlyRate'].toString().trim();
     state.descriptionController.text = userInfo['description'].toString().trim();
     state.serviceImage.value = userInfo['imageUrl'].toString().trim();
+
+    state.providerImageController.text = providerInfo['photoUrl'].toString().trim();
+
+    _image = null;
     state.infoLoading.value = false;
   }
 }
@@ -48,8 +61,26 @@ Future<void> uploadServiceData (BuildContext context, ServicePackageModel model)
   setLoading(true);
   String timeStamp = DateTime.timestamp().microsecondsSinceEpoch.toString();
   try{
-    await allServiceRef.doc(state.packageId).set(model.toJson()).then((value){
+    await allServiceRef.doc(state.packageId).update(
+        // 'imageUrl' : state.serviceImage,
+        model.toJson(),
+    ).then((value){
 
+      image != null ? (uploadImage(context, timeStamp)) : (FirebaseFirestore.instance
+          .collection('allServices')
+          .doc(state.packageId)
+          .update({
+        'imageUrl': state.serviceImage.value.toString(),
+      }).then((value) {
+        setLoading(false);
+        // _image = null;
+        Snackbar.showSnackBar("Congratulation", "Added Successfully", Icons.error_outline);
+        setLoading(false);
+      }).onError((error, stackTrace) {
+        setLoading(false);
+        ;
+        Snackbar.showSnackBar("Error", error.toString(), Icons.error_outline);
+      }));
     }).onError((error, stackTrace){
       Snackbar.showSnackBar("Error", error.toString(), Icons.error);
       setLoading(false);
@@ -62,14 +93,7 @@ Future<void> uploadServiceData (BuildContext context, ServicePackageModel model)
 
 
 
-final picker = ImagePicker();
 
-firebase_storage.FirebaseStorage storage =
-    firebase_storage.FirebaseStorage.instance;
-
-XFile? _image;
-
-XFile? get image => _image;
 
 Future pickedImageFromGallery(
     BuildContext context) async {
@@ -155,7 +179,7 @@ Future uploadImage(BuildContext context, String timeStamp) async {
         .update({
       'imageUrl': imageUrl,
     }).then((value) {
-      // setLoading(false);
+      setLoading(false);
       // _image = null;
       Snackbar.showSnackBar("Congratulation", "Added Successfully", Icons.error_outline);
       setLoading(false);
