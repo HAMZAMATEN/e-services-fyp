@@ -1,4 +1,5 @@
 import 'package:e_services_fyp/res/colors.dart';
+import 'package:e_services_fyp/res/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -7,6 +8,7 @@ class CustomTextField extends StatelessWidget {
   final TextInputAction textInputAction;
   final bool obsecure;
   IconData icon;
+  Widget? label;
   TextEditingController contr;
   FocusNode? focNode;
   String descrip;
@@ -18,6 +20,7 @@ class CustomTextField extends StatelessWidget {
     required this.contr,
     required this.descrip,
     this.focNode,
+    this.label,
     required this.textInputAction,
     required this.keyboardType,
     required this.obsecure,
@@ -52,6 +55,7 @@ class CustomTextField extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 0, vertical: 5),
         child: TextField(
           controller: contr,
+
           readOnly: readOnly,
           textInputAction: textInputAction,
           obscureText: obsecure,
@@ -63,6 +67,7 @@ class CustomTextField extends StatelessWidget {
 
           // focusNode: focNode,
           decoration: InputDecoration(
+            label: label,
             prefixIcon: Icon(
               icon,
               color: AppColors.iconsColor,

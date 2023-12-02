@@ -1,3 +1,4 @@
+import 'package:e_services_fyp/Pages/booking_view/book_now_screen/book_now_screen.dart';
 import 'package:e_services_fyp/Pages/booking_view/controller.dart';
 import 'package:e_services_fyp/res/colors.dart';
 import 'package:e_services_fyp/res/text_widget.dart';
@@ -34,7 +35,7 @@ class BookingContainer extends GetView<BookingController> {
         // Get.toNamed(AppRoutes.BookingView);
       },
       child: Container(
-        width: 320,
+        width: 360,
         height: 330,
         child: Card(
           elevation: 3,
@@ -45,17 +46,14 @@ class BookingContainer extends GetView<BookingController> {
             padding: const EdgeInsets.all(10.0),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
-                serviceName.capitalizeFirst.toString(),
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
+              TextWidget(
+                title: serviceName.capitalizeFirst.toString(),
+                textColor: Colors.black,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
               ),
               TextWidget(
-                title: serviceLable,
+                title: serviceLable.capitalizeFirst.toString(),
                 fontSize: 15,
                 textColor: Colors.black,
               ),
@@ -79,6 +77,9 @@ class BookingContainer extends GetView<BookingController> {
                   minRating: 1,
                   direction: Axis.horizontal,
                   allowHalfRating: true,
+                  glow: true,
+                  glowRadius: 5,
+                  glowColor: Colors.amberAccent,
                   itemCount: 5,
                   itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
                   itemBuilder: (context, _) => Icon(
@@ -93,41 +94,62 @@ class BookingContainer extends GetView<BookingController> {
                     );
                   },
                 ),
-                // Text(
-                //   '$feedbackStars Stars',
-                //   style: TextStyle(
-                //     fontSize: 18,
-                //   ),
-                // ),
                 Spacer(),
-                Text(
-                  '\$$price',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blue,
-                  ),
+                TextWidget(
+                  title: '\$$price',
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  textColor: Colors.black,
                 ),
               ]),
               SizedBox(height: 10),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  serviceProviderImage == ''
-                      ? Icon(
-                          Icons.person_2_outlined,
-                          color: AppColors.iconsColor,
-                        )
-                      : GestureDetector(
-                          onTap: () {
-                            // Get.toNamed(AppRoutes.P_ProfileView);
-                          },
-                          child: CircleAvatar(
-                            backgroundImage: NetworkImage(serviceProviderImage),
-                            radius: 20,
-                          ),
+                  Row(
+                    children: [
+                      serviceProviderImage == ''
+                          ? Icon(
+                              Icons.person_2_outlined,
+                              color: AppColors.iconsColor,
+                            )
+                          : GestureDetector(
+                              onTap: () {
+                                // Get.toNamed(AppRoutes.P_ProfileView);
+                              },
+                              child: CircleAvatar(
+                                backgroundImage:
+                                    NetworkImage(serviceProviderImage),
+                                radius: 20,
+                              ),
+                            ),
+                      SizedBox(width: 10),
+                      TextWidget(
+                        title: serviceProviderName.capitalizeFirst.toString(),
+                        textColor: Colors.black,
+                      ),
+                    ],
+                  ),
+                  Container(
+                    height: 45,
+                    width: 80,
+                    decoration: BoxDecoration(
+                      color: AppColors.iconsColor,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: InkWell(
+                      onTap: () {
+                        Get.to(BookNowView(id: id.toString(),));
+                        print('id is:'+id.toString());
+                      },
+                      child: Center(
+                        child: TextWidget(
+                          title: 'Book Now',
+                          fontSize: 14,
                         ),
-                  SizedBox(width: 10),
-                  Text(serviceProviderName),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ]),
