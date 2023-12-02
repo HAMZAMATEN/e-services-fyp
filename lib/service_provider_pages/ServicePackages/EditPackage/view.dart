@@ -13,6 +13,7 @@ import 'package:get/get.dart';
 
 class EditPackageView extends GetView<EditPackageController> {
   String packageId;
+
   EditPackageView({Key? key, required this.packageId}) : super(key: key);
   final controller = Get.put<EditPackageController>(EditPackageController());
 
@@ -71,18 +72,19 @@ class EditPackageView extends GetView<EditPackageController> {
                                 child: controller.image == null
                                     ? ClipRRect(
                                         borderRadius: BorderRadius.circular(10),
-                                        child: Image.network(controller
-                                            .state.serviceImage
-                                            .toString(),
-                                        fit: BoxFit.fitWidth,
-                                        ),)
+                                        child: Image.network(
+                                          controller.state.serviceImage
+                                              .toString(),
+                                          fit: BoxFit.fitWidth,
+                                        ),
+                                      )
                                     : ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Image.file(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: Image.file(
                                           File(controller.image!.path).absolute,
                                           fit: BoxFit.fitWidth,
                                         ),
-                                    ),
+                                      ),
                               ),
                             );
                           }),
@@ -196,8 +198,9 @@ class EditPackageView extends GetView<EditPackageController> {
                                               .state.descriptionController.text
                                               .trim()
                                               .toString(),
-                                              id: controller.state.packageId.toString(),
-
+                                          id: controller.state.packageId
+                                              .toString(),
+                                          stars: [],
                                         );
                                         controller.uploadServiceData(
                                             context, package);

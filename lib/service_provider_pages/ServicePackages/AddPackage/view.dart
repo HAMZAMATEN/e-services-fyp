@@ -158,6 +158,7 @@ class AddPackageView extends GetView<AddPackageController> {
                                     hourlyRate: controller.state.hourlyRateController.text.trim().toString(),
                                     service: controller.state.serviceController.text.trim().toString(),
                                     description: controller.state.descriptionController.text.trim().toString(),
+                                    stars: [],
                                   );
                                   controller.uploadServiceData(context, package);
 

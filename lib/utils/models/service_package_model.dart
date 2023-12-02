@@ -4,6 +4,7 @@ class ServicePackageModel {
   String? id;
   String? providerImageUrl;
   String? imageUrl;
+  final List<int> stars;
   final String providerName;
   final String providerPhone;
   final String providerEmail;
@@ -23,6 +24,7 @@ class ServicePackageModel {
     required this.hourlyRate,
     required this.service,
     required this.description,
+    required this.stars,
   });
 
   toJson() {
@@ -37,6 +39,7 @@ class ServicePackageModel {
       'hourlyRate': hourlyRate,
       'service': service,
       'description' : description,
+      'stars' : stars,
     };
   }
 
@@ -55,6 +58,7 @@ class ServicePackageModel {
       hourlyRate: json["hourlyRate"],
       service: json["service"],
       description : json['description'],
+      stars: json['stars'],
     );
   }
 }

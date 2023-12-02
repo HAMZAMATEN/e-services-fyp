@@ -1,10 +1,11 @@
+import 'package:e_services_fyp/Pages/booking_view/controller.dart';
 import 'package:e_services_fyp/res/colors.dart';
 import 'package:e_services_fyp/res/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 
-class ServiceContainer extends StatelessWidget {
+class BookingContainer extends GetView<BookingController> {
   final String serviceName;
   final String serviceLable;
   final String imageUrl;
@@ -12,9 +13,9 @@ class ServiceContainer extends StatelessWidget {
   var feedbackStars;
   final String serviceProviderName;
   final String serviceProviderImage;
-  VoidCallback? onPress;
+  String? id;
 
-  ServiceContainer({
+  BookingContainer({
     required this.serviceName,
     required this.serviceLable,
     required this.imageUrl,
@@ -22,11 +23,12 @@ class ServiceContainer extends StatelessWidget {
     required this.feedbackStars,
     required this.serviceProviderName,
     required this.serviceProviderImage,
-    this.onPress,
+    this.id,
   });
 
   @override
   Widget build(BuildContext context) {
+    final con = Get.lazyPut<BookingController>(() => BookingController());
     return GestureDetector(
       onTap: () {
         // Get.toNamed(AppRoutes.BookingView);
@@ -71,7 +73,6 @@ class ServiceContainer extends StatelessWidget {
                     ),
               SizedBox(height: 10),
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-
                 RatingBar.builder(
                   itemSize: 25,
                   initialRating: feedbackStars == [] ? 3 : feedbackStars,
@@ -86,7 +87,10 @@ class ServiceContainer extends StatelessWidget {
                   ),
                   onRatingUpdate: (rating) {
                     print(rating);
-                    onPress;
+                    controller.addRating(
+                      rating,
+                      id.toString(),
+                    );
                   },
                 ),
                 // Text(

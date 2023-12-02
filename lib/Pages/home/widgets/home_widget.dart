@@ -1,10 +1,12 @@
+import 'package:e_services_fyp/Pages/booking_view/controller.dart';
+import 'package:e_services_fyp/Pages/home/controller.dart';
 import 'package:e_services_fyp/res/colors.dart';
 import 'package:e_services_fyp/res/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 
-class ServiceContainer extends StatelessWidget {
+class HomeContainer extends GetView<HomeController> {
   final String serviceName;
   final String serviceLable;
   final String imageUrl;
@@ -12,9 +14,9 @@ class ServiceContainer extends StatelessWidget {
   var feedbackStars;
   final String serviceProviderName;
   final String serviceProviderImage;
-  VoidCallback? onPress;
+  String? id;
 
-  ServiceContainer({
+  HomeContainer({
     required this.serviceName,
     required this.serviceLable,
     required this.imageUrl,
@@ -22,11 +24,12 @@ class ServiceContainer extends StatelessWidget {
     required this.feedbackStars,
     required this.serviceProviderName,
     required this.serviceProviderImage,
-    this.onPress,
+    this.id,
   });
 
   @override
   Widget build(BuildContext context) {
+    final con = Get.lazyPut<HomeController>(() => HomeController());
     return GestureDetector(
       onTap: () {
         // Get.toNamed(AppRoutes.BookingView);
@@ -42,7 +45,7 @@ class ServiceContainer extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(
                 serviceName.capitalizeFirst.toString(),
                 style: TextStyle(
@@ -60,18 +63,17 @@ class ServiceContainer extends StatelessWidget {
               SizedBox(height: 5),
               imageUrl == ''
                   ? Icon(
-                      Icons.image,
-                      color: AppColors.iconsColor,
-                    )
+                Icons.image,
+                color: AppColors.iconsColor,
+              )
                   : Image.network(
-                      imageUrl,
-                      height: 150,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
+                imageUrl,
+                height: 150,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
               SizedBox(height: 10),
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-
                 RatingBar.builder(
                   itemSize: 25,
                   initialRating: feedbackStars == [] ? 3 : feedbackStars,
@@ -86,7 +88,10 @@ class ServiceContainer extends StatelessWidget {
                   ),
                   onRatingUpdate: (rating) {
                     print(rating);
-                    onPress;
+                    controller.addRating(
+                      rating,
+                      id.toString(),
+                    );
                   },
                 ),
                 // Text(
@@ -110,18 +115,18 @@ class ServiceContainer extends StatelessWidget {
                 children: [
                   serviceProviderImage == ''
                       ? Icon(
-                          Icons.person_2_outlined,
-                          color: AppColors.iconsColor,
-                        )
+                    Icons.person_2_outlined,
+                    color: AppColors.iconsColor,
+                  )
                       : GestureDetector(
-                          onTap: () {
-                            // Get.toNamed(AppRoutes.P_ProfileView);
-                          },
-                          child: CircleAvatar(
-                            backgroundImage: NetworkImage(serviceProviderImage),
-                            radius: 20,
-                          ),
-                        ),
+                    onTap: () {
+                      // Get.toNamed(AppRoutes.P_ProfileView);
+                    },
+                    child: CircleAvatar(
+                      backgroundImage: NetworkImage(serviceProviderImage),
+                      radius: 20,
+                    ),
+                  ),
                   SizedBox(width: 10),
                   Text(serviceProviderName),
                 ],

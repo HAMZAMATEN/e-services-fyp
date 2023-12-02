@@ -1,5 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_services_fyp/Pages/home/controller.dart';
+import 'package:e_services_fyp/Pages/home/widgets/home_widget.dart';
 import 'package:e_services_fyp/Pages/splashScreen/controller.dart';
 import 'package:e_services_fyp/res/colors.dart';
 import 'package:e_services_fyp/res/widgets/services_container.dart';
@@ -12,7 +14,7 @@ import 'package:get/get.dart';
 import '../../utils/routes/routes.dart';
 
 class HomeView extends GetView<HomeController> {
-  const HomeView({Key? key}) : super(key: key);
+  HomeView({Key? key}) : super(key: key);
 
   Widget _catWidget(String name, String imagePath) {
     return Padding(
@@ -45,6 +47,8 @@ class HomeView extends GetView<HomeController> {
       ),
     );
   }
+
+  final con = Get.lazyPut<HomeController>(() => HomeController());
 
   @override
   Widget build(BuildContext context) {
@@ -190,64 +194,59 @@ class HomeView extends GetView<HomeController> {
                     ),
 
                     SizedBox(
-                      height: 320,
-                      child: SingleChildScrollView(
-                        // shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        child:Row(children: [
-                          ServiceContainer(
-                            imageUrl: 'assets/images/featured smart_device.png',
-                            price: 20.0,
-                            feedbackStars: 4,
-                            serviceName: "Smart Device Maintenance",
-                            serviceProviderName: 'Pedro Noris',
-                            serviceProviderImage:
-                                'assets/images/service_provider3.png',
-                            serviceLable: "Smart Home",
-                          ),
-                          ServiceContainer(
-                            imageUrl: 'assets/images/featured cleaning.png',
-                            price: 20.0,
-                            feedbackStars: 4,
-                            serviceName: "Ceiling and Wall",
-                            serviceProviderName: 'John Doe',
-                            serviceProviderImage:
-                                'assets/images/service_provider1.png',
-                            serviceLable: "Deep Cleaning",
-                          ),
-                          ServiceContainer(
-                            imageUrl: 'assets/images/featured cooking.png',
-                            price: 50.0,
-                            feedbackStars: 4,
-                            serviceName: "House Hold Cook",
-                            serviceProviderName: 'Felix Harris',
-                            serviceProviderImage:
-                                'assets/images/service_provider2.png',
-                            serviceLable: "Home Cook",
-                          ),
-                          ServiceContainer(
-                            imageUrl: 'assets/images/featured repair.png',
-                            price: 50.0,
-                            feedbackStars: 4,
-                            serviceName: "AC Repair",
-                            serviceProviderName: 'Pedro Noris',
-                            serviceProviderImage:
-                                'assets/images/service_provider3.png',
-                            serviceLable: "AC Maintenance",
-                          ),
-                          ServiceContainer(
-                            imageUrl: 'assets/images/featured plumber.png',
-                            price: 50.0,
-                            feedbackStars: 4,
-                            serviceName: "Plumbing Services",
-                            serviceProviderName: 'John Deo',
-                            serviceProviderImage:
-                                'assets/images/service_provider1.png',
-                            serviceLable: "Repairing",
-                          ),
-                        ]),
-                      ),
+                      height: 350,
+                      child:         StreamBuilder<QuerySnapshot>(
+                    stream: controller.firestore,
+                      builder:
+                          (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (snapshot.hasData) {
+                          return ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                              itemCount: snapshot.data!.docs.length,
+                              itemBuilder: (context, index) {
+                                controller.getAverageRating(snapshot.data!.docs[index]['id'].toString());
+
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 00, horizontal: 0),
+                                  child: Obx(() => HomeContainer(
+                                    serviceName: snapshot.data!.docs[index]['service']
+                                        .toString(),
+                                    serviceLable: snapshot
+                                        .data!.docs[index]['description']
+                                        .toString(),
+                                    imageUrl: snapshot.data!.docs[index]['imageUrl']
+                                        .toString(),
+                                    price: double.parse(
+                                        snapshot.data!.docs[index]['hourlyRate']),
+                                    feedbackStars:
+                                    controller.state.averageRating.value,
+
+                                    id: snapshot.data!.docs[index]['id'].toString(),
+                                    serviceProviderName: snapshot.data!.docs[index]
+                                    ['providerName'],
+                                    serviceProviderImage: snapshot.data!.docs[index]
+                                    ['providerImageUrl'],
+                                  )),
+                                );
+                              });
+                        } else if (snapshot.hasError) {
+                          return Center(
+                            child: CircularProgressIndicator(
+                              color: AppColors.iconsColor,
+                            ),
+                          );
+                        } else {
+                          return Center(
+                            child: CircularProgressIndicator(
+                              color: AppColors.iconsColor,
+                            ),
+                          );
+                        }
+                      },
                     ),
+
+            ),
                   ]),
             ),
           ]),

@@ -50,6 +50,8 @@ dependencies:
   date_time_picker:
   geolocator:
   geocoding:
+  flutter_rating_bar:
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
