@@ -2,6 +2,8 @@
 import 'package:e_services_fyp/res/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../res/text_widget.dart';
 class SuccessfulView extends StatelessWidget {
   SuccessfulView({Key? key}) : super(key: key);
   // final controller = Get.put<SuccessfulController>(SuccessfulController());
@@ -11,16 +13,22 @@ class SuccessfulView extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Booking Successfully',
-          style: TextStyle(fontSize: 25,
-            fontWeight: FontWeight.bold,
-            color:Colors.white ,
-          ),
-        ),
-        backgroundColor:AppColors.iconsColor,
-        //  elevation: 0,
+        leading: IconButton(
+          onPressed: (){
+            Get.back();
+            Get.back();
 
-      ),
+          },
+          icon: Icon(Icons.arrow_back , color: Colors.white,),
+        ),
+    title: TextWidget(
+    title: 'Booking Successfully',
+      fontSize: 20,
+      fontWeight: FontWeight.bold,
+    ),
+    backgroundColor: AppColors.iconsColor,
+    ),
+
       body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           // crossAxisAlignment: CrossAxisAlignment.center,

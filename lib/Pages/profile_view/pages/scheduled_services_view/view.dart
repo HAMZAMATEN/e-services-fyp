@@ -224,6 +224,7 @@ class ScheduledServicesScreen extends GetView<ScheduledServicesController> {
           },
           icon: Icon(
             Icons.arrow_back,
+            color: Colors.white,
           ),
         ),
         backgroundColor: AppColors.iconsColor,

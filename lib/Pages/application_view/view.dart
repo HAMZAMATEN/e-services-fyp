@@ -1,8 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:e_services_fyp/Pages/application_view/controller.dart';
 import 'package:e_services_fyp/Pages/booking_view/view.dart';
-// import 'package:e_services_fyp/Pages/bookings_screen/view.dart';
-import 'package:e_services_fyp/Pages/bookings_success_screen/view.dart';
 import 'package:e_services_fyp/Pages/catogery_view/view.dart';
 import 'package:e_services_fyp/Pages/home/controller.dart';
 import 'package:e_services_fyp/Pages/home/view.dart';

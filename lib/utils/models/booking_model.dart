@@ -14,6 +14,8 @@ class BookingModel {
   final double lang;
   final String uid;
   final String pId;
+  final String imageUrl;
+  final String providerImgUrl;
 
   BookingModel({
     this.id = '',
@@ -30,6 +32,8 @@ class BookingModel {
     required this.lang,
     required this.pId,
     required this.uid,
+    required this.imageUrl,
+    required this.providerImgUrl,
   });
 
   toJson() {
@@ -47,6 +51,8 @@ class BookingModel {
       'lang' : lang,
       'pId' : pId,
       'uid':uid,
+      'providerImgUrl' : providerImgUrl,
+      'imageUrl' : imageUrl,
     };
   }
 
@@ -68,6 +74,9 @@ class BookingModel {
       lat: json['lat'],
       pId: json['pId'],
       uid: json['uid'],
+      imageUrl: json['imageUrl'],
+      providerImgUrl: json['providerImgUrl'],
+
     );
   }
 }

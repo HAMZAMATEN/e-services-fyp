@@ -137,8 +137,7 @@ class ProfileView extends GetView<ProfileController> {
                             size: 30,
                           ),
                           title: InkWell(
-                            onTap: () {
-                            },
+                            onTap: () {},
                             child: TextWidget(
                               title: 'Wallet Balance',
                               textColor: Colors.black,
@@ -186,8 +185,7 @@ class ProfileView extends GetView<ProfileController> {
                             size: 30,
                           ),
                           title: InkWell(
-                            onTap: () {
-                            },
+                            onTap: () {},
                             child: TextWidget(
                               title: 'Favourite Providers',
                               textColor: Colors.black,
@@ -204,15 +202,14 @@ class ProfileView extends GetView<ProfileController> {
                         ),
                         ListTile(
                           leading: Icon(
-                            Icons.password_outlined,
+                            Icons.auto_fix_off_outlined,
                             color: Colors.indigoAccent,
                             size: 30,
                           ),
                           title: InkWell(
-                            onTap: () {
-                            },
+                            onTap: () {},
                             child: TextWidget(
-                              title: 'Change Password',
+                              title: 'Booked Services',
                               textColor: Colors.black,
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -223,7 +220,9 @@ class ProfileView extends GetView<ProfileController> {
                             size: 20,
                             color: Colors.indigoAccent,
                           ),
-                          onTap: () {},
+                          onTap: () {
+                            Get.toNamed(AppPages.bookedServicesView);
+                          },
                         ),
                         //
                         ListTile(
@@ -233,8 +232,7 @@ class ProfileView extends GetView<ProfileController> {
                             size: 30,
                           ),
                           title: InkWell(
-                            onTap: () {
-                            },
+                            onTap: () {},
                             child: TextWidget(
                               title: 'Rate Us',
                               textColor: Colors.black,
@@ -277,14 +275,20 @@ class ProfileView extends GetView<ProfileController> {
                           height: 10,
                         ),
 
-                       Obx((){
-                         return controller.state.logoutLoading.value ? Container(child: Center(child: CircularProgressIndicator(color: AppColors.iconsColor,))) :  RoundButton(
-                           title: 'LogOut',
-                           onPress: () {
-                             controller.handleLogout();
-                           },
-                         );
-                       }),
+                        Obx(() {
+                          return controller.state.logoutLoading.value
+                              ? Container(
+                                  child: Center(
+                                      child: CircularProgressIndicator(
+                                  color: AppColors.iconsColor,
+                                )))
+                              : RoundButton(
+                                  title: 'LogOut',
+                                  onPress: () {
+                                    controller.handleLogout();
+                                  },
+                                );
+                        }),
                       ]);
                 } else if (snapshot.hasError) {
                   return Center(

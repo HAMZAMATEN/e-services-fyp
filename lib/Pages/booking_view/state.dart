@@ -11,6 +11,9 @@ class BookingState {
   RxString service = ''.obs;
   RxString description = ''.obs;
   RxString price = ''.obs;
+  RxString imageURl  = ''.obs;
+  RxString providerImageUrl = ''.obs;
+  List<String> uid = [];
   final addressCon = TextEditingController();
   RxBool loading = false.obs;
 

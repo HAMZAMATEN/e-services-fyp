@@ -1,7 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:e_services_fyp/Pages/booking_view/book_now_screen/widget/book_now_widget.dart';
 import 'package:e_services_fyp/Pages/booking_view/controller.dart';
-import 'package:e_services_fyp/Pages/bookings_success_screen/view.dart';
 import 'package:e_services_fyp/Pages/home/controller.dart';
 import 'package:e_services_fyp/Pages/scheduled_view/controller.dart';
 import 'package:e_services_fyp/Pages/scheduled_view/widgets/map_screen.dart';
@@ -20,11 +19,14 @@ import 'package:intl/intl.dart';
 
 import '../../../res/colors.dart';
 import '../../../res/text_widget.dart';
+import '../bookings_success_screen/view.dart';
 
 class BookNowView extends GetView<BookingController> {
   String id;
+  String pid;
 
-  BookNowView({Key? key, required this.id}) : super(key: key);
+  BookNowView({Key? key, required this.id, required this.pid})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -100,35 +102,39 @@ class BookNowView extends GetView<BookingController> {
               SizedBox(
                 height: 30,
               ),
-              Obx(() => controller.state.loading.value == true
-                  ? CircularProgressIndicator(
-                      color: AppColors.iconsColor,
-                    )
-                  : RoundButton(
-                      title: "Confirm ",
-                      onPress: () {
-                        BookingModel bookingModel = BookingModel(
-                          serviceName: controller.state.service.value,
-                          userName: controller.state.name,
-                          userPhone: controller.state.phone,
-                          address: controller.state.addressCon.text
-                              .trim()
-                              .toString(),
-                          providerName: controller.state.providerName.value,
-                          providerPhone: controller.state.providerPhone.value,
-                          description: controller.state.description.value,
-                          hourlyRate: controller.state.price.value,
-                          lat: controller.state.selectedLatLng.value.latitude,
-                          lang: controller.state.selectedLatLng.value.longitude,
-                          pId: id,
-                          uid:
-                              FirebaseAuth.instance.currentUser!.uid.toString(),
-                        );
-                        controller.storeDataInFirebase(bookingModel);
-                        Get.to(
-                          SuccessfulView(),
-                        );
-                      })),
+              Obx(
+                () => controller.state.loading.value == true
+                    ? CircularProgressIndicator(
+                        color: AppColors.iconsColor,
+                      )
+                    : RoundButton(
+                        title: "Confirm ",
+                        onPress: () {
+                          BookingModel bookingModel = BookingModel(
+                            serviceName: controller.state.service.value,
+                            userName: controller.state.name,
+                            userPhone: controller.state.phone,
+                            address: controller.state.addressCon.text
+                                .trim()
+                                .toString(),
+                            providerName: controller.state.providerName.value,
+                            providerPhone: controller.state.providerPhone.value,
+                            description: controller.state.description.value,
+                            hourlyRate: controller.state.price.value,
+                            lat: controller.state.selectedLatLng.value.latitude,
+                            lang:
+                                controller.state.selectedLatLng.value.longitude,
+                            pId: pid,
+                            uid: FirebaseAuth.instance.currentUser!.uid
+                                .toString(),
+                            imageUrl: controller.state.imageURl.value,
+                            providerImgUrl:
+                                controller.state.providerImageUrl.value,
+                          );
+                          controller.storeDataInFirebase(bookingModel);
+                        },
+                      ),
+              ),
             ],
           ),
         ),

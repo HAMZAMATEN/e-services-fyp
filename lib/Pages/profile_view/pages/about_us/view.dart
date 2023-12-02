@@ -23,6 +23,7 @@ class AboutUsScreen extends GetView<AboutUsController> {
           },
           icon: Icon(
             Icons.arrow_back,
+            color: Colors.white,
           ),
         ),
         backgroundColor: AppColors.iconsColor,

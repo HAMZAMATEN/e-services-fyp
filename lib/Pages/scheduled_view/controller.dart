@@ -133,6 +133,8 @@ class ScheduledController extends GetxController {
       )
     };
   }
+
+
   void navigateToCurrentLocation() async {
   LocationPermission permission = await Geolocator.requestPermission();
 

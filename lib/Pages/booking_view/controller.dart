@@ -11,6 +11,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../utils/compnents/snackbar_widget.dart';
+import 'bookings_success_screen/view.dart';
 
 class BookingController extends GetxController {
   final state = BookingState();
@@ -19,6 +20,7 @@ class BookingController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     getCurrentUserData();
+    checkAlreadyBooked();
     super.onInit();
   }
 
@@ -78,42 +80,41 @@ class BookingController extends GetxController {
         .doc(FirebaseAuth.instance.currentUser!.uid.toString())
         .get();
 
-    if(snapshot.exists){
-      final data = snapshot.data() as Map<String,dynamic>;
+    if (snapshot.exists) {
+      final data = snapshot.data() as Map<String, dynamic>;
       state.name = data['userName'].toString();
       state.phone = data['phone'].toString();
-
     }
   }
 
-  void getCurrentServiceData(String id)async {
+  void getCurrentServiceData(String id) async {
     final snapshot = await FirebaseFirestore.instance
         .collection('allServices')
         .doc(id)
         .get();
 
-    if(snapshot.exists){
-      final data = snapshot.data() as Map<String,dynamic>;
+    if (snapshot.exists) {
+      final data = snapshot.data() as Map<String, dynamic>;
       // print('object' + data['providerName']);
       state.providerName.value = data['providerName'].toString();
       state.providerPhone.value = data['providerPhone'].toString();
       state.service.value = data['service'].toString();
       state.price.value = data['hourlyRate'].toString();
       state.description.value = data['description'].toString();
-
-
-
+      state.imageURl.value = data['imageUrl'].toString();
+      state.providerImageUrl.value = data['providerImageUrl'].toString();
     }
   }
-
 
   void onMapTap(LatLng latLng) async {
     state.selectedLatLng.value = latLng;
 
-    List<Placemark> placemarks = await placemarkFromCoordinates(latLng.latitude, latLng.longitude);
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(latLng.latitude, latLng.longitude);
     if (placemarks.isNotEmpty) {
       Placemark placemark = placemarks.first;
-      state.selectedAddress.value = '${placemark.street}, ${placemark.locality}, ${placemark.country}';
+      state.selectedAddress.value =
+          '${placemark.street}, ${placemark.locality}, ${placemark.country}';
       // You can customize the address format as needed
     }
 
@@ -122,7 +123,6 @@ class BookingController extends GetxController {
     }
     updateMarker(latLng);
   }
-
 
   void updateMarker(LatLng latLng) {
     markers = {
@@ -137,47 +137,57 @@ class BookingController extends GetxController {
     };
   }
 
-
   void navigateToCurrentLocation() async {
     LocationPermission permission = await Geolocator.requestPermission();
 
     Position position = await Geolocator.getCurrentPosition(
       desiredAccuracy: LocationAccuracy.high,
     );
-    print('position' + position.longitude.toString() +"\n"+ position.latitude.toString());
+    print('position' +
+        position.longitude.toString() +
+        "\n" +
+        position.latitude.toString());
 
     LatLng latLng = LatLng(position.latitude, position.longitude);
 
     print('lat lang : ' + latLng.toString());
 
-    state.mapController?.animateCamera(CameraUpdate.newLatLngZoom(latLng, 15.0));
+    state.mapController
+        ?.animateCamera(CameraUpdate.newLatLngZoom(latLng, 15.0));
     updateMarker(latLng); // Update marker at the current location
 
     state.selectedLatLng.value = latLng;
 
-    List<Placemark> placemarks = await placemarkFromCoordinates(latLng.latitude, latLng.longitude);
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(latLng.latitude, latLng.longitude);
     if (placemarks.isNotEmpty) {
       Placemark placemark = placemarks.first;
-      state.selectedAddress.value = '${placemark.street}, ${placemark.administrativeArea}, ${placemark.subAdministrativeArea} , ${placemark.country}';
-      print('address : '+ state.selectedAddress.value.toString());
+      state.selectedAddress.value =
+          '${placemark.street}, ${placemark.administrativeArea}, ${placemark.subAdministrativeArea} , ${placemark.country}';
+      print('address : ' + state.selectedAddress.value.toString());
     }
   }
 
-
   storeDataInFirebase(BookingModel bookingModel) async {
+    setLoading(true);
     try {
-      setLoading(true);
+      print('try');
+
       String doc_id = DateTime.now().millisecondsSinceEpoch.toString();
       bookingModel.id = doc_id;
+      print('try:' + doc_id);
+
       await FirebaseFirestore.instance
           .collection('bookedServices')
           .doc(doc_id)
           .set(bookingModel.toJson())
-          .then((value)  {
-
+          .then((value) {
         print('success');
         Snackbar.showSnackBar(
             'Success', "Successfully scheduled.", Icons.done_all);
+        Get.to(
+          SuccessfulView(),
+        );
         setLoading(false);
       }).onError((error, stackTrace) {
         print('error');
@@ -188,4 +198,27 @@ class BookingController extends GetxController {
     }
   }
 
+  checkAlreadyBooked() async {
+    final snapshot = await FirebaseFirestore.instance
+        .collection('bookedServices')
+        .where('uid',
+            isEqualTo: FirebaseAuth.instance.currentUser!.uid.toString())
+        .get();
+    if (snapshot.docs.isEmpty) {
+      print('empty');
+    } else {
+      print('length : ' + snapshot.docs.length.toString());
+      for (var i in snapshot.docs) {
+        var uid = i.get('uid');
+        if (uid != null && uid is String) {
+          state.uid.add(uid);
+        }
+      }
+    }
+  }
+
+  bool checkIfExists(String uidToCheck) {
+    // Check if uidToCheck exists in uidList
+    return state.uid.contains(uidToCheck);
+  }
 }

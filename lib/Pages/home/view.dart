@@ -1,5 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_services_fyp/Pages/drawer/view.dart';
 import 'package:e_services_fyp/Pages/home/controller.dart';
 import 'package:e_services_fyp/Pages/home/widgets/home_widget.dart';
 import 'package:e_services_fyp/Pages/splashScreen/controller.dart';
@@ -48,12 +49,16 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   final con = Get.lazyPut<HomeController>(() => HomeController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      key: _scaffoldKey,
+      drawer: UserDrawer.buildDrawer(context),
       appBar: AppBar(
         title: Text(
           'E_Services',
@@ -72,7 +77,7 @@ class HomeView extends GetView<HomeController> {
             size: 30,
           ),
           onPressed: () {
-            // Get.toNamed(AppRoutes.DrawerScreen);
+            _scaffoldKey.currentState!.openDrawer();
           },
         ),
       ),

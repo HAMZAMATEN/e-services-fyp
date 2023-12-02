@@ -2,6 +2,7 @@ import 'package:e_services_fyp/Pages/booking_view/book_now_screen/book_now_scree
 import 'package:e_services_fyp/Pages/booking_view/controller.dart';
 import 'package:e_services_fyp/res/colors.dart';
 import 'package:e_services_fyp/res/text_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
@@ -15,6 +16,7 @@ class BookingContainer extends GetView<BookingController> {
   final String serviceProviderName;
   final String serviceProviderImage;
   String? id;
+  String pid;
 
   BookingContainer({
     required this.serviceName,
@@ -25,6 +27,7 @@ class BookingContainer extends GetView<BookingController> {
     required this.serviceProviderName,
     required this.serviceProviderImage,
     this.id,
+    required this.pid,
   });
 
   @override
@@ -137,9 +140,16 @@ class BookingContainer extends GetView<BookingController> {
                       color: AppColors.iconsColor,
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: InkWell(
+                    child: controller.checkIfExists(FirebaseAuth.instance.currentUser!.uid.toString()) ?
+                    Center(
+                      child: TextWidget(
+                        title: 'Booked',
+                        fontSize: 14,
+                      ),
+                    )
+                        : InkWell(
                       onTap: () {
-                        Get.to(BookNowView(id: id.toString(),));
+                        Get.to(BookNowView(id: id.toString(),pid: pid,));
                         print('id is:'+id.toString());
                       },
                       child: Center(

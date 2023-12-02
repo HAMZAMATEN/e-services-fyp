@@ -2,10 +2,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_services_fyp/Pages/home/state.dart';
 import 'package:e_services_fyp/Pages/splashScreen/state.dart';
 import 'package:e_services_fyp/utils/routes/routesNames.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController{
   final state = HomeState();
+
+
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    checkAlreadyBooked();
+    super.onInit();
+  }
 
 
   final firestore =
@@ -52,4 +61,29 @@ class HomeController extends GetxController{
       }
     }
   }
+
+  checkAlreadyBooked() async {
+    final snapshot = await FirebaseFirestore.instance
+        .collection('bookedServices')
+        .where('uid',
+        isEqualTo: FirebaseAuth.instance.currentUser!.uid.toString())
+        .get();
+    if (snapshot.docs.isEmpty) {
+      print('empty');
+    } else {
+      print('length : ' + snapshot.docs.length.toString());
+      for (var i in snapshot.docs) {
+        var uid = i.get('uid');
+        if (uid != null && uid is String) {
+          state.uid.add(uid);
+        }
+      }
+    }
+  }
+
+  bool checkIfExists(String uidToCheck) {
+    // Check if uidToCheck exists in uidList
+    return state.uid.contains(uidToCheck);
+  }
+
 }
