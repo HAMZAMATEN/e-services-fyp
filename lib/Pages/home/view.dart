@@ -222,8 +222,8 @@ class HomeView extends GetView<HomeController> {
                                               .docs[index]['providerName'],
                                           serviceProviderImage: snapshot.data!
                                               .docs[index]['providerImageUrl'],
-                                          isBooked: snapshot.data!.docs[index]
-                                              ['isBooked'],
+                                          // isBooked: snapshot.data!.docs[index]
+                                          //     ['isBooked'],
                                         ),
                                   );
                                 });

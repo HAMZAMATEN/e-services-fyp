@@ -16,6 +16,7 @@ class BookingModel {
   final String pId;
   final String imageUrl;
   final String providerImgUrl;
+  final String status;
 
   BookingModel({
     this.id = '',
@@ -34,6 +35,7 @@ class BookingModel {
     required this.uid,
     required this.imageUrl,
     required this.providerImgUrl,
+    this.status = 'Pending',
   });
 
   toJson() {
@@ -53,6 +55,7 @@ class BookingModel {
       'uid':uid,
       'providerImgUrl' : providerImgUrl,
       'imageUrl' : imageUrl,
+      'status' : status,
     };
   }
 
@@ -76,6 +79,7 @@ class BookingModel {
       uid: json['uid'],
       imageUrl: json['imageUrl'],
       providerImgUrl: json['providerImgUrl'],
+      status: json['status'],
 
     );
   }

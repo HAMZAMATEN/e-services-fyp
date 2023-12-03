@@ -62,6 +62,7 @@ class BookedServicesScreen extends GetView<BookedServicesController> {
                             ['providerImgUrl'],
                         pid: snapshot.data!.docs[index]['pId'], phone: snapshot.data!.docs[index]
                       ['providerPhone'],
+                        status: snapshot.data!.docs[index]['status'].toString(),
                       ),
                     );
                   },

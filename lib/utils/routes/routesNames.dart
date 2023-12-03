@@ -22,6 +22,7 @@ class AppPages {
   static final String addPackageView = '/addPackageView';
   static final String managePackageView = '/managePackageView';
   static final String editPackageView = '/editPackageView';
+  static final String directOrdersView = '/directOrdersView';
 
 
 }

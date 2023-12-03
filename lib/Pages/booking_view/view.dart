@@ -63,8 +63,8 @@ class BookingView extends GetView<BookingController> {
                             serviceProviderImage: snapshot.data!.docs[index]
                                 ['providerImageUrl'], pid: snapshot.data!.docs[index]
                       ['providerId'],
-                        isBooked: snapshot.data!.docs[index]
-                      ['isBooked'],
+                      //   isBooked: snapshot.data!.docs[index]
+                      // ['isBooked'],
                           ),
                     );
                   });

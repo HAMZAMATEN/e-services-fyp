@@ -18,6 +18,7 @@ class BookedServiceContainer extends GetView<BookedServicesController> {
   final String serviceProviderImage;
   String? id;
   String pid;
+  String status;
 
   BookedServiceContainer({
     required this.serviceName,
@@ -29,6 +30,7 @@ class BookedServiceContainer extends GetView<BookedServicesController> {
     required this.phone,
     this.id,
     required this.pid,
+    required this.status,
   });
 
   @override
@@ -40,7 +42,7 @@ class BookedServiceContainer extends GetView<BookedServicesController> {
       },
       child: Container(
         width: 360,
-        height: 330,
+        height: 350,
         child: Card(
           elevation: 3,
           shape: RoundedRectangleBorder(
@@ -56,10 +58,12 @@ class BookedServiceContainer extends GetView<BookedServicesController> {
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
-              TextWidget(
-                title: serviceLable.capitalizeFirst.toString(),
-                fontSize: 15,
-                textColor: Colors.black,
+              Flexible(
+                child: TextWidget(
+                  title: serviceLable.capitalizeFirst.toString(),
+                  fontSize: 15,
+                  textColor: Colors.black,
+                ),
               ),
               SizedBox(height: 5),
               imageUrl == ''
@@ -67,73 +71,84 @@ class BookedServiceContainer extends GetView<BookedServicesController> {
                 Icons.image,
                 color: AppColors.iconsColor,
               )
-                  : Image.network(
+                  : Container(
+                    child: Image.network(
                 imageUrl,
                 height: 150,
                 width: double.infinity,
                 fit: BoxFit.cover,
               ),
+                  ),
               SizedBox(height: 10),
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                TextWidget(
-                  title: "Phone# : " + phone,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  textColor: Colors.black,
-                ),
-                Spacer(),
-                TextWidget(
-                  title: '\$$price',
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  textColor: Colors.black,
-                ),
-              ]),
+              Container(
+                child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                  TextWidget(
+                    title: "Phone# : " + phone,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    textColor: Colors.black,
+                  ),
+                  Spacer(),
+                  TextWidget(
+                    title: '\$$price',
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    textColor: Colors.black,
+                  ),
+                ]),
+              ),
               SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      serviceProviderImage == ''
-                          ? Icon(
-                        Icons.person_2_outlined,
+              Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        serviceProviderImage == ''
+                            ? Icon(
+                          Icons.person_2_outlined,
+                          color: AppColors.iconsColor,
+                        )
+                            : GestureDetector(
+                          onTap: () {
+                            // Get.toNamed(AppRoutes.P_ProfileView);
+                          },
+                          child: CircleAvatar(
+                            backgroundImage:
+                            NetworkImage(serviceProviderImage),
+                            radius: 20,
+                          ),
+                        ),
+                        SizedBox(width: 10),
+                        TextWidget(
+                          title: serviceProviderName.capitalizeFirst.toString(),
+                          textColor: Colors.black,
+                        ),
+                      ],
+                    ),
+                    Container(
+                      // height: 20,
+                      // width: 80,
+                      decoration: BoxDecoration(
                         color: AppColors.iconsColor,
-                      )
-                          : GestureDetector(
-                        onTap: () {
-                          // Get.toNamed(AppRoutes.P_ProfileView);
-                        },
-                        child: CircleAvatar(
-                          backgroundImage:
-                          NetworkImage(serviceProviderImage),
-                          radius: 20,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child:
+                      Center(
+                        child: Padding(
+                          padding:  EdgeInsets.symmetric(horizontal: 6),
+                          child: TextWidget(
+                            title: status.toString(),
+                            fontSize: 18,
+                            textColor: status == 'Pending'? Colors.yellow : status == 'Confirmed' ? Colors.green : Colors.red,
+                          ),
                         ),
                       ),
-                      SizedBox(width: 10),
-                      TextWidget(
-                        title: serviceProviderName.capitalizeFirst.toString(),
-                        textColor: Colors.black,
-                      ),
-                    ],
-                  ),
-                  Container(
-                    height: 45,
-                    width: 80,
-                    decoration: BoxDecoration(
-                      color: AppColors.iconsColor,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child:
-                    Center(
-                      child: TextWidget(
-                        title: 'Booked',
-                        fontSize: 14,
-                      ),
+
                     ),
 
-                  ),
-                ],
+                  ],
+                ),
               ),
             ]),
           ),

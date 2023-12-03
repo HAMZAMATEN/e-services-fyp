@@ -1,13 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_services_fyp/service_provider_pages/offer_detail_screen/state.dart';
+import 'package:e_services_fyp/service_provider_pages/order_detail_screen/state.dart';
 import 'package:e_services_fyp/utils/compnents/snackbar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-class OfferDetailController extends GetxController {
-  final state = OfferDetailState();
-  final ref = FirebaseFirestore.instance.collection('bookedServices');
+class OrderDetailController extends GetxController {
+  final state = OrderDetailState();
+  final ref = FirebaseFirestore.instance.collection('scheduledServices');
   final spRef = FirebaseFirestore.instance.collection('serviceProviders');
 
   String convertMillisecondsToDateFormat(String millisec) {
@@ -42,15 +43,14 @@ class OfferDetailController extends GetxController {
 
 
     try {
-      // DocumentSnapshot user = await spRef.doc(providerId).get();
-      // String pName = user['providerName'];
-      // String pNumber = user['phone'];
+      DocumentSnapshot user = await spRef.doc(providerId).get();
+      String pName = user['providerName'];
+      String pNumber = user['phone'];
       await ref.doc(id).update(
-          {
-            // 'provider': providerId,
-            'status': 'Confirmed',
-          // 'providerName' : pName,
-          //   'ProviderNumber' : pNumber,
+          {'provider': providerId,
+            'status': 'confirmed',
+          'providerName' : pName,
+            'ProviderNumber' : pNumber,
           }).then((value) {
         Snackbar.showSnackBar(
             "Confirmation", "Order Confirmed", Icons.done_all);
@@ -64,11 +64,10 @@ class OfferDetailController extends GetxController {
   Future<void> cancelOrder(String id, String providerId) async {
     try {
       await ref.doc(id).update(
-          {
-            // 'provider': '',
-            'status': 'Cancelled',
-            // 'providerName': '',
-            // 'ProviderNumber': '',
+          {'provider': '',
+            'status': 'Pending',
+            'providerName': '',
+            'ProviderNumber': '',
           }).then((value) {
         Snackbar.showSnackBar(
             "Confirmation", "Order Cancelled", Icons.done_all);

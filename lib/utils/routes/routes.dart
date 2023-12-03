@@ -20,6 +20,8 @@ import 'package:e_services_fyp/Pages/signup/bindings.dart';
 import 'package:e_services_fyp/Pages/signup/view.dart';
 import 'package:e_services_fyp/Pages/splashScreen/bindings.dart';
 import 'package:e_services_fyp/Pages/splashScreen/view.dart';
+import 'package:e_services_fyp/service_provider_pages/Orders/Screens/Direct/bindings.dart';
+import 'package:e_services_fyp/service_provider_pages/Orders/Screens/Direct/view.dart';
 import 'package:e_services_fyp/service_provider_pages/ServicePackages/AddPackage/bindings.dart';
 import 'package:e_services_fyp/service_provider_pages/ServicePackages/AddPackage/view.dart';
 import 'package:e_services_fyp/service_provider_pages/ServicePackages/EditPackage/bindings.dart';
@@ -143,6 +145,12 @@ class AppRoutes {
       name: AppPages.editPackageView,
       page: () => EditPackageView(packageId: ''),
       binding: EditPackageBindings(),
+      transition: Transition.zoom,
+    ),
+    GetPage(
+      name: AppPages.directOrdersView,
+      page: () => DirectOrdersView(),
+      binding: DirectOrdersBindings(),
       transition: Transition.zoom,
     ),
   ];

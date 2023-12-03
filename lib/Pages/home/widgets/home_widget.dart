@@ -16,7 +16,7 @@ class HomeContainer extends GetView<HomeController> {
   final String serviceProviderName;
   final String serviceProviderImage;
   String? id;
-  bool isBooked;
+  // bool isBooked;
 
   HomeContainer({
     required this.serviceName,
@@ -27,7 +27,7 @@ class HomeContainer extends GetView<HomeController> {
     required this.serviceProviderName,
     required this.serviceProviderImage,
     this.id,
-    required this.isBooked,
+    // required this.isBooked,
   });
 
   @override
@@ -48,17 +48,21 @@ class HomeContainer extends GetView<HomeController> {
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Column(crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
               TextWidget(
                 title: serviceName.capitalizeFirst.toString(),
                 textColor: Colors.black,
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
-              TextWidget(
-                title: serviceLable.capitalizeFirst.toString(),
-                fontSize: 15,
-                textColor: Colors.black,
+              Flexible(
+                child: TextWidget(
+                  title: serviceLable.capitalizeFirst.toString(),
+                  fontSize: 15,
+                  textColor: Colors.black,
+                ),
               ),
               SizedBox(height: 5),
               imageUrl == ''
@@ -66,12 +70,14 @@ class HomeContainer extends GetView<HomeController> {
                       Icons.image,
                       color: AppColors.iconsColor,
                     )
-                  : Image.network(
-                      imageUrl,
-                      height: 150,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
+                  : Container(
+                    child: Image.network(
+                        imageUrl,
+                        height: 150,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                      ),
+                  ),
               SizedBox(height: 10),
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                 RatingBar.builder(
@@ -105,58 +111,56 @@ class HomeContainer extends GetView<HomeController> {
                   textColor: Colors.black,
                 ),
               ]),
-              SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      serviceProviderImage == ''
-                          ? Icon(
-                              Icons.person_2_outlined,
-                              color: AppColors.iconsColor,
-                            )
-                          : GestureDetector(
-                              onTap: () {
-                                // Get.toNamed(AppRoutes.P_ProfileView);
-                              },
-                              child: CircleAvatar(
-                                backgroundImage:
-                                    NetworkImage(serviceProviderImage),
-                                radius: 20,
+              // SizedBox(height: 20),
+              Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        serviceProviderImage == ''
+                            ? Icon(
+                                Icons.person_2_outlined,
+                                color: AppColors.iconsColor,
+                              )
+                            : GestureDetector(
+                                onTap: () {
+                                  // Get.toNamed(AppRoutes.P_ProfileView);
+                                },
+                                child: CircleAvatar(
+                                  backgroundImage:
+                                      NetworkImage(serviceProviderImage),
+                                  radius: 20,
+                                ),
+                              ),
+                        SizedBox(width: 10),
+                        TextWidget(
+                          title: serviceProviderName.capitalizeFirst.toString(),
+                          textColor: Colors.black,
+                        ),
+                      ],
+                    ),
+                    Container(
+                      // height: 30,
+                      // width: 80,
+                      decoration: BoxDecoration(
+                        color: AppColors.iconsColor,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: InkWell(
+                          onTap: () {},
+                          child: Center(
+                            child: Padding(
+                              padding:  EdgeInsets.symmetric(horizontal: 8.0),
+                              child: TextWidget(
+                                title: 'Book Now',
+                                fontSize: 18,
                               ),
                             ),
-                      SizedBox(width: 10),
-                      TextWidget(
-                        title: serviceProviderName.capitalizeFirst.toString(),
-                        textColor: Colors.black,
-                      ),
-                    ],
-                  ),
-                  Container(
-                    height: 45,
-                    width: 80,
-                    decoration: BoxDecoration(
-                      color: AppColors.iconsColor,
-                      borderRadius: BorderRadius.circular(10),
+                          )),
                     ),
-                    child: isBooked == true ?
-                    Center(
-                      child: TextWidget(
-                        title: 'Booked',
-                        fontSize: 14,
-                      ),
-                    )
-                        : InkWell(
-                        onTap: () {},
-                        child: Center(
-                          child: TextWidget(
-                            title: 'Book Now',
-                            fontSize: 14,
-                          ),
-                        )),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ]),
           ),

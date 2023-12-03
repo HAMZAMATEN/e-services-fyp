@@ -1,6 +1,7 @@
 // import 'package:e_services_fyp/Pages/scheduled_view/controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_services_fyp/res/colors.dart';
+import 'package:e_services_fyp/res/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -137,29 +138,11 @@ class ScheduledOrdersView extends GetView<ScheduledOrdersController> {
   Widget build(BuildContext context) {
     return  Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0, // Remove the elevation if you don't want a shadow
-        automaticallyImplyLeading: false, // Remove the back button
-        flexibleSpace: Padding(
-          padding: EdgeInsets.only(bottom: 8.0, top: 20),
-          child: Container(
-            height: 60,
-            width: double.infinity,
-            color: Colors.white,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(); // Use Navigator to go back
-                  },
-                  icon: Icon(Icons.arrow_back),
-                ),
-                // Add more widgets as needed
-              ],
-            ),
-          ),
+        title: TextWidget(
+          title: 'Scheduled Bookings',
+          fontSize: 20,
         ),
+        backgroundColor: AppColors.iconsColor,
       ),
       body: SafeArea(
         child: StreamBuilder<QuerySnapshot>(
@@ -188,24 +171,7 @@ class ScheduledOrdersView extends GetView<ScheduledOrdersController> {
                 itemBuilder: (context, index) {
                   double lat = snapshot.data!.docs[index]['lat'];
                   double long = snapshot.data!.docs[index]['lat'];
-                  return Column(
-                    children: [
-                      index==0? Padding(
-                        padding:  EdgeInsets.only(bottom: 8.0),
-                        child: Container(height: 60,width: double.infinity,color: Colors.white,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              IconButton(onPressed: (){
-                                Get.back();
-                              }, icon: Icon(Icons.arrow_back)),
-                            ],
-                          ),
-                        ),
-                      ) : Container(),
-                      _buildCard(snapshot, index),
-                    ],
-                  );
+                  return _buildCard(snapshot, index);
                 });
           },
         ),

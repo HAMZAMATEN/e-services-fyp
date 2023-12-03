@@ -143,12 +143,15 @@ class ScheduledView extends GetView<ScheduledController> {
                             SizedBox(
                               width: 10,
                             ),
-                            TextWidget(
-                              title: controller.state.selectedLatLng.value ==
-                                      LatLng(32.082466, 72.669128)
-                                  ? "Select Location on Map"
-                                  : controller.state.selectedAddress.value
-                                      .toString(),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextWidget(
+                                title: controller.state.selectedLatLng.value ==
+                                        LatLng(32.082466, 72.669128)
+                                    ? "Select Location on Map"
+                                    : controller.state.selectedAddress.value
+                                        .toString(),
+                              ),
                             ),
                           ],
                         ),

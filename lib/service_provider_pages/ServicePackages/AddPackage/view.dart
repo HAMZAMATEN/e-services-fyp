@@ -31,24 +31,24 @@ class AddPackageView extends GetView<AddPackageController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Padding(
-              padding: EdgeInsets.only(bottom: 8.0, top: 20),
-              child: Container(
-                height: 60,
-                width: double.infinity,
-                color: Colors.white,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    IconButton(
-                        onPressed: () {
-                          Get.back();
-                        },
-                        icon: Icon(Icons.arrow_back)),
-                  ],
-                ),
-              ),
-            ),
+            // Padding(
+            //   padding: EdgeInsets.only(bottom: 8.0, top: 20),
+            //   child: Container(
+            //     height: 60,
+            //     width: double.infinity,
+            //     color: Colors.white,
+            //     child: Row(
+            //       mainAxisAlignment: MainAxisAlignment.start,
+            //       children: [
+            //         IconButton(
+            //             onPressed: () {
+            //               Get.back();
+            //             },
+            //             icon: Icon(Icons.arrow_back)),
+            //       ],
+            //     ),
+            //   ),
+            // ),
             Obx(() {
               return controller.state.infoLoading == true
                   ? Column(
@@ -76,7 +76,7 @@ class AddPackageView extends GetView<AddPackageController> {
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(140)),
                                 child: controller.image == null
-                                    ? Icon(Icons.image)
+                                    ? Icon(Icons.image,color: AppColors.iconsColor,size: 50,)
                                     : ClipRRect(
                                   borderRadius: BorderRadius.circular(10),
                                   child: Image.file(

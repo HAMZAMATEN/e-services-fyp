@@ -1,17 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_services_fyp/res/colors.dart';
 import 'package:e_services_fyp/res/session_controller.dart';
+import 'package:e_services_fyp/res/text_widget.dart';
 import 'package:e_services_fyp/service_provider_pages/offer_detail_screen/controller.dart';
-import 'package:e_services_fyp/service_provider_pages/order_detail_screen/controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class OfferDetailScreen extends StatelessWidget {
+class OrderDetailScreen extends StatelessWidget {
   String id;
-  OfferDetailScreen({Key? key, required this.id}) : super(key: key);
+  OrderDetailScreen({Key? key, required this.id}) : super(key: key);
 
-  final ref = FirebaseFirestore.instance.collection('scheduledServices');
-  final controller = Get.put<OrderDetailController>(OrderDetailController());
+  final ref = FirebaseFirestore.instance.collection('bookedServices');
+  final controller = Get.put<OfferDetailController>(OfferDetailController());
 
   Widget _returnDetails(
       BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot, int index) {
@@ -61,27 +61,27 @@ class OfferDetailScreen extends StatelessWidget {
                   children: [
                     // _detailText('Order #', controller.orderDetails!.orderId.toString(), true),
                     _detailText('Customer Name',
-                        snapshot.data!.docs[index]['name'].toString()),
+                        snapshot.data!.docs[index]['userName'].toString()),
                     _detailText('Phone Number',
-                        snapshot.data!.docs[index]['phone'].toString()),
+                        snapshot.data!.docs[index]['userPhone'].toString()),
                     _detailText('Address ',
-                        snapshot.data!.docs[index]['address'].toString()),
-                    _detailText('Location ',
                         snapshot.data!.docs[index]['lat'].toString()),
+                    _detailText('Location ',
+                        snapshot.data!.docs[index]['lang'].toString()),
                     _detailText(
                         'Date ',
                         controller.convertMillisecondsToDateFormat(
-                            snapshot.data!.docs[index]['date'].toString())),
+                            snapshot.data!.docs[index]['id'].toString())),
                     _detailText(
                         'Time ',
-                        controller.convertTime(snapshot.data!.docs[index]['time'].toString()),
+                        controller.convertTime(snapshot.data!.docs[index]['id'].toString()),
                         // controller.convertMillisecondsToHrsMM(
                         //     snapshot.data!.docs[index]['time'].toString())
                     ),
                     _detailText('Service ',
-                        snapshot.data!.docs[index]['service'].toString()),
-                    _detailText('Description ',
                         snapshot.data!.docs[index]['serviceName'].toString()),
+                    _detailText('Description ',
+                        snapshot.data!.docs[index]['description'].toString()),
                     _detailText('Status ',
                         snapshot.data!.docs[index]['status'].toString()),
                     SizedBox(
@@ -129,6 +129,7 @@ class OfferDetailScreen extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 10),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
             child: Text(
@@ -138,12 +139,15 @@ class OfferDetailScreen extends StatelessWidget {
                   fontWeight: isBold ? FontWeight.bold : FontWeight.normal),
             ),
           ),
-          Text(
-            value,
-            style: TextStyle(
-                fontSize: 15,
-                fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
-                color: color ?? Colors.black),
+          SizedBox(width: 10,),
+          Flexible(
+            child: Text(
+              value,
+              style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+                  color: color ?? Colors.black),
+            ),
           ),
         ],
       ),
@@ -191,29 +195,11 @@ class OfferDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0, // Remove the elevation if you don't want a shadow
-        automaticallyImplyLeading: false, // Remove the back button
-        flexibleSpace: Padding(
-          padding: EdgeInsets.only(bottom: 8.0, top: 20),
-          child: Container(
-            height: 60,
-            width: double.infinity,
-            color: Colors.white,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(); // Use Navigator to go back
-                  },
-                  icon: Icon(Icons.arrow_back,color: Colors.black,),
-                ),
-                // Add more widgets as needed
-              ],
-            ),
-          ),
+        title: TextWidget(
+          title: 'Booking Details',
+          fontSize: 20,
         ),
+        backgroundColor: AppColors.iconsColor,
       ),
       body: SafeArea(
         child: StreamBuilder<QuerySnapshot>(

@@ -29,11 +29,14 @@ class ManagePackagesView extends GetView<ManagePackageController> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              IconButton(
-                onPressed: () {
-                  Navigator.of(context).pop(); // Use Navigator to go back
-                },
-                icon: Icon(Icons.arrow_back),
+              Padding(
+                padding:  EdgeInsets.only(top: 15),
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(); // Use Navigator to go back
+                  },
+                  icon: Icon(Icons.arrow_back,color: Colors.black,),
+                ),
               ),
               // Add more widgets as needed
             ],
@@ -62,7 +65,7 @@ class ManagePackagesView extends GetView<ManagePackageController> {
             }
             if (snapshot.data!.docs.isEmpty) {
               return Center(
-                child: Text('No Items in the Database'),
+                child: Text('No Services posted yet'),
               );
             }
             return Padding(
@@ -150,7 +153,7 @@ class ServiceCard extends StatelessWidget {
                           // Get.toNamed(AppPages.editPackageView,arguments: {packageId});
                           Get.to(()=>EditPackageView(packageId: packageId));
                         },
-                        child: Icon(Icons.change_circle_outlined,size: 30,)),
+                        child: Icon(Icons.change_circle_outlined,size: 30,color: Colors.black,)),
                   ],
                 ),
                 SizedBox(height: 5.0),
