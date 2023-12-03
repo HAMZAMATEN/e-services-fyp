@@ -83,8 +83,8 @@ class CategoryWidget extends GetView<CatogeryController> {
                       serviceProviderImage: snapshot.data!.docs[index]
                       ['providerImageUrl'], pid: snapshot.data!.docs[index]
                     ['providerId'],
-                      isBooked: snapshot.data!.docs[index]
-                      ['isBooked'],
+                      // isBooked: snapshot.data!.docs[index]
+                      // ['isBooked'],
                     ),);
                   }
                 }),

@@ -18,7 +18,7 @@ class CategoryContainer extends GetView<CatogeryController> {
   final String serviceProviderImage;
   String? id;
   String pid;
-  bool isBooked;
+  // bool isBooked;
 
   CategoryContainer({
     required this.serviceName,
@@ -30,7 +30,7 @@ class CategoryContainer extends GetView<CatogeryController> {
     required this.serviceProviderImage,
     this.id,
     required this.pid,
-    required this.isBooked,
+    // required this.isBooked,
   });
 
   @override
@@ -51,29 +51,35 @@ class CategoryContainer extends GetView<CatogeryController> {
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child:
-            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Column(crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
               TextWidget(
                 title: serviceName.capitalizeFirst.toString(),
                 textColor: Colors.black,
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
-              TextWidget(
-                title: serviceLable.capitalizeFirst.toString(),
-                fontSize: 15,
-                textColor: Colors.black,
+              Flexible(
+                child: TextWidget(
+                  title: serviceLable.capitalizeFirst.toString(),
+                  fontSize: 15,
+                  textColor: Colors.black,
+                ),
               ),
               SizedBox(height: 5),
-              imageUrl == ''
-                  ? Icon(
-                Icons.image,
-                color: AppColors.iconsColor,
-              )
-                  : Image.network(
-                imageUrl,
-                height: 150,
-                width: double.infinity,
-                fit: BoxFit.cover,
+              Container(
+                child: imageUrl == ''
+                    ? Icon(
+                  Icons.image,
+                  color: AppColors.iconsColor,
+                )
+                    : Image.network(
+                  imageUrl,
+                  height: 150,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
               ),
               SizedBox(height: 10),
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
@@ -137,28 +143,24 @@ class CategoryContainer extends GetView<CatogeryController> {
                     ],
                   ),
                   Container(
-                    height: 45,
-                    width: 80,
+                    // height: 45,
+                    // width: 80,
                     decoration: BoxDecoration(
                       color: AppColors.iconsColor,
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: isBooked == true ?
-                    Center(
-                      child: TextWidget(
-                        title: 'Booked',
-                        fontSize: 14,
-                      ),
-                    )
-                        : InkWell(
+                    child: InkWell(
                       onTap: () {
                         Get.to(BookNowView(id: id.toString(),pid: pid,));
                         print('id is:'+id.toString());
                       },
                       child: Center(
-                        child: TextWidget(
-                          title: 'Book Now',
-                          fontSize: 14,
+                        child: Padding(
+                          padding:  EdgeInsets.symmetric(horizontal: 8.0),
+                          child: TextWidget(
+                            title: 'Book Now',
+                            fontSize: 18,
+                          ),
                         ),
                       ),
                     ),

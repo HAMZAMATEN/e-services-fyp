@@ -212,7 +212,7 @@ class BookingController extends GetxController {
           .doc(doc_id)
           .set(bookingModel.toJson())
           .then((value) {
-            checkAlreadyBooked(id);
+            // checkAlreadyBooked(id);
         print('success');
         Snackbar.showSnackBar(
             'Success', "Successfully scheduled.", Icons.done_all);
