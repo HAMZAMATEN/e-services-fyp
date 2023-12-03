@@ -34,12 +34,17 @@ class BookingView extends GetView<BookingController> {
               return ListView.builder(
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (context, index) {
-                    controller.getAverageRating(snapshot.data!.docs[index]['id'].toString());
+                    // var len = controller.getAverageRating(snapshot.data!.docs[index]['id'].toString());
+                    //
+                    // print('index at : ' + index.toString());
+                    // print('stars val : ' + len.toString());
+                    String serviceId = snapshot.data!.docs[index]['id'].toString();
+                    controller.getAverageRating(serviceId); // Fetch average rating for the service
 
                     return Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 10, horizontal: 15),
-                      child: Obx(() => BookingContainer(
+                      child: BookingContainer(
                             serviceName: snapshot.data!.docs[index]['service']
                                 .toString(),
                             serviceLable: snapshot
@@ -50,7 +55,7 @@ class BookingView extends GetView<BookingController> {
                             price: double.parse(
                                 snapshot.data!.docs[index]['hourlyRate']),
                             feedbackStars:
-                              controller.state.averageRating.value,
+                            controller.serviceAverageRatings[serviceId]?.value ?? 0.0,
 
                             id: snapshot.data!.docs[index]['id'].toString(),
                             serviceProviderName: snapshot.data!.docs[index]
@@ -60,7 +65,7 @@ class BookingView extends GetView<BookingController> {
                       ['providerId'],
                         isBooked: snapshot.data!.docs[index]
                       ['isBooked'],
-                          )),
+                          ),
                     );
                   });
             } else if (snapshot.hasError) {

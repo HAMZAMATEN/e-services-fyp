@@ -76,9 +76,9 @@ class BookingContainer extends GetView<BookingController> {
                     ),
               SizedBox(height: 10),
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                Obx(() => RatingBar.builder(
+                RatingBar.builder(
                   itemSize: 25,
-                  initialRating: controller.state.averageRating.value,
+                  initialRating: feedbackStars,
                   minRating: 1,
                   direction: Axis.horizontal,
                   allowHalfRating: true,
@@ -98,7 +98,7 @@ class BookingContainer extends GetView<BookingController> {
                       id.toString(),
                     );
                   },
-                )),
+                ),
                 Spacer(),
                 TextWidget(
                   title: '\$$price',

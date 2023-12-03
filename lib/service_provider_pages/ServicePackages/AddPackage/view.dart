@@ -19,6 +19,14 @@ class AddPackageView extends GetView<AddPackageController> {
   Widget build(BuildContext context) {
     controller.fetchDetails();
     return Scaffold(
+      appBar: AppBar(
+        title: TextWidget(
+          title: 'Add Package',
+          fontSize: 20,
+        ),
+        backgroundColor: AppColors.iconsColor,
+      ),
+
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,

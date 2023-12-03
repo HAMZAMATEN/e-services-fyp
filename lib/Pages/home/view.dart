@@ -196,14 +196,13 @@ class HomeView extends GetView<HomeController> {
                                 scrollDirection: Axis.horizontal,
                                 itemCount: snapshot.data!.docs.length,
                                 itemBuilder: (context, index) {
-                                  controller.getAverageRating(snapshot
-                                      .data!.docs[index]['id']
-                                      .toString());
+                                  String serviceId = snapshot.data!.docs[index]['id'].toString();
+                                  controller.getAverageRating(serviceId);
 
                                   return Padding(
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 00, horizontal: 0),
-                                    child: Obx(() => HomeContainer(
+                                    child: HomeContainer(
                                           serviceName: snapshot
                                               .data!.docs[index]['service']
                                               .toString(),
@@ -216,7 +215,7 @@ class HomeView extends GetView<HomeController> {
                                           price: double.parse(snapshot
                                               .data!.docs[index]['hourlyRate']),
                                           feedbackStars: controller
-                                              .state.averageRating.value,
+                                              .serviceAverageRatings[serviceId]?.value ?? 0.0,
                                           id: snapshot.data!.docs[index]['id']
                                               .toString(),
                                           serviceProviderName: snapshot.data!
@@ -225,7 +224,7 @@ class HomeView extends GetView<HomeController> {
                                               .docs[index]['providerImageUrl'],
                                           isBooked: snapshot.data!.docs[index]
                                               ['isBooked'],
-                                        )),
+                                        ),
                                   );
                                 });
                           } else if (snapshot.hasError) {

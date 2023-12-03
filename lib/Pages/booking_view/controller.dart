@@ -49,9 +49,36 @@ class BookingController extends GetxController {
       'stars': ratings,
     });
   }
+  //
+  // Future<void> getAverageRating(String id) async {
+  //   // Replace 'providerId' with the ID of the specific provider document
+  //   DocumentSnapshot providerDocSnapshot = await FirebaseFirestore.instance
+  //       .collection('allServices')
+  //       .doc(id)
+  //       .get();
+  //   print('id:' + id);
+  //   if (providerDocSnapshot.exists) {
+  //     Map<String, dynamic>? data =
+  //         providerDocSnapshot.data() as Map<String, dynamic>?;
+  //
+  //     if (data != null && data.containsKey('stars')) {
+  //       List<dynamic> ratings = data['stars'] ?? [];
+  //       print('rating is:'+ratings.toString());
+  //       if (ratings.isNotEmpty) {
+  //         double totalRating =
+  //             ratings.reduce((value, element) => value + element);
+  //         state.averageRating.value = totalRating / ratings.length;
+  //         print('rating after is:'+state.averageRating.value.toString());
+  //       }
+  //     }
+  //   }
+  // }
 
+  // Define a map to store average ratings for different services
+  Map<String, RxDouble> serviceAverageRatings = {};
+
+// Function to get average rating for a specific service
   Future<void> getAverageRating(String id) async {
-    // Replace 'providerId' with the ID of the specific provider document
     DocumentSnapshot providerDocSnapshot = await FirebaseFirestore.instance
         .collection('allServices')
         .doc(id)
@@ -59,19 +86,23 @@ class BookingController extends GetxController {
 
     if (providerDocSnapshot.exists) {
       Map<String, dynamic>? data =
-          providerDocSnapshot.data() as Map<String, dynamic>?;
+      providerDocSnapshot.data() as Map<String, dynamic>?;
 
       if (data != null && data.containsKey('stars')) {
         List<dynamic> ratings = data['stars'] ?? [];
 
         if (ratings.isNotEmpty) {
-          double totalRating =
-              ratings.reduce((value, element) => value + element);
-          state.averageRating.value = totalRating / ratings.length;
+          double totalRating = ratings.reduce((value, element) => value + element);
+          double avgRating = totalRating / ratings.length;
+
+          // Store the average rating in the map with the service ID as the key
+          serviceAverageRatings[id] = avgRating.obs;
+          print('rating is:'+avgRating.obs.string);
         }
       }
     }
   }
+
 
   void getCurrentUserData() async {
     final snapshot = await FirebaseFirestore.instance

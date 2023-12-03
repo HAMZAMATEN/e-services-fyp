@@ -59,25 +59,12 @@ class UserDrawer {
             onPress: () {
               Navigator.pop(context);
 
-              // Get.toNamed(AppRoutes.categoryScreen);
+              Get.toNamed(AppPages.catogeryView);
             },
           ),
-          SizedBox(
-            height: 5,
-          ),
+
           ListTileWidget(
-            iconData: Icons.shopping_cart_outlined,
-            title: 'My Cart',
-            onPress: () {
-              Navigator.pop(context);
-              // Get.toNamed(AppRoutes.cartScreen);
-            },
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          ListTileWidget(
-            iconData: Icons.person,
+            iconData: Icons.details_outlined,
             title: 'About Us',
             onPress: () {
               Navigator.pop(context);
@@ -111,21 +98,21 @@ class UserDrawer {
           ),
           ListTileWidget(
             iconData: Icons.favorite_outline,
-            title: 'Wish List',
+            title: 'FAQ\'s',
             onPress: () {
               Navigator.pop(context);
-              // Get.toNamed(AppRoutes.wishListScreen);
+              Get.toNamed(AppPages.faqView);
             },
           ),
           SizedBox(
             height: 5,
           ),
           ListTileWidget(
-            iconData: Icons.help_outline_outlined,
-            title: 'Help Center',
+            iconData: Icons.person_2_rounded,
+            title: 'Profile',
             onPress: () {
               Navigator.pop(context);
-              // Get.toNamed(AppRoutes.helpCenterScreen);
+              Get.toNamed(AppPages.userProfileView);
             },
           ),
           SizedBox(

@@ -21,6 +21,14 @@ class EditPackageView extends GetView<EditPackageController> {
   Widget build(BuildContext context) {
     controller.fetchDetails(packageId);
     return Scaffold(
+      appBar: AppBar(
+        title: TextWidget(
+          title: 'Edit Package',
+          fontSize: 20,
+        ),
+        backgroundColor: AppColors.iconsColor,
+      ),
+
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,

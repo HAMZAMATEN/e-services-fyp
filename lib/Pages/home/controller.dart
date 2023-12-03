@@ -38,9 +38,11 @@ class HomeController extends GetxController{
       'stars': ratings,
     });
   }
+  // Define a map to store average ratings for different services
+  Map<String, RxDouble> serviceAverageRatings = {};
 
+// Function to get average rating for a specific service
   Future<void> getAverageRating(String id) async {
-    // Replace 'providerId' with the ID of the specific provider document
     DocumentSnapshot providerDocSnapshot = await FirebaseFirestore.instance
         .collection('allServices')
         .doc(id)
@@ -54,9 +56,12 @@ class HomeController extends GetxController{
         List<dynamic> ratings = data['stars'] ?? [];
 
         if (ratings.isNotEmpty) {
-          double totalRating =
-          ratings.reduce((value, element) => value + element);
-          state.averageRating.value = totalRating / ratings.length;
+          double totalRating = ratings.reduce((value, element) => value + element);
+          double avgRating = totalRating / ratings.length;
+
+          // Store the average rating in the map with the service ID as the key
+          serviceAverageRatings[id] = avgRating.obs;
+          print('rating is:'+avgRating.obs.string);
         }
       }
     }

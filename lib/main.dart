@@ -24,6 +24,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        iconButtonTheme: IconButtonThemeData(
+          style: ButtonStyle(
+            foregroundColor: MaterialStateProperty.all(Colors.white),
+          )
+        ),
+        iconTheme:IconThemeData(
+          color: Colors.white,
+        ) ,
+      ),
       // home: SplashView(),
       initialRoute: AppPages.splashView,
       getPages: AppRoutes.routes,
