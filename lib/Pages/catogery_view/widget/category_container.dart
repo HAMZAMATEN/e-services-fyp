@@ -1,5 +1,6 @@
+import 'package:e_services_fyp/Pages/booking_view/book_now_screen/book_now_screen.dart';
 import 'package:e_services_fyp/Pages/booking_view/controller.dart';
-import 'package:e_services_fyp/Pages/home/controller.dart';
+import 'package:e_services_fyp/Pages/catogery_view/controller.dart';
 import 'package:e_services_fyp/res/colors.dart';
 import 'package:e_services_fyp/res/text_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 
-class HomeContainer extends GetView<HomeController> {
+class CategoryContainer extends GetView<CatogeryController> {
   final String serviceName;
   final String serviceLable;
   final String imageUrl;
@@ -16,9 +17,10 @@ class HomeContainer extends GetView<HomeController> {
   final String serviceProviderName;
   final String serviceProviderImage;
   String? id;
+  String pid;
   bool isBooked;
 
-  HomeContainer({
+  CategoryContainer({
     required this.serviceName,
     required this.serviceLable,
     required this.imageUrl,
@@ -27,19 +29,20 @@ class HomeContainer extends GetView<HomeController> {
     required this.serviceProviderName,
     required this.serviceProviderImage,
     this.id,
+    required this.pid,
     required this.isBooked,
   });
 
   @override
   Widget build(BuildContext context) {
-    final con = Get.lazyPut<HomeController>(() => HomeController());
+    final con = Get.lazyPut<BookingController>(() => BookingController());
     return GestureDetector(
       onTap: () {
         // Get.toNamed(AppRoutes.BookingView);
       },
       child: Container(
         width: 360,
-        height: 310,
+        height: 330,
         child: Card(
           elevation: 3,
           shape: RoundedRectangleBorder(
@@ -48,7 +51,7 @@ class HomeContainer extends GetView<HomeController> {
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               TextWidget(
                 title: serviceName.capitalizeFirst.toString(),
                 textColor: Colors.black,
@@ -63,20 +66,20 @@ class HomeContainer extends GetView<HomeController> {
               SizedBox(height: 5),
               imageUrl == ''
                   ? Icon(
-                      Icons.image,
-                      color: AppColors.iconsColor,
-                    )
+                Icons.image,
+                color: AppColors.iconsColor,
+              )
                   : Image.network(
-                      imageUrl,
-                      height: 150,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
+                imageUrl,
+                height: 150,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
               SizedBox(height: 10),
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                RatingBar.builder(
+                Obx(() => RatingBar.builder(
                   itemSize: 25,
-                  initialRating: feedbackStars == [] ? 3 : feedbackStars,
+                  initialRating: controller.state.averageRating.value,
                   minRating: 1,
                   direction: Axis.horizontal,
                   allowHalfRating: true,
@@ -96,7 +99,7 @@ class HomeContainer extends GetView<HomeController> {
                       id.toString(),
                     );
                   },
-                ),
+                )),
                 Spacer(),
                 TextWidget(
                   title: '\$$price',
@@ -113,19 +116,19 @@ class HomeContainer extends GetView<HomeController> {
                     children: [
                       serviceProviderImage == ''
                           ? Icon(
-                              Icons.person_2_outlined,
-                              color: AppColors.iconsColor,
-                            )
+                        Icons.person_2_outlined,
+                        color: AppColors.iconsColor,
+                      )
                           : GestureDetector(
-                              onTap: () {
-                                // Get.toNamed(AppRoutes.P_ProfileView);
-                              },
-                              child: CircleAvatar(
-                                backgroundImage:
-                                    NetworkImage(serviceProviderImage),
-                                radius: 20,
-                              ),
-                            ),
+                        onTap: () {
+                          // Get.toNamed(AppRoutes.P_ProfileView);
+                        },
+                        child: CircleAvatar(
+                          backgroundImage:
+                          NetworkImage(serviceProviderImage),
+                          radius: 20,
+                        ),
+                      ),
                       SizedBox(width: 10),
                       TextWidget(
                         title: serviceProviderName.capitalizeFirst.toString(),
@@ -148,13 +151,17 @@ class HomeContainer extends GetView<HomeController> {
                       ),
                     )
                         : InkWell(
-                        onTap: () {},
-                        child: Center(
-                          child: TextWidget(
-                            title: 'Book Now',
-                            fontSize: 14,
-                          ),
-                        )),
+                      onTap: () {
+                        Get.to(BookNowView(id: id.toString(),pid: pid,));
+                        print('id is:'+id.toString());
+                      },
+                      child: Center(
+                        child: TextWidget(
+                          title: 'Book Now',
+                          fontSize: 14,
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),

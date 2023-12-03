@@ -20,7 +20,6 @@ class BookingController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     getCurrentUserData();
-    checkAlreadyBooked();
     super.onInit();
   }
 
@@ -168,7 +167,7 @@ class BookingController extends GetxController {
     }
   }
 
-  storeDataInFirebase(BookingModel bookingModel) async {
+  storeDataInFirebase(BookingModel bookingModel,String id) async {
     setLoading(true);
     try {
       print('try');
@@ -182,6 +181,7 @@ class BookingController extends GetxController {
           .doc(doc_id)
           .set(bookingModel.toJson())
           .then((value) {
+            checkAlreadyBooked(id);
         print('success');
         Snackbar.showSnackBar(
             'Success', "Successfully scheduled.", Icons.done_all);
@@ -198,27 +198,16 @@ class BookingController extends GetxController {
     }
   }
 
-  checkAlreadyBooked() async {
+  checkAlreadyBooked(String id) async {
     final snapshot = await FirebaseFirestore.instance
-        .collection('bookedServices')
-        .where('uid',
-            isEqualTo: FirebaseAuth.instance.currentUser!.uid.toString())
-        .get();
-    if (snapshot.docs.isEmpty) {
-      print('empty');
-    } else {
-      print('length : ' + snapshot.docs.length.toString());
-      for (var i in snapshot.docs) {
-        var uid = i.get('uid');
-        if (uid != null && uid is String) {
-          state.uid.add(uid);
-        }
-      }
-    }
+        .collection('allServices')
+        .doc(id).update({
+      'isBooked' : true,
+    }).then((value) {
+      print('updated success');
+    });
+
   }
 
-  bool checkIfExists(String uidToCheck) {
-    // Check if uidToCheck exists in uidList
-    return state.uid.contains(uidToCheck);
-  }
+
 }

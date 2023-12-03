@@ -17,6 +17,7 @@ class BookingContainer extends GetView<BookingController> {
   final String serviceProviderImage;
   String? id;
   String pid;
+  bool isBooked;
 
   BookingContainer({
     required this.serviceName,
@@ -28,6 +29,7 @@ class BookingContainer extends GetView<BookingController> {
     required this.serviceProviderImage,
     this.id,
     required this.pid,
+    required this.isBooked,
   });
 
   @override
@@ -74,9 +76,9 @@ class BookingContainer extends GetView<BookingController> {
                     ),
               SizedBox(height: 10),
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                RatingBar.builder(
+                Obx(() => RatingBar.builder(
                   itemSize: 25,
-                  initialRating: feedbackStars == [] ? 3 : feedbackStars,
+                  initialRating: controller.state.averageRating.value,
                   minRating: 1,
                   direction: Axis.horizontal,
                   allowHalfRating: true,
@@ -96,7 +98,7 @@ class BookingContainer extends GetView<BookingController> {
                       id.toString(),
                     );
                   },
-                ),
+                )),
                 Spacer(),
                 TextWidget(
                   title: '\$$price',
@@ -140,7 +142,7 @@ class BookingContainer extends GetView<BookingController> {
                       color: AppColors.iconsColor,
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: controller.checkIfExists(FirebaseAuth.instance.currentUser!.uid.toString()) ?
+                    child: isBooked == true ?
                     Center(
                       child: TextWidget(
                         title: 'Booked',

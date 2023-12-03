@@ -131,7 +131,7 @@ class BookNowView extends GetView<BookingController> {
                             providerImgUrl:
                                 controller.state.providerImageUrl.value,
                           );
-                          controller.storeDataInFirebase(bookingModel);
+                          controller.storeDataInFirebase(bookingModel,id);
                         },
                       ),
               ),

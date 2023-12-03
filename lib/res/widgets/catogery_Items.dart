@@ -1,3 +1,4 @@
+import 'package:e_services_fyp/Pages/catogery_view/widget/categoryWidget.dart';
 import 'package:e_services_fyp/res/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,11 +7,13 @@ import 'package:get/get.dart';
 class CategoryItem extends StatelessWidget {
   final String imageName;
   final String categoryName;
+  final String catVal;
 
 
   const CategoryItem({Key? key,
     required this.imageName,
     required this.categoryName,
+    required this.catVal,
 
   }): super(key : key );
 
@@ -19,7 +22,7 @@ class CategoryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Get.toNamed(AppRoutes.FeaturedView);
+        Get.to(() => CategoryWidget(catValue: catVal));
       },
       child: Container(
         width: 90,

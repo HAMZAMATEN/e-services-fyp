@@ -37,6 +37,7 @@ class CategoryView extends GetView<CatogeryController> {
                 CategoryItem(
                   imageName: 'smartphone',
                   categoryName: 'Smartphone',
+                  catVal: 'smartphone',
                 ),
                 SizedBox(
                   width: 10,
@@ -44,6 +45,7 @@ class CategoryView extends GetView<CatogeryController> {
                 CategoryItem(
                   imageName: 'electrician',
                   categoryName: 'Electrician',
+                  catVal: 'electrician',
                 ),
                 SizedBox(
                   width: 10,
@@ -51,13 +53,15 @@ class CategoryView extends GetView<CatogeryController> {
                 CategoryItem(
                   imageName: 'plumber',
                   categoryName: 'Plumber',
+                  catVal: 'plumber',
+
                 ),
                 SizedBox(
                   width: 10,
                 ),
                 CategoryItem(
                   imageName: 'cleaning',
-                  categoryName: 'Cleaning',
+                  categoryName: 'Cleaning', catVal: 'cleaning',
                 ),
               ]),
               SizedBox(
@@ -69,28 +73,28 @@ class CategoryView extends GetView<CatogeryController> {
                 ),
                 CategoryItem(
                   imageName: 'repair',
-                  categoryName: 'AC Repair',
+                  categoryName: 'AC Repair', catVal: 'ac-repair',
                 ),
                 SizedBox(
                   width: 10,
                 ),
                 CategoryItem(
                   imageName: 'chef',
-                  categoryName: 'Cook',
+                  categoryName: 'Cook', catVal: 'cook',
                 ),
                 SizedBox(
                   width: 10,
                 ),
                 CategoryItem(
                   imageName: 'carpenter',
-                  categoryName: 'Carpenter',
+                  categoryName: 'Carpenter', catVal: 'carpenter',
                 ),
                 SizedBox(
                   width: 10,
                 ),
                 CategoryItem(
                   imageName: 'salon',
-                  categoryName: 'Salon',
+                  categoryName: 'Salon', catVal: 'saloon',
                 ),
               ]),
               SizedBox(
@@ -102,14 +106,14 @@ class CategoryView extends GetView<CatogeryController> {
                 ),
                 CategoryItem(
                   imageName: 'painter',
-                  categoryName: 'Painter',
+                  categoryName: 'Painter', catVal: 'painter',
                 ),
                 SizedBox(
                   width: 10,
                 ),
                 CategoryItem(
                   imageName: 'laundry',
-                  categoryName: 'Laundry',
+                  categoryName: 'Laundry', catVal: 'laundry',
                 ),
               ]),
             ]),

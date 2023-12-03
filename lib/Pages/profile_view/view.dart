@@ -227,14 +227,16 @@ class ProfileView extends GetView<ProfileController> {
                         //
                         ListTile(
                           leading: Icon(
-                            Icons.star,
+                            Icons.question_answer_outlined,
                             color: Colors.indigoAccent,
                             size: 30,
                           ),
                           title: InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              Get.toNamed(AppPages.faqView);
+                            },
                             child: TextWidget(
-                              title: 'Rate Us',
+                              title: 'FAQ\'s',
                               textColor: Colors.black,
                               fontSize: 18,
                               fontWeight: FontWeight.bold,

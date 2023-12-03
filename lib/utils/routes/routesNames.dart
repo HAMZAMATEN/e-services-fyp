@@ -14,6 +14,8 @@ class AppPages {
   static final String catogeryView = '/catogeryView';
   static final String bookedServicesView = '/bookedServicesView';
 
+  static final String faqView = '/faqView';
+
 
   static final String providerHomeView = '/providerHomeView';
   static final String providerProfileView = '/providerProfileView';

@@ -12,6 +12,7 @@ class ServicePackageModel {
   final String hourlyRate;
   final String service;
   final String description;
+  bool isBooked;
 
   ServicePackageModel({
     this.id = '',
@@ -25,6 +26,7 @@ class ServicePackageModel {
     required this.service,
     required this.description,
     required this.stars,
+  this.isBooked = false,
   });
 
   toJson() {
@@ -40,6 +42,7 @@ class ServicePackageModel {
       'service': service,
       'description' : description,
       'stars' : stars,
+      'isBooked' : isBooked,
     };
   }
 
@@ -59,6 +62,7 @@ class ServicePackageModel {
       service: json["service"],
       description : json['description'],
       stars: json['stars'],
+      isBooked: json['isBooked'],
     );
   }
 }
