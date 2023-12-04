@@ -16,6 +16,7 @@ import 'package:intl/intl.dart';
 
 import '../../res/colors.dart';
 import '../../res/text_widget.dart';
+import '../../utils/compnents/snackbar_widget.dart';
 
 class ScheduledView extends GetView<ScheduledController> {
   const ScheduledView({Key? key}) : super(key: key);
@@ -145,12 +146,17 @@ class ScheduledView extends GetView<ScheduledController> {
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: TextWidget(
-                                title: controller.state.selectedLatLng.value ==
+                              child: Text(
+                                controller.state.selectedLatLng.value ==
                                         LatLng(32.082466, 72.669128)
                                     ? "Select Location on Map"
                                     : controller.state.selectedAddress.value
                                         .toString(),
+                                overflow: TextOverflow.ellipsis,
+                                style: GoogleFonts.poppins(
+                                  color: Colors.white,
+                                  fontSize: 13,
+                                ),
                               ),
                             ),
                           ],
@@ -168,32 +174,45 @@ class ScheduledView extends GetView<ScheduledController> {
                   : RoundButton(
                       title: "Confirm ",
                       onPress: () {
-                        print("Date in milliseconds : " +
-                            controller
-                                .state.selectedDate.value.millisecondsSinceEpoch
-                                .toString());
-                        DateTime parseTime = DateFormat("hh:mm a").parse(
-                            controller.state.selectedTime.value.toString());
-                        int formattedTime = parseTime.millisecondsSinceEpoch;
+                        if (controller.state.nameCon.text.isEmpty ||
+                            controller.state.phoneCon.text.isEmpty ||
+                            controller.state.addCon.text.isEmpty ||
+                            controller.state.serviceNameCon.text.isEmpty ||
+                            controller.state.serviceOffering.value == 'Select' ||
+                            controller.state.selectedLatLng.value ==
+                                LatLng(32.082466, 72.669128) ||
+                            controller.state.selectedAddress.value.isEmpty) {
+                          Snackbar.showSnackBar('Error',
+                              'All fields must be filled', Icons.error_outline);
+                        } else {
+                          print("Date in milliseconds : " +
+                              controller.state.selectedDate.value
+                                  .millisecondsSinceEpoch
+                                  .toString());
+                          DateTime parseTime = DateFormat("hh:mm a").parse(
+                              controller.state.selectedTime.value.toString());
+                          int formattedTime = parseTime.millisecondsSinceEpoch;
 
-                        print("Time in milliseconds : " +
-                            formattedTime.toString());
-                        int formattedDate = controller
-                            .state.selectedDate.value.millisecondsSinceEpoch;
-                        ScheduledServiceModel scm = ScheduledServiceModel(
-                          serviceName:
-                              controller.state.serviceNameCon.text.trim(),
-                          phone: controller.state.phoneCon.text.trim(),
-                          address: controller.state.addCon.text.trim(),
-                          name: controller.state.nameCon.text.trim(),
-                          date: formattedDate.toString(),
-                          time: formattedTime.toString(),
-                          service:
-                              controller.state.serviceOffering.value.toString(),
-                          lat: controller.state.selectedLatLng.value.latitude,
-                          lang: controller.state.selectedLatLng.value.longitude,
-                        );
-                        controller.storeDataInFirebase(scm);
+                          print("Time in milliseconds : " +
+                              formattedTime.toString());
+                          int formattedDate = controller
+                              .state.selectedDate.value.millisecondsSinceEpoch;
+                          ScheduledServiceModel scm = ScheduledServiceModel(
+                            serviceName:
+                                controller.state.serviceNameCon.text.trim(),
+                            phone: controller.state.phoneCon.text.trim(),
+                            address: controller.state.addCon.text.trim(),
+                            name: controller.state.nameCon.text.trim(),
+                            date: formattedDate.toString(),
+                            time: formattedTime.toString(),
+                            service: controller.state.serviceOffering.value
+                                .toString(),
+                            lat: controller.state.selectedLatLng.value.latitude,
+                            lang:
+                                controller.state.selectedLatLng.value.longitude,
+                          );
+                          controller.storeDataInFirebase(scm);
+                        }
                       }
                       // Get.toNamed(AppRoutes.SuccessfulView),
 

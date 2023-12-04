@@ -7,6 +7,7 @@ import 'package:e_services_fyp/service_provider_pages/sp_profile_view/controller
 import 'package:e_services_fyp/utils/models/service_provide_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../res/colors.dart';
 import '../../../utils/compnents/round_button.dart';
@@ -21,6 +22,77 @@ class SpUpdateScreen extends StatefulWidget {
 
 class _UpdateScreenState extends State<SpUpdateScreen> {
   var controller = Get.put(SpProfileController());
+
+  Widget serviceList(String val) {
+      return Padding(
+        padding: EdgeInsets.symmetric(horizontal: 10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'Select Service',
+              style: GoogleFonts.poppins(fontSize: 17),
+            ),
+            DropdownButton(
+                iconEnabledColor: AppColors.iconsColor,
+                hint: Text(
+                  val,
+                  style: GoogleFonts.poppins(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+
+                items: [
+                  DropdownMenuItem(
+                    child: Text('Carpenter'),
+                    value: 'carpenter',
+                  ),
+                  DropdownMenuItem(
+                    child: Text('Smartphone'),
+                    value: 'smartphone',
+                  ),
+                  DropdownMenuItem(
+                    child: Text('Electrician'),
+                    value: 'electrician',
+                  ),
+                  DropdownMenuItem(
+                    child: Text('Plumber'),
+                    value: 'plumber',
+                  ),
+                  DropdownMenuItem(
+                    child: Text('AC-Repair'),
+                    value: 'ac-repair',
+                  ),
+                  DropdownMenuItem(
+                    child: Text('Cook'),
+                    value: 'cook',
+                  ),
+                  DropdownMenuItem(
+                    child: Text('Painter'),
+                    value: 'painter',
+                  ),
+                  DropdownMenuItem(
+                    child: Text('Laundry'),
+                    value: 'laundry',
+                  ),
+                  DropdownMenuItem(
+                    child: Text('Cleaning'),
+                    value: 'cleaning',
+                  ),
+                  DropdownMenuItem(
+                    child: Text('Saloon'),
+                    value: 'saloon',
+                  )
+                ],
+                onChanged: (value) {
+
+                }),
+          ],
+        ),
+      );
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -169,6 +241,7 @@ class _UpdateScreenState extends State<SpUpdateScreen> {
                           ],
                         ),
                       ),
+                      serviceList(serviceProviderModel.service.toString()),
                       SizedBox(
                         height: 10,
                       ),

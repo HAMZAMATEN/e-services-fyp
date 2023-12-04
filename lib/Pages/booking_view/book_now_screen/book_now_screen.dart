@@ -1,5 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:e_services_fyp/Pages/booking_view/book_now_screen/widget/book_now_widget.dart';
+import 'package:e_services_fyp/Pages/booking_view/book_now_screen/widget/location_Selction_screen.dart';
 import 'package:e_services_fyp/Pages/booking_view/controller.dart';
 import 'package:e_services_fyp/Pages/home/controller.dart';
 import 'package:e_services_fyp/Pages/scheduled_view/controller.dart';
@@ -7,6 +8,7 @@ import 'package:e_services_fyp/Pages/scheduled_view/widgets/map_screen.dart';
 import 'package:e_services_fyp/Pages/scheduled_view/widgets/scheduled_widget.dart';
 import 'package:e_services_fyp/Pages/splashScreen/controller.dart';
 import 'package:e_services_fyp/utils/compnents/round_button.dart';
+import 'package:e_services_fyp/utils/compnents/snackbar_widget.dart';
 import 'package:e_services_fyp/utils/models/booking_model.dart';
 import 'package:e_services_fyp/utils/models/scheduled_Service_model.dart';
 import 'package:e_services_fyp/utils/routes/routesNames.dart';
@@ -65,7 +67,7 @@ class BookNowView extends GetView<BookingController> {
               ),
               InkWell(
                 onTap: () {
-                  Get.to(LocationSelectionScreen());
+                  Get.to(LocationSelectionScreenBooking());
                 },
                 child: Obx(() => Padding(
                       padding: EdgeInsets.symmetric(horizontal: 30),
@@ -87,12 +89,20 @@ class BookNowView extends GetView<BookingController> {
                             SizedBox(
                               width: 10,
                             ),
-                            TextWidget(
-                              title: controller.state.selectedLatLng.value ==
-                                      LatLng(32.082466, 72.669128)
-                                  ? "Select Location on Map"
-                                  : controller.state.selectedAddress.value
-                                      .toString(),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                controller.state.selectedLatLng.value ==
+                                        LatLng(32.082466, 72.669128)
+                                    ? "Select Location on Map"
+                                    : controller.state.selectedAddress.value
+                                        .toString(),
+                                overflow: TextOverflow.ellipsis,
+                                style: GoogleFonts.poppins(
+                                  color: Colors.white,
+                                  fontSize: 13,
+                                ),
+                              ),
                             ),
                           ],
                         ),
@@ -110,28 +120,40 @@ class BookNowView extends GetView<BookingController> {
                     : RoundButton(
                         title: "Confirm ",
                         onPress: () {
-                          BookingModel bookingModel = BookingModel(
-                            serviceName: controller.state.service.value,
-                            userName: controller.state.name,
-                            userPhone: controller.state.phone,
-                            address: controller.state.addressCon.text
-                                .trim()
-                                .toString(),
-                            providerName: controller.state.providerName.value,
-                            providerPhone: controller.state.providerPhone.value,
-                            description: controller.state.description.value,
-                            hourlyRate: controller.state.price.value,
-                            lat: controller.state.selectedLatLng.value.latitude,
-                            lang:
-                                controller.state.selectedLatLng.value.longitude,
-                            pId: pid,
-                            uid: FirebaseAuth.instance.currentUser!.uid
-                                .toString(),
-                            imageUrl: controller.state.imageURl.value,
-                            providerImgUrl:
-                                controller.state.providerImageUrl.value,
-                          );
-                          controller.storeDataInFirebase(bookingModel,id);
+                          if (controller.state.addressCon.text.isEmpty ||
+                              controller.state.selectedLatLng.value ==
+                                  LatLng(32.082466, 72.669128) ||
+                              controller.state.selectedAddress.value.isEmpty) {
+                            Snackbar.showSnackBar(
+                                'Error',
+                                'All fields must be filled',
+                                Icons.error_outline);
+                          } else {
+                            BookingModel bookingModel = BookingModel(
+                              serviceName: controller.state.service.value,
+                              userName: controller.state.name,
+                              userPhone: controller.state.phone,
+                              address: controller.state.addressCon.text
+                                  .trim()
+                                  .toString(),
+                              providerName: controller.state.providerName.value,
+                              providerPhone:
+                                  controller.state.providerPhone.value,
+                              description: controller.state.description.value,
+                              hourlyRate: controller.state.price.value,
+                              lat: controller
+                                  .state.selectedLatLng.value.latitude,
+                              lang: controller
+                                  .state.selectedLatLng.value.longitude,
+                              pId: pid,
+                              uid: FirebaseAuth.instance.currentUser!.uid
+                                  .toString(),
+                              imageUrl: controller.state.imageURl.value,
+                              providerImgUrl:
+                                  controller.state.providerImageUrl.value,
+                            );
+                            controller.storeDataInFirebase(bookingModel, id);
+                          }
                         },
                       ),
               ),

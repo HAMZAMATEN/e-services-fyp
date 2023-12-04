@@ -1,3 +1,4 @@
+import 'package:e_services_fyp/Pages/booking_view/controller.dart';
 import 'package:e_services_fyp/Pages/home/controller.dart';
 import 'package:e_services_fyp/Pages/profile_view/controller.dart';
 import 'package:e_services_fyp/Pages/scheduled_view/controller.dart';
@@ -13,6 +14,8 @@ class ApplicationBindings implements Bindings {
     Get.lazyPut<ApplicationController>(() => ApplicationController());
     Get.lazyPut<ProfileController>(() => ProfileController());
     Get.lazyPut<ScheduledController>(() => ScheduledController());
+    Get.put(BookingController());
+
 
   }
 

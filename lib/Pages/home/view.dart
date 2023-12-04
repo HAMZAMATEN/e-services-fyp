@@ -9,6 +9,7 @@ import 'package:e_services_fyp/res/text_widget.dart';
 import 'package:e_services_fyp/res/widgets/catogery_Items.dart';
 import 'package:e_services_fyp/res/widgets/services_container.dart';
 import 'package:e_services_fyp/utils/compnents/round_button.dart';
+import 'package:e_services_fyp/utils/models/service_package_model.dart';
 import 'package:e_services_fyp/utils/routes/routesNames.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -59,9 +60,19 @@ class HomeView extends GetView<HomeController> {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Obx(
+                      () => TextWidget(
+                        title: 'HI, ' +
+                            controller.state.userName.value.capitalizeFirst
+                                .toString(),
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                        textColor: AppColors.textColor,
+                      ),
+                    ),
                     TextWidget(
-                      title: 'HI,\n Need some help today?',
-                      fontSize: 30,
+                      title: 'Need some help today?',
+                      fontSize: 20,
                       fontWeight: FontWeight.bold,
                       textColor: AppColors.textColor,
                     ),
@@ -76,12 +87,15 @@ class HomeView extends GetView<HomeController> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             //search box
-                            Text(
-                              'Search',
-                              style: TextStyle(
-                                fontSize: 30,
+                            InkWell(
+                              onTap: () {
+                                Get.toNamed(AppPages.searchView);
+                              },
+                              child: TextWidget(
+                                title: 'Search',
+                                fontSize: 25,
                                 fontWeight: FontWeight.bold,
-                                color: AppColors.textColor,
+                                textColor: AppColors.textColor,
                               ),
                             ),
 
@@ -169,7 +183,6 @@ class HomeView extends GetView<HomeController> {
                           //  color: AppColors.secondaryColor,
                           textColor: AppColors.textColor.withOpacity(0.5),
                         ),
-
                         OutlinedButton(
                           onPressed: () {
                             Get.toNamed(AppPages.bookingView);
@@ -181,59 +194,66 @@ class HomeView extends GetView<HomeController> {
                             textColor: AppColors.textColor.withOpacity(0.5),
                           ),
                         ),
-
                       ],
                     ),
 
                     SizedBox(
                       height: 350,
-                      child: StreamBuilder<QuerySnapshot>(
-                        stream: controller.firestore,
-                        builder: (BuildContext context,
-                            AsyncSnapshot<QuerySnapshot> snapshot) {
+                      child: FutureBuilder<List<ServicePackageModel>>(
+                        future: controller.getAndShowALlServicesData(),
+                        builder: (context, snapshot) {
+                          // print('length is: ' + snapshot.data!.length.toString());
+                          print('object');
                           if (snapshot.hasData) {
+                            print('length is: ' + snapshot.data!.length.toString());
                             return ListView.builder(
                                 scrollDirection: Axis.horizontal,
-                                itemCount: snapshot.data!.docs.length,
+                                itemCount: snapshot.data!.length,
                                 itemBuilder: (context, index) {
-                                  String serviceId = snapshot.data!.docs[index]['id'].toString();
+                                  String serviceId =
+                                      snapshot.data![index].id.toString();
                                   controller.getAverageRating(serviceId);
 
                                   return Padding(
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 00, horizontal: 0),
                                     child: HomeContainer(
-                                          serviceName: snapshot
-                                              .data!.docs[index]['service']
-                                              .toString(),
-                                          serviceLable: snapshot
-                                              .data!.docs[index]['description']
-                                              .toString(),
-                                          imageUrl: snapshot
-                                              .data!.docs[index]['imageUrl']
-                                              .toString(),
-                                          price: double.parse(snapshot
-                                              .data!.docs[index]['hourlyRate']),
-                                          feedbackStars: controller
-                                              .serviceAverageRatings[serviceId]?.value ?? 0.0,
-                                          id: snapshot.data!.docs[index]['id']
-                                              .toString(),
-                                          serviceProviderName: snapshot.data!
-                                              .docs[index]['providerName'],
-                                          serviceProviderImage: snapshot.data!
-                                              .docs[index]['providerImageUrl'],
-                                          // isBooked: snapshot.data!.docs[index]
-                                          //     ['isBooked'],
-                                        ),
+                                      serviceName: snapshot.data![index].service
+                                          .toString(),
+                                      serviceLable: snapshot
+                                          .data![index].description
+                                          .toString(),
+                                      imageUrl: snapshot.data![index].imageUrl
+                                          .toString(),
+                                      price: double.parse(snapshot
+                                          .data![index].hourlyRate
+                                          .toString()),
+                                      feedbackStars: controller
+                                              .serviceAverageRatings[serviceId]
+                                              ?.value ??
+                                          0.0,
+                                      id: snapshot.data![index].id.toString(),
+                                      serviceProviderName:
+                                          snapshot.data![index].providerName,
+                                      serviceProviderImage: snapshot
+                                          .data![index].providerImageUrl
+                                          .toString(),
+                                      pid: snapshot.data![index].providerId,
+                                      // isBooked: snapshot.data!.docs[index]
+                                      //     ['isBooked'],
+                                    ),
                                   );
                                 });
                           } else if (snapshot.hasError) {
+                            print('error:'+snapshot.error.toString());
                             return Center(
                               child: CircularProgressIndicator(
                                 color: AppColors.iconsColor,
                               ),
                             );
                           } else {
+                            print('else');
+
                             return Center(
                               child: CircularProgressIndicator(
                                 color: AppColors.iconsColor,

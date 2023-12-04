@@ -29,7 +29,7 @@ class BuildDrawer {
                   textColor: Colors.black,
                 ),
                 Obx(
-                  () => TextWidget(
+                      () => TextWidget(
                     title: con.state.userName.value.toString().capitalizeFirst.toString(),
                     fontSize: 18,
                     textColor: Colors.black,
@@ -53,56 +53,33 @@ class BuildDrawer {
             height: 10,
           ),
           ListTileWidget(
-            iconData: Icons.category_outlined,
-            title: 'Categories',
+            iconData: Icons.add,
+            title: 'Add Package',
             onPress: () {
               Navigator.pop(context);
 
-              // Get.toNamed(AppRoutes.categoryScreen);
+              Get.toNamed(AppPages.addPackageView);
             },
           ),
+
+          ListTileWidget(
+            iconData: Icons.details_outlined,
+            title: 'About Us',
+            onPress: () {
+              Navigator.pop(context);
+              Get.toNamed(AppPages.aboutUsView);
+            },
+          ),
+
           SizedBox(
             height: 5,
           ),
           ListTileWidget(
-            iconData: Icons.shopping_cart_outlined,
-            title: 'My Cart',
+            iconData: Icons.edit_attributes_outlined,
+            title: 'Edit Package',
             onPress: () {
               Navigator.pop(context);
-              // Get.toNamed(AppRoutes.cartScreen);
-            },
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          ListTileWidget(
-            iconData: Icons.person,
-            title: 'My Profile',
-            onPress: () {
-              Navigator.pop(context);
-              Get.toNamed(AppPages.providerProfileView);
-            },
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          ListTileWidget(
-            iconData: Icons.description_outlined,
-            title: 'My Orders',
-            onPress: () {
-              Navigator.pop(context);
-              // Get.toNamed(AppRoutes.orderScreen);
-            },
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          ListTileWidget(
-            iconData: Icons.error_outline_outlined,
-            title: 'FAQs',
-            onPress: () {
-              Navigator.pop(context);
-              // Get.toNamed(AppRoutes.faqsScreen);
+              Get.toNamed(AppPages.editPackageView);
             },
           ),
           SizedBox(
@@ -110,21 +87,21 @@ class BuildDrawer {
           ),
           ListTileWidget(
             iconData: Icons.favorite_outline,
-            title: 'Wish List',
+            title: 'FAQ\'s',
             onPress: () {
               Navigator.pop(context);
-              // Get.toNamed(AppRoutes.wishListScreen);
+              Get.toNamed(AppPages.faqView);
             },
           ),
           SizedBox(
             height: 5,
           ),
           ListTileWidget(
-            iconData: Icons.help_outline_outlined,
-            title: 'Help Center',
+            iconData: Icons.person_2_rounded,
+            title: 'Profile',
             onPress: () {
               Navigator.pop(context);
-              // Get.toNamed(AppRoutes.helpCenterScreen);
+              Get.toNamed(AppPages.providerProfileView);
             },
           ),
           SizedBox(
@@ -135,48 +112,7 @@ class BuildDrawer {
             title: 'Log Out',
             onPress: () async {
               Navigator.pop(context);
-              // final cartCon = Get.find<CartControllerReuseAble>();
-              // cartCon.updateTotalPrice(0);
-              // print('Price is : ' + cartCon.totalPrice.value.toString(),);
-              // final detailCon = Get.put(DetailsController());
-              // detailCon.itemIds.clear();
-              // print('Items are : ' + detailCon.itemIds.toString());
-              //
-              // final CollectionReference collectionReference = FirebaseFirestore
-              //     .instance
-              //     .collection('users')
-              //     .doc(FirebaseAuth.instance.currentUser!.uid)
-              //     .collection('cartList');
-              //
-              //
-              // final QuerySnapshot querySnapshot = await collectionReference.get();
-              // for (QueryDocumentSnapshot documentSnapshot in querySnapshot.docs) {
-              //   await documentSnapshot.reference.delete().then((value) {
-              //     print('Deleted success');
-              //
-              //
-              //
-              //   }).onError((error, stackTrace) {
-              //     print('Error is : '+ error.toString());
-              //   });
-              // }
-              //
-              // final auth = FirebaseAuth.instance;
-              // await auth.signOut().then((value) async {
-              //
-              //   SessionController().userId = '';
-              //   Snackbar.showSnackBar("Logout", "Successfully");
-              //
-              //
-              //   Get.offNamed(AppRoutes.logInScreen);
-              //
-              //
-              //
-              // }).onError(
-              //       (error, stackTrace) {
-              //     Snackbar.showSnackBar("Error", error.toString());
-              //   },
-              // );
+
             },
           ),
           SizedBox(
@@ -186,24 +122,7 @@ class BuildDrawer {
           SizedBox(
             height: 10,
           ),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: [
-          //     TextWidget(title: 'Light Theme'),
-          //     GetBuilder<DarkThemeChanger>(builder: (cont) {
-          //       return Switch(
-          //           activeColor: LightAppColor.btnColor,
-          //           value: cont.getDarkTheme,
-          //           onChanged: (bool value) {
-          //             cont.setDarkTheme = value;
-          //             print('value is : ' + cont.getDarkTheme.toString().trim());
-          //
-          //             // Get.theme.
-          //           });
-          //     }),
-          //     TextWidget(title: 'Dark Theme'),
-          //   ],
-          // )
+
         ],
       ),
     );

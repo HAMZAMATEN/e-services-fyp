@@ -159,23 +159,20 @@ class ProfileView extends GetView<ProfileController> {
                             color: Colors.indigoAccent,
                             size: 30,
                           ),
-                          title: InkWell(
-                            onTap: () {
-                              Get.toNamed(AppPages.scheduledServicesView);
-                            },
-                            child: TextWidget(
-                              title: 'Scheduled Services',
-                              textColor: Colors.black,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          title: TextWidget(
+                            title: 'Scheduled Services',
+                            textColor: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
                           ),
                           trailing: Icon(
                             Icons.arrow_forward_ios_rounded,
                             size: 20,
                             color: Colors.indigoAccent,
                           ),
-                          onTap: () {},
+                          onTap: () {
+                            Get.toNamed(AppPages.scheduledServicesView);
+                          },
                         ),
 
                         ListTile(
@@ -184,14 +181,11 @@ class ProfileView extends GetView<ProfileController> {
                             color: Colors.indigoAccent,
                             size: 30,
                           ),
-                          title: InkWell(
-                            onTap: () {},
-                            child: TextWidget(
-                              title: 'Favourite Providers',
-                              textColor: Colors.black,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          title: TextWidget(
+                            title: 'Favourite Providers',
+                            textColor: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
                           ),
                           trailing: Icon(
                             Icons.arrow_forward_ios_rounded,
@@ -206,14 +200,11 @@ class ProfileView extends GetView<ProfileController> {
                             color: Colors.indigoAccent,
                             size: 30,
                           ),
-                          title: InkWell(
-                            onTap: () {},
-                            child: TextWidget(
-                              title: 'Booked Services',
-                              textColor: Colors.black,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          title: TextWidget(
+                            title: 'Booked Services',
+                            textColor: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
                           ),
                           trailing: Icon(
                             Icons.arrow_forward_ios_rounded,
@@ -231,41 +222,37 @@ class ProfileView extends GetView<ProfileController> {
                             color: Colors.indigoAccent,
                             size: 30,
                           ),
-                          title: InkWell(
-                            onTap: () {
-                              Get.toNamed(AppPages.faqView);
-                            },
-                            child: TextWidget(
-                              title: 'FAQ\'s',
-                              textColor: Colors.black,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          title: TextWidget(
+                            title: 'FAQ\'s',
+                            textColor: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
                           ),
                           trailing: Icon(
                             Icons.arrow_forward_ios_rounded,
                             size: 20,
                             color: Colors.indigoAccent,
                           ),
-                          onTap: () {},
+                          onTap: () {
+                            Get.toNamed(AppPages.faqView);
+                          },
                         ),
 
                         ListTile(
+                          onTap: (){
+                            Get.toNamed(AppPages.aboutUsView);
+
+                          },
                           leading: Icon(
                             Icons.description,
                             color: Colors.indigoAccent,
                             size: 30,
                           ),
-                          title: InkWell(
-                            onTap: () {
-                              Get.toNamed(AppPages.aboutUsView);
-                            },
-                            child: TextWidget(
-                              title: 'About Us',
-                              textColor: Colors.black,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          title: TextWidget(
+                            title: 'About Us',
+                            textColor: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
                           ),
                           trailing: Icon(
                             Icons.arrow_forward_ios_rounded,

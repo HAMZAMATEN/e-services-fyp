@@ -1,3 +1,5 @@
+import 'package:e_services_fyp/Pages/booking_view/book_now_screen/book_now_screen.dart';
+import 'package:e_services_fyp/Pages/booking_view/book_now_screen/widget/book_now_widget.dart';
 import 'package:e_services_fyp/Pages/booking_view/controller.dart';
 import 'package:e_services_fyp/Pages/home/controller.dart';
 import 'package:e_services_fyp/res/colors.dart';
@@ -16,6 +18,7 @@ class HomeContainer extends GetView<HomeController> {
   final String serviceProviderName;
   final String serviceProviderImage;
   String? id;
+  String pid;
   // bool isBooked;
 
   HomeContainer({
@@ -27,6 +30,7 @@ class HomeContainer extends GetView<HomeController> {
     required this.serviceProviderName,
     required this.serviceProviderImage,
     this.id,
+    required this.pid,
     // required this.isBooked,
   });
 
@@ -148,7 +152,9 @@ class HomeContainer extends GetView<HomeController> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            Get.to(() => BookNowView(id: id.toString(), pid: pid,),);
+                          },
                           child: Center(
                             child: Padding(
                               padding:  EdgeInsets.symmetric(horizontal: 8.0),

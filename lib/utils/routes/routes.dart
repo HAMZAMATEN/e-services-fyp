@@ -16,6 +16,7 @@ import 'package:e_services_fyp/Pages/profile_view/pages/scheduled_services_view/
 import 'package:e_services_fyp/Pages/profile_view/view.dart';
 import 'package:e_services_fyp/Pages/scheduled_view/bindings.dart';
 import 'package:e_services_fyp/Pages/scheduled_view/view.dart';
+import 'package:e_services_fyp/Pages/search/index.dart';
 import 'package:e_services_fyp/Pages/signup/bindings.dart';
 import 'package:e_services_fyp/Pages/signup/view.dart';
 import 'package:e_services_fyp/Pages/splashScreen/bindings.dart';
@@ -33,6 +34,7 @@ import 'package:e_services_fyp/service_provider_pages/provider_home/view.dart';
 import 'package:e_services_fyp/service_provider_pages/sp_profile_view/bindings.dart';
 import 'package:e_services_fyp/service_provider_pages/sp_profile_view/view.dart';
 import 'package:e_services_fyp/utils/routes/routesNames.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class AppRoutes {
@@ -77,6 +79,11 @@ class AppRoutes {
       name: AppPages.homeView,
       page: () => HomeView(),
       binding: HomeBindings(),
+      transition: Transition.zoom,
+    ),GetPage(
+      name: AppPages.searchView,
+      page: () => SearchView(),
+      binding: SearchBindings(),
       transition: Transition.zoom,
     ),
     GetPage(

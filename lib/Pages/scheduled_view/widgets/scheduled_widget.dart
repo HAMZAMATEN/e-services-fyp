@@ -47,11 +47,11 @@ class PersonData extends GetView<ScheduledController> {
         ),
         CustomTextField(
             contr: controller.state.serviceNameCon,
-            descrip: 'Service Name',
+            descrip: 'Description',
             textInputAction: TextInputAction.next,
             keyboardType: TextInputType.text,
             obsecure: false,
-            icon: Icons.design_services_outlined),
+            icon: Icons.details_outlined),
 
         SizedBox(
           height: 10,

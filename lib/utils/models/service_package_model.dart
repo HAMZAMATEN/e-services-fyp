@@ -4,7 +4,7 @@ class ServicePackageModel {
   String? id;
   String? providerImageUrl;
   String? imageUrl;
-  final List<int> stars;
+  final List<dynamic> stars;
   final String providerName;
   final String providerPhone;
   final String providerEmail;

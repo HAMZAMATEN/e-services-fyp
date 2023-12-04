@@ -49,32 +49,6 @@ class BookingController extends GetxController {
       'stars': ratings,
     });
   }
-  //
-  // Future<void> getAverageRating(String id) async {
-  //   // Replace 'providerId' with the ID of the specific provider document
-  //   DocumentSnapshot providerDocSnapshot = await FirebaseFirestore.instance
-  //       .collection('allServices')
-  //       .doc(id)
-  //       .get();
-  //   print('id:' + id);
-  //   if (providerDocSnapshot.exists) {
-  //     Map<String, dynamic>? data =
-  //         providerDocSnapshot.data() as Map<String, dynamic>?;
-  //
-  //     if (data != null && data.containsKey('stars')) {
-  //       List<dynamic> ratings = data['stars'] ?? [];
-  //       print('rating is:'+ratings.toString());
-  //       if (ratings.isNotEmpty) {
-  //         double totalRating =
-  //             ratings.reduce((value, element) => value + element);
-  //         state.averageRating.value = totalRating / ratings.length;
-  //         print('rating after is:'+state.averageRating.value.toString());
-  //       }
-  //     }
-  //   }
-  // }
-
-  // Define a map to store average ratings for different services
   Map<String, RxDouble> serviceAverageRatings = {};
 
 // Function to get average rating for a specific service
@@ -167,7 +141,7 @@ class BookingController extends GetxController {
     };
   }
 
-  void navigateToCurrentLocation() async {
+  void navigateToCurrentLocationBooking() async {
     LocationPermission permission = await Geolocator.requestPermission();
 
     Position position = await Geolocator.getCurrentPosition(
