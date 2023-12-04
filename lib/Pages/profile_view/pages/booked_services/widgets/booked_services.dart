@@ -33,12 +33,109 @@ class BookedServiceContainer extends GetView<BookedServicesController> {
     required this.status,
   });
 
+  void _showOrderDetailsDialogue(BuildContext context) {
+    final orderDetailsContent = Padding(
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: 16.0),
+          // Add order details such as image, name, etc. here
+          // Example:
+          SizedBox(
+            height: 5,
+          ),
+
+          TextWidget(
+            title: 'Service #' + id.toString(),
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+            textColor: Colors.black,
+          ),
+
+          SizedBox(
+            height: 5,
+          ),
+          TextWidget(
+            title: 'Provider Name: ' + serviceProviderName,
+            textColor: Colors.black,
+          ),
+          SizedBox(
+            height: 5,
+          ),
+
+          TextWidget(
+            title: 'Phone No: ' + phone.toString(),
+            textColor: Colors.black,
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          TextWidget(
+            title: 'Service Name: ' + serviceName.toString(),
+            textColor: Colors.black,
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          TextWidget(
+            title: 'Price: ' + price.toString(),
+            textColor: Colors.black,
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          TextWidget(
+            title: 'Phone: ' + phone,
+            textColor: Colors.black,
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          TextWidget(
+            title: 'Status: ' + status,
+            textColor: Colors.black,
+          ),
+          SizedBox(
+            height: 5,
+          ),
+        ],
+      ),
+    );
+
+    Get.defaultDialog(
+      title: 'Service Details',
+      content: orderDetailsContent,
+      radius: 10.0,
+      // cancelTextColor: Colors.orange,
+      cancel: GestureDetector(
+        onTap: () {
+          Navigator.pop(context);
+          // controller.cancelOrder(id);
+        },
+        child: Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+              border: Border(
+                  top: BorderSide(
+                    color: AppColors.iconsColor,
+                  ))),
+          child: Center(
+            child: TextWidget(
+                title: 'Cancel service', textColor: AppColors.iconsColor),
+          ),
+        ),
+      ),
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
     final con = Get.lazyPut<BookingController>(() => BookingController());
     return GestureDetector(
       onTap: () {
-        // Get.toNamed(AppRoutes.BookingView);
+        _showOrderDetailsDialogue(context);
       },
       child: Container(
         width: 360,

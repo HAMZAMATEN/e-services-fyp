@@ -12,15 +12,11 @@ class ScheduledServicesController extends GetxController {
   ScheduledServicesController();
 
   final firestore = FirebaseFirestore.instance
-      .collection('users')
-      .doc(FirebaseAuth.instance.currentUser!.uid)
       .collection('scheduledServices').where('userId',isEqualTo: SessionController().userId.toString())
       .snapshots();
 
   cancelOrder(String id) async {
     await FirebaseFirestore.instance
-        .collection('users')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
         .collection('scheduledServices')
         .doc(id)
         .delete()

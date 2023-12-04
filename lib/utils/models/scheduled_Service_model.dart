@@ -24,7 +24,7 @@ class ScheduledServiceModel {
     required this.date,
     required this.time,
     required this.service,
-    this.status = 'Pending',
+    required this.status,
     required this.lat,
     required this.lang,
   });

@@ -135,32 +135,34 @@ class ScheduledView extends GetView<ScheduledController> {
                           borderRadius: BorderRadius.circular(10),
                           color: AppColors.iconsColor,
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.map_outlined,
-                              color: AppColors.textFieldBgColor,
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                controller.state.selectedLatLng.value ==
-                                        LatLng(32.082466, 72.669128)
-                                    ? "Select Location on Map"
-                                    : controller.state.selectedAddress.value
-                                        .toString(),
-                                overflow: TextOverflow.ellipsis,
-                                style: GoogleFonts.poppins(
-                                  color: Colors.white,
-                                  fontSize: 13,
+                        child: Flexible(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.map_outlined,
+                                color: AppColors.textFieldBgColor,
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  controller.state.selectedLatLng.value ==
+                                          LatLng(32.082466, 72.669128)
+                                      ? "Select Location on Map"
+                                      : controller.state.selectedAddress.value
+                                          .toString(),
+                                  overflow: TextOverflow.ellipsis,
+                                  style: GoogleFonts.poppins(
+                                    color: Colors.white,
+                                    fontSize: 13,
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     )),
@@ -211,7 +213,7 @@ class ScheduledView extends GetView<ScheduledController> {
                                 .toString(),
                             lat: controller.state.selectedLatLng.value.latitude,
                             lang:
-                                controller.state.selectedLatLng.value.longitude,
+                                controller.state.selectedLatLng.value.longitude, status: 'Pending',
                           );
                           controller.storeDataInFirebase(scm);
                         }

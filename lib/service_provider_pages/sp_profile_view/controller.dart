@@ -160,17 +160,24 @@ class SpProfileController extends GetxController {
 
   // for updating user
   updateUserData(ServiceProviderModel serviceProviderModel) async {
-    setLoading(true);
-    await FirebaseFirestore.instance
-        .collection('serviceProviders')
-        .doc(serviceProviderModel.id)
-        .update(
-      serviceProviderModel.toJson(),
-        )
-        .then((value) {
+    try {
+      print('id' + serviceProviderModel.id.toString());
+      setLoading(true);
+      await FirebaseFirestore.instance
+          .collection('serviceProviders')
+          .doc(serviceProviderModel.id)
+          .update(
+        serviceProviderModel.toJson(),
+      )
+          .then((value) {
+        setLoading(false);
+        Snackbar.showSnackBar('Update', 'Successfully Updated', Icons.done_all);
+      });
+    }catch(e) {
+      print('error:'+e.toString(),);
       setLoading(false);
-      Snackbar.showSnackBar('Update', 'Successfully Updated', Icons.done_all);
-    });
+
+    }
   }
 
   updateUser(ServiceProviderModel serviceProviderModel) async {

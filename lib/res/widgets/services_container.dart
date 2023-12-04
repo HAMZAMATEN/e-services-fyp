@@ -7,9 +7,6 @@ import 'package:get/get.dart';
 class ServiceContainer extends StatelessWidget {
   final String serviceName;
   final String serviceLable;
-  final String imageUrl;
-  final double price;
-  var feedbackStars;
   final String serviceProviderName;
   final String serviceProviderImage;
   VoidCallback? onPress;
@@ -17,9 +14,6 @@ class ServiceContainer extends StatelessWidget {
   ServiceContainer({
     required this.serviceName,
     required this.serviceLable,
-    required this.imageUrl,
-    required this.price,
-    required this.feedbackStars,
     required this.serviceProviderName,
     required this.serviceProviderImage,
     this.onPress,
@@ -57,38 +51,9 @@ class ServiceContainer extends StatelessWidget {
                 fontSize: 15,
                 textColor: Colors.black,
               ),
-              SizedBox(height: 5),
-              imageUrl == ''
-                  ? Icon(
-                      Icons.image,
-                      color: AppColors.iconsColor,
-                    )
-                  : Image.network(
-                      imageUrl,
-                      height: 150,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
               SizedBox(height: 10),
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
 
-                RatingBar.builder(
-                  itemSize: 25,
-                  initialRating: feedbackStars == [] ? 3 : feedbackStars,
-                  minRating: 1,
-                  direction: Axis.horizontal,
-                  allowHalfRating: true,
-                  itemCount: 5,
-                  itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                  itemBuilder: (context, _) => Icon(
-                    Icons.star,
-                    color: Colors.amber,
-                  ),
-                  onRatingUpdate: (rating) {
-                    print(rating);
-                    onPress;
-                  },
-                ),
                 // Text(
                 //   '$feedbackStars Stars',
                 //   style: TextStyle(
@@ -96,14 +61,6 @@ class ServiceContainer extends StatelessWidget {
                 //   ),
                 // ),
                 Spacer(),
-                Text(
-                  '\$$price',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blue,
-                  ),
-                ),
               ]),
               SizedBox(height: 10),
               Row(

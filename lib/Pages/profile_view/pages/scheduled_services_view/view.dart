@@ -225,7 +225,8 @@ class ScheduledServicesScreen extends GetView<ScheduledServicesController> {
                           // shrinkWrap: true,
                           itemCount: snapshot.data!.docs.length,
                           itemBuilder: (context, index) {
-                            print(snapshot.data!.docs[index]['phone']);
+                            print('id:' + snapshot.data!.docs[index]['id']);
+                            print(snapshot.data!.docs[index]['status'].toString());
                             final date = int.parse(
                               snapshot.data!.docs[index]['date'],
                             );

@@ -5,6 +5,7 @@ import 'package:e_services_fyp/res/text_widget.dart';
 import 'package:e_services_fyp/res/widgets/custom_text_field.dart';
 import 'package:e_services_fyp/service_provider_pages/sp_profile_view/controller.dart';
 import 'package:e_services_fyp/utils/models/service_provide_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -255,6 +256,7 @@ class _UpdateScreenState extends State<SpUpdateScreen> {
                                 onPress: () async {
                                   var serviceProviderData =
                                       ServiceProviderModel(
+                                        id: FirebaseAuth.instance.currentUser!.uid.toString(),
                                     providerName: name.text.trim().toString(),
                                     phone: phone.text.trim().toString(),
                                     email: email.text.trim().toString(),
