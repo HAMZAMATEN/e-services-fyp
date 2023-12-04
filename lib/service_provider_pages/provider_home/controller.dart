@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_services_fyp/Pages/home/state.dart';
 import 'package:e_services_fyp/Pages/splashScreen/state.dart';
 import 'package:e_services_fyp/res/session_controller.dart';
@@ -13,10 +14,18 @@ import 'package:get/get.dart';
 class SPHomeController extends GetxController{
   final state = SPHomeState();
   final auth = FirebaseAuth.instance;
+  final spRef = FirebaseFirestore.instance.collection('serviceProviders');
 
 
   void setLogoutLoading(bool val){
     state.logoutLoading.value = val;
+  }
+
+  Future<void> fetchDetails() async{
+    state.infoLoading.value=true;
+    DocumentSnapshot user = await spRef.doc(SessionController().userId.toString()).get();
+    state.providerName = user['providerName'].toString();
+    state.infoLoading.value = false;
   }
 
   Future<void> handleLogout() async{

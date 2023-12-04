@@ -53,6 +53,17 @@ class BuildDrawer {
             height: 10,
           ),
           ListTileWidget(
+            iconData: Icons.person_2_rounded,
+            title: 'Profile',
+            onPress: () {
+              Navigator.pop(context);
+              Get.toNamed(AppPages.providerProfileView);
+            },
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          ListTileWidget(
             iconData: Icons.add,
             title: 'Add Package',
             onPress: () {
@@ -61,30 +72,21 @@ class BuildDrawer {
               Get.toNamed(AppPages.addPackageView);
             },
           ),
-
-          ListTileWidget(
-            iconData: Icons.details_outlined,
-            title: 'About Us',
-            onPress: () {
-              Navigator.pop(context);
-              Get.toNamed(AppPages.aboutUsView);
-            },
-          ),
-
-          SizedBox(
-            height: 5,
-          ),
           ListTileWidget(
             iconData: Icons.edit_attributes_outlined,
             title: 'Edit Package',
             onPress: () {
               Navigator.pop(context);
-              Get.toNamed(AppPages.editPackageView);
+              Get.toNamed(AppPages.managePackageView);
             },
           ),
+
+
+
           SizedBox(
             height: 5,
           ),
+
           ListTileWidget(
             iconData: Icons.favorite_outline,
             title: 'FAQ\'s',
@@ -96,17 +98,7 @@ class BuildDrawer {
           SizedBox(
             height: 5,
           ),
-          ListTileWidget(
-            iconData: Icons.person_2_rounded,
-            title: 'Profile',
-            onPress: () {
-              Navigator.pop(context);
-              Get.toNamed(AppPages.providerProfileView);
-            },
-          ),
-          SizedBox(
-            height: 5,
-          ),
+
           ListTileWidget(
             iconData: Icons.logout,
             title: 'Log Out',
@@ -121,6 +113,17 @@ class BuildDrawer {
           Divider(),
           SizedBox(
             height: 10,
+          ),
+          ListTileWidget(
+            iconData: Icons.details_outlined,
+            title: 'About Us',
+            onPress: () {
+              Navigator.pop(context);
+              Get.toNamed(AppPages.aboutUsView);
+            },
+          ),
+          SizedBox(
+            height: 5,
           ),
 
         ],

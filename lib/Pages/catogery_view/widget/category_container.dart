@@ -152,7 +152,7 @@ class CategoryContainer extends GetView<CatogeryController> {
                     child: InkWell(
                       onTap: () {
                         Get.to(BookNowView(id: id.toString(),pid: pid,));
-                        print('id is:'+id.toString());
+                        // print('id is:'+id.toString());
                       },
                       child: Center(
                         child: Padding(

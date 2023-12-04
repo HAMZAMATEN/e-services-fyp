@@ -14,6 +14,7 @@ import 'package:e_services_fyp/utils/routes/routesNames.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'dart:math' as math;
 
 import '../../utils/routes/routes.dart';
 
@@ -23,6 +24,7 @@ class HomeView extends GetView<HomeController> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   final con = Get.lazyPut<HomeController>(() => HomeController());
+  final PageController pageController = PageController(viewportFraction: 0.8);
 
   @override
   Widget build(BuildContext context) {
@@ -205,7 +207,8 @@ class HomeView extends GetView<HomeController> {
                           // print('length is: ' + snapshot.data!.length.toString());
                           print('object');
                           if (snapshot.hasData) {
-                            print('length is: ' + snapshot.data!.length.toString());
+                            print('length is: ' +
+                                snapshot.data!.length.toString());
                             return ListView.builder(
                                 scrollDirection: Axis.horizontal,
                                 itemCount: snapshot.data!.length,
@@ -245,7 +248,7 @@ class HomeView extends GetView<HomeController> {
                                   );
                                 });
                           } else if (snapshot.hasError) {
-                            print('error:'+snapshot.error.toString());
+                            print('error:' + snapshot.error.toString());
                             return Center(
                               child: CircularProgressIndicator(
                                 color: AppColors.iconsColor,

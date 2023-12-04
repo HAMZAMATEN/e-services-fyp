@@ -19,6 +19,7 @@ class HomeContainer extends GetView<HomeController> {
   final String serviceProviderImage;
   String? id;
   String pid;
+
   // bool isBooked;
 
   HomeContainer({

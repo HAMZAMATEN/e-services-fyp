@@ -18,84 +18,105 @@ import 'package:google_fonts/google_fonts.dart';
 class SPHomeView extends GetView<SPHomeController> {
   SPHomeView({Key? key}) : super(key: key);
 
-
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-        drawer: BuildDrawer.buildDrawer(context),
-        key: _scaffoldKey,
-        body: SafeArea(
-          child: CustomScrollView(
-            slivers: [
-              SliverAppBar(
-                automaticallyImplyLeading: false,
-                leading: InkWell(
-                  onTap: (){
-                    _scaffoldKey.currentState!.openDrawer();
-                  },
-                  child: Icon(Icons.menu , color: Colors.white,),
-                ),
-                title: TextWidget(
-                  title: 'Provider Home',
-                  textColor: AppColors.textFieldBgColor,
-                  fontSize: 25,
-                ),
-                actions: [
-                  Obx((){
-                    return IconButton(
-                      onPressed: () {
-                        controller.handleLogout();
-                        // Get.offAllNamed(AppRoutes.logInScreen);
-                      },
-                      icon: controller.state.logoutLoading.value ? Container(child: Center(child: CircularProgressIndicator(color: Colors.white,))): Icon(
-                        Icons.logout_outlined,
-                        color: AppColors.textFieldBgColor,
-                      ),
-                    );
-                  },),
-                ],
-                backgroundColor: AppColors.iconsColor.withOpacity(0.9),
-                pinned: true, // to ensure the AppBar remains visible at the top
-                floating: true, // to show/hide AppBar when scrolling up/down
-                bottom: PreferredSize(
-                  preferredSize:
-                      Size.fromHeight(50.0), // Set this appropriately
-                  child: TabBar(
-                    labelColor: AppColors.textFieldBgColor,
-                    unselectedLabelColor:
-                        AppColors.textFieldBgColor.withOpacity(0.5),
-                    indicatorColor: AppColors.textFieldBgColor,
-                    labelStyle: GoogleFonts.poppins(
-                      fontSize: 14,
+    controller.fetchDetails();
+    return Obx((){
+      return controller.state.infoLoading.value == true
+          ? Scaffold(body: Center(
+        child: CircularProgressIndicator(
+          color: AppColors.iconsColor,
+        ),
+      ),)
+          : DefaultTabController(
+        length: 3,
+        child: Scaffold(
+          drawer: BuildDrawer.buildDrawer(context),
+          key: _scaffoldKey,
+          body: SafeArea(
+            child: CustomScrollView(
+              slivers: [
+                SliverAppBar(
+                  automaticallyImplyLeading: false,
+                  leading: InkWell(
+                    onTap: () {
+                      _scaffoldKey.currentState!.openDrawer();
+                    },
+                    child: Icon(
+                      Icons.menu,
+                      color: Colors.white,
                     ),
-                    tabs: [
-                      Tab(text: 'Offerings'),
-                      Tab(text: 'ORDERS'),
-                      Tab(text: 'Packages'),
+                  ),
+                  title: TextWidget(
+                    title: controller.state.providerName,
+                    textColor: AppColors.textFieldBgColor,
+                    fontSize: 25,
+                  ),
+                  actions: [
+                    Obx(
+                          () {
+                        return IconButton(
+                          onPressed: () {
+                            controller.handleLogout();
+                            // Get.offAllNamed(AppRoutes.logInScreen);
+                          },
+                          icon: controller.state.logoutLoading.value
+                              ? Container(
+                              child: Center(
+                                  child: CircularProgressIndicator(
+                                    color: Colors.white,
+                                  )))
+                              : Icon(
+                            Icons.logout_outlined,
+                            color: AppColors.textFieldBgColor,
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                  backgroundColor: AppColors.iconsColor.withOpacity(0.9),
+                  pinned:
+                  true, // to ensure the AppBar remains visible at the top
+                  floating:
+                  true, // to show/hide AppBar when scrolling up/down
+                  bottom: PreferredSize(
+                    preferredSize:
+                    Size.fromHeight(50.0), // Set this appropriately
+                    child: TabBar(
+                      labelColor: AppColors.textFieldBgColor,
+                      unselectedLabelColor:
+                      AppColors.textFieldBgColor.withOpacity(0.5),
+                      indicatorColor: AppColors.textFieldBgColor,
+                      labelStyle: GoogleFonts.poppins(
+                        fontSize: 14,
+                      ),
+                      tabs: [
+                        Tab(text: 'Offerings'),
+                        Tab(text: 'ORDERS'),
+                        Tab(text: 'Packages'),
+                      ],
+                    ),
+                  ),
+                ),
+                SliverFillRemaining(
+                  child: TabBarView(
+                    children: [
+                      ScheduleOffersView(),
+                      OrdersView(),
+                      ServicePackagesView(),
+                      // DashBoardView(),
+                      // OrderHomeView(),
+                      // InventoryView(),
                     ],
                   ),
                 ),
-              ),
-              SliverFillRemaining(
-                child: TabBarView(
-                  children: [
-                    ScheduleOffersView(),
-                    OrdersView(),
-                    ServicePackagesView(),
-                    // DashBoardView(),
-                    // OrderHomeView(),
-                    // InventoryView(),
-                  ],
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }
