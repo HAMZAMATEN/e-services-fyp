@@ -6,6 +6,7 @@ class ScheduledServiceModel {
   final String phone;
   final String address;
   final String name;
+  final String userId;
   final String date;
   final String time;
   final String service;
@@ -19,6 +20,7 @@ class ScheduledServiceModel {
     required this.phone,
     required this.address,
     required this.name,
+    required this.userId,
     required this.date,
     required this.time,
     required this.service,
@@ -33,6 +35,7 @@ class ScheduledServiceModel {
       'serviceName': serviceName,
       'phone': phone,
       'name': name,
+      'userId' : userId,
       'address': address,
       'date': date,
       'time': time,
@@ -52,6 +55,7 @@ class ScheduledServiceModel {
       serviceName: json["serviceName"],
       phone: json["phone"],
       name: json["name"],
+      userId: json["userId"],
       address: json["address"],
       date: json['date'],
       time: json['time'],

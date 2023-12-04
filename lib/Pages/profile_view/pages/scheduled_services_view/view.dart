@@ -19,23 +19,7 @@ class ScheduledServicesScreen extends GetView<ScheduledServicesController> {
     String time,
     String id,
   ) {
-    Color statusColor;
 
-    // Customize the color based on the order status
-    switch (status) {
-      case 'Confirmed':
-        statusColor = Colors.green;
-        break;
-      case 'Cancelled':
-        statusColor = Colors.orange;
-        break;
-      case 'Pending':
-        statusColor = Colors.red;
-        break;
-      default:
-        statusColor = Colors.black;
-        break;
-    }
     void _showOrderDetailsDialogue(BuildContext context) {
       final orderDetailsContent = Padding(
         padding: EdgeInsets.symmetric(horizontal: 10),
@@ -145,7 +129,7 @@ class ScheduledServicesScreen extends GetView<ScheduledServicesController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextWidget(
-                title: 'Service #' + id,
+                title: 'Service # ' + id,
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
                 textColor: Colors.black,
@@ -197,10 +181,11 @@ class ScheduledServicesScreen extends GetView<ScheduledServicesController> {
               ),
               TextWidget(
                 title: 'Status: $status',
-                textColor: statusColor,
+                textColor: Colors.green,
                 fontWeight: FontWeight.bold,
                 fontSize: 13,
               ),
+
             ],
           ),
         ),
@@ -240,6 +225,7 @@ class ScheduledServicesScreen extends GetView<ScheduledServicesController> {
                           // shrinkWrap: true,
                           itemCount: snapshot.data!.docs.length,
                           itemBuilder: (context, index) {
+                            print(snapshot.data!.docs[index]['phone']);
                             final date = int.parse(
                               snapshot.data!.docs[index]['date'],
                             );
@@ -262,19 +248,16 @@ class ScheduledServicesScreen extends GetView<ScheduledServicesController> {
                             return Padding(
                               padding: EdgeInsets.symmetric(
                                   horizontal: 15, vertical: 5),
-                              child: GestureDetector(
-                                onTap: () {},
-                                child: _buildlistTile(
-                                  context,
-                                  snapshot.data!.docs[index]['name'],
-                                  snapshot.data!.docs[index]['phone'],
-                                  snapshot.data!.docs[index]['service'],
-                                  snapshot.data!.docs[index]['address'],
-                                  formattedDate,
-                                  snapshot.data!.docs[index]['status'],
-                                  formattedTime,
-                                  snapshot.data!.docs[index]['id'].toString(),
-                                ),
+                              child: _buildlistTile(
+                                context,
+                                snapshot.data!.docs[index]['name'],
+                                snapshot.data!.docs[index]['phone'],
+                                snapshot.data!.docs[index]['service'],
+                                snapshot.data!.docs[index]['address'],
+                                formattedDate,
+                                snapshot.data!.docs[index]['status'],
+                                formattedTime,
+                                snapshot.data!.docs[index]['id'].toString(),
                               ),
                             );
                           }),

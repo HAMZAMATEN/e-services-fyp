@@ -4,6 +4,7 @@ import 'package:e_services_fyp/Pages/scheduled_view/controller.dart';
 import 'package:e_services_fyp/Pages/scheduled_view/widgets/map_screen.dart';
 import 'package:e_services_fyp/Pages/scheduled_view/widgets/scheduled_widget.dart';
 import 'package:e_services_fyp/Pages/splashScreen/controller.dart';
+import 'package:e_services_fyp/res/session_controller.dart';
 import 'package:e_services_fyp/utils/compnents/round_button.dart';
 import 'package:e_services_fyp/utils/models/scheduled_Service_model.dart';
 import 'package:e_services_fyp/utils/routes/routesNames.dart';
@@ -203,6 +204,7 @@ class ScheduledView extends GetView<ScheduledController> {
                             phone: controller.state.phoneCon.text.trim(),
                             address: controller.state.addCon.text.trim(),
                             name: controller.state.nameCon.text.trim(),
+                            userId: SessionController().userId.toString(),
                             date: formattedDate.toString(),
                             time: formattedTime.toString(),
                             service: controller.state.serviceOffering.value
