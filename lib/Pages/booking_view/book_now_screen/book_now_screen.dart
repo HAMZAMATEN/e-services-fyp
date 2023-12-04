@@ -93,10 +93,23 @@ class BookNowView extends GetView<BookingController> {
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
                                 controller.state.selectedLatLng.value ==
-                                        LatLng(32.082466, 72.669128)
+                                    LatLng(32.082466, 72.669128)
                                     ? "Select Location on Map"
                                     : controller.state.selectedAddress.value
-                                        .toString(),
+                                    .toString()
+                                    .split('')
+                                    .take(28)
+                                    .join('')
+                                    .length >=
+                                    28
+                                    ? controller.state.selectedAddress.value
+                                    .toString()
+                                    .split('')
+                                    .take(28)
+                                    .join('').toString() +
+                                    '.....'
+                                    : controller.state.selectedAddress.value
+                                    .toString(),
                                 overflow: TextOverflow.ellipsis,
                                 style: GoogleFonts.poppins(
                                   color: Colors.white,
