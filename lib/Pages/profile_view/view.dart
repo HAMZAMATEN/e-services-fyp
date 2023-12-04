@@ -130,28 +130,6 @@ class ProfileView extends GetView<ProfileController> {
                           height: 20,
                         ),
 
-                        ListTile(
-                          leading: Icon(
-                            Icons.wallet,
-                            color: Colors.indigoAccent,
-                            size: 30,
-                          ),
-                          title: InkWell(
-                            onTap: () {},
-                            child: TextWidget(
-                              title: 'Wallet Balance',
-                              textColor: Colors.black,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          trailing: TextWidget(
-                            title: '\$100.00',
-                            textColor: Colors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
 
                         ListTile(
                           leading: Icon(
@@ -175,25 +153,6 @@ class ProfileView extends GetView<ProfileController> {
                           },
                         ),
 
-                        ListTile(
-                          leading: Icon(
-                            Icons.favorite,
-                            color: Colors.indigoAccent,
-                            size: 30,
-                          ),
-                          title: TextWidget(
-                            title: 'Favourite Providers',
-                            textColor: Colors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          trailing: Icon(
-                            Icons.arrow_forward_ios_rounded,
-                            size: 20,
-                            color: Colors.indigoAccent,
-                          ),
-                          onTap: () {},
-                        ),
                         ListTile(
                           leading: Icon(
                             Icons.auto_fix_off_outlined,

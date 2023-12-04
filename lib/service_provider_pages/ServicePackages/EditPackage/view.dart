@@ -33,24 +33,6 @@ class EditPackageView extends GetView<EditPackageController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Padding(
-            //   padding: EdgeInsets.only(bottom: 8.0, top: 20),
-            //   child: Container(
-            //     height: 60,
-            //     width: double.infinity,
-            //     color: Colors.white,
-            //     child: Row(
-            //       mainAxisAlignment: MainAxisAlignment.start,
-            //       children: [
-            //         IconButton(
-            //             onPressed: () {
-            //               Get.back();
-            //             },
-            //             icon: Icon(Icons.arrow_back)),
-            //       ],
-            //     ),
-            //   ),
-            // ),
             Obx(() {
               return controller.state.infoLoading == true
                   ? Column(

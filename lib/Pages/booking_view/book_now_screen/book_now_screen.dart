@@ -121,8 +121,7 @@ class BookNowView extends GetView<BookingController> {
                         title: "Confirm ",
                         onPress: () {
                           if (controller.state.addressCon.text.isEmpty ||
-                              controller.state.selectedLatLng.value ==
-                                  LatLng(32.082466, 72.669128) ||
+
                               controller.state.selectedAddress.value.isEmpty) {
                             Snackbar.showSnackBar(
                                 'Error',

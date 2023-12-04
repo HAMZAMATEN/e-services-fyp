@@ -6,12 +6,14 @@ import 'package:e_services_fyp/service_provider_pages/order_detail_screen/contro
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../res/text_widget.dart';
+
 class OfferDetailScreen extends StatelessWidget {
   String id;
   OfferDetailScreen({Key? key, required this.id}) : super(key: key);
 
   final ref = FirebaseFirestore.instance.collection('scheduledServices');
-  final controller = Get.put<OrderDetailController>(OrderDetailController());
+  final controller = Get.put<OfferDetailController>(OfferDetailController());
 
   Widget _returnDetails(
       BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot, int index) {
@@ -190,31 +192,14 @@ class OfferDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0, // Remove the elevation if you don't want a shadow
-        automaticallyImplyLeading: false, // Remove the back button
-        flexibleSpace: Padding(
-          padding: EdgeInsets.only(bottom: 8.0, top: 20),
-          child: Container(
-            height: 60,
-            width: double.infinity,
-            color: Colors.white,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(); // Use Navigator to go back
-                  },
-                  icon: Icon(Icons.arrow_back,color: Colors.black,),
-                ),
-                // Add more widgets as needed
-              ],
-            ),
+        appBar: AppBar(
+          title: TextWidget(
+            title: 'Details',
+            fontSize: 20,
           ),
+          backgroundColor: AppColors.iconsColor,
         ),
-      ),
+
       body: SafeArea(
         child: StreamBuilder<QuerySnapshot>(
           stream: ref.where('id', isEqualTo: id).snapshots(),

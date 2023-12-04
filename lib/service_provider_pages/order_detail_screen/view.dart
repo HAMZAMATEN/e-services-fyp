@@ -3,6 +3,7 @@ import 'package:e_services_fyp/res/colors.dart';
 import 'package:e_services_fyp/res/session_controller.dart';
 import 'package:e_services_fyp/res/text_widget.dart';
 import 'package:e_services_fyp/service_provider_pages/offer_detail_screen/controller.dart';
+import 'package:e_services_fyp/service_provider_pages/order_detail_screen/controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,7 +12,7 @@ class OrderDetailScreen extends StatelessWidget {
   OrderDetailScreen({Key? key, required this.id}) : super(key: key);
 
   final ref = FirebaseFirestore.instance.collection('bookedServices');
-  final controller = Get.put<OfferDetailController>(OfferDetailController());
+  final controller = Get.put<OrderDetailController>(OrderDetailController());
 
   Widget _returnDetails(
       BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot, int index) {

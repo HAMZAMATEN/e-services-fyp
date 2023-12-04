@@ -25,6 +25,7 @@ class SPHomeController extends GetxController{
     state.infoLoading.value=true;
     DocumentSnapshot user = await spRef.doc(SessionController().userId.toString()).get();
     state.providerName = user['providerName'].toString();
+    state.imgUrl = user['photoUrl'].toString();
     state.infoLoading.value = false;
   }
 

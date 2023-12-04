@@ -23,10 +23,10 @@ class ScheduledServicesScreen extends GetView<ScheduledServicesController> {
 
     // Customize the color based on the order status
     switch (status) {
-      case 'Delivered':
+      case 'Confirmed':
         statusColor = Colors.green;
         break;
-      case 'Shipped':
+      case 'Cancelled':
         statusColor = Colors.orange;
         break;
       case 'Pending':

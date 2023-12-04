@@ -5,4 +5,5 @@ class SPHomeState {
   Rx<bool> logoutLoading = false.obs;
   Rx<bool> infoLoading = true.obs;
   String providerName = '';
+  String imgUrl = '';
 }

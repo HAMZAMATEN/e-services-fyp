@@ -217,7 +217,7 @@ class SpProfileView extends GetView<SpProfileController> {
 
                         ListTile(
                           leading: Icon(
-                            Icons.schedule,
+                            Icons.home_repair_service_outlined,
                             color: Colors.indigoAccent,
                             size: 30,
                           ),
@@ -246,30 +246,6 @@ class SpProfileView extends GetView<SpProfileController> {
                         ),
 
 
-                        // ListTile(
-                        //   leading: Icon(
-                        //     Icons.password_outlined,
-                        //     color: Colors.indigoAccent,
-                        //     size: 30,
-                        //   ),
-                        //   title: InkWell(
-                        //     onTap: () {
-                        //     },
-                        //     child: TextWidget(
-                        //       title: 'Change Password',
-                        //       textColor: Colors.black,
-                        //       fontSize: 18,
-                        //       fontWeight: FontWeight.bold,
-                        //     ),
-                        //   ),
-                        //   trailing: Icon(
-                        //     Icons.arrow_forward_ios_rounded,
-                        //     size: 20,
-                        //     color: Colors.indigoAccent,
-                        //   ),
-                        //   onTap: () {},
-                        // ),
-                        //
                         ListTile(
                           leading: Icon(
                             Icons.star,
@@ -295,21 +271,20 @@ class SpProfileView extends GetView<SpProfileController> {
                         ),
 
                         ListTile(
+                          onTap: (){
+                            Get.toNamed(AppPages.aboutUsView);
+                          },
                           leading: Icon(
                             Icons.description,
                             color: Colors.indigoAccent,
                             size: 30,
                           ),
-                          title: InkWell(
-                            onTap: () {
-                              Get.toNamed(AppPages.aboutUsView);
-                            },
-                            child: TextWidget(
-                              title: 'About Us',
-                              textColor: Colors.black,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
+
+                          title: TextWidget(
+                            title: 'About Us',
+                            textColor: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
                           ),
                           trailing: Icon(
                             Icons.arrow_forward_ios_rounded,

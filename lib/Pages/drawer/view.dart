@@ -54,6 +54,17 @@ class UserDrawer {
             height: 10,
           ),
           ListTileWidget(
+            iconData: Icons.person_2_rounded,
+            title: 'Profile',
+            onPress: () {
+              Navigator.pop(context);
+              Get.toNamed(AppPages.userProfileView);
+            },
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          ListTileWidget(
             iconData: Icons.category_outlined,
             title: 'Categories',
             onPress: () {
@@ -63,14 +74,6 @@ class UserDrawer {
             },
           ),
 
-          ListTileWidget(
-            iconData: Icons.details_outlined,
-            title: 'About Us',
-            onPress: () {
-              Navigator.pop(context);
-              Get.toNamed(AppPages.aboutUsView);
-            },
-          ),
           SizedBox(
             height: 5,
           ),
@@ -104,17 +107,7 @@ class UserDrawer {
               Get.toNamed(AppPages.faqView);
             },
           ),
-          SizedBox(
-            height: 5,
-          ),
-          ListTileWidget(
-            iconData: Icons.person_2_rounded,
-            title: 'Profile',
-            onPress: () {
-              Navigator.pop(context);
-              Get.toNamed(AppPages.userProfileView);
-            },
-          ),
+
           SizedBox(
             height: 5,
           ),
@@ -131,8 +124,17 @@ class UserDrawer {
           ),
           Divider(),
           SizedBox(
-            height: 10,
+            height: 5,
           ),
+          ListTileWidget(
+            iconData: Icons.details_outlined,
+            title: 'About Us',
+            onPress: () {
+              Navigator.pop(context);
+              Get.toNamed(AppPages.aboutUsView);
+            },
+          ),
+
 
         ],
       ),
