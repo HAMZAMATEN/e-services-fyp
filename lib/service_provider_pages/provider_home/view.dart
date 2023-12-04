@@ -52,7 +52,7 @@ class SPHomeView extends GetView<SPHomeController> {
                           ),
                         ),
                         title: TextWidget(
-                          title: controller.state.providerName,
+                          title: controller.state.providerName.capitalizeFirst.toString(),
                           textColor: AppColors.textFieldBgColor,
                           fontSize: 25,
                         ),
@@ -61,26 +61,29 @@ class SPHomeView extends GetView<SPHomeController> {
                             onTap: () {
                               Get.toNamed(AppPages.providerProfileView);
                             },
-                            child: Container(
-                              height: 50,
-                              width: 50,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(100),
-                                border: Border.all(
-                                    width: 2, color: AppColors.iconsColor),
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(100),
+                            child: Padding(
+                              padding:  EdgeInsets.symmetric(horizontal: 2),
+                              child: Container(
+                                height: 40,
+                                width: 50,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(100),
+                                  border: Border.all(
+                                      width: 2, color: Colors.white),
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(50),
 
-                                child: controller.state.imgUrl == ''
-                                    ? Icon(
-                                        Icons.person_2_rounded,
-                                        color: AppColors.iconsColor,
-                                      )
-                                    : Image(
-                                  image: NetworkImage(controller.state.imgUrl
-                                      .toString()),
-                                  fit: BoxFit.cover,
+                                  child: controller.state.imgUrl == ''
+                                      ? Icon(
+                                          Icons.person_2_rounded,
+                                          color: Colors.white,
+                                        )
+                                      : Image(
+                                    image: NetworkImage(controller.state.imgUrl
+                                        .toString()),
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                             ),
