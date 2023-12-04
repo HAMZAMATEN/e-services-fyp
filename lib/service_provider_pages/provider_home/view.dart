@@ -23,100 +23,111 @@ class SPHomeView extends GetView<SPHomeController> {
   @override
   Widget build(BuildContext context) {
     controller.fetchDetails();
-    return Obx((){
+    return Obx(() {
       return controller.state.infoLoading.value == true
-          ? Scaffold(body: Center(
-        child: CircularProgressIndicator(
-          color: AppColors.iconsColor,
-        ),
-      ),)
-          : DefaultTabController(
-        length: 3,
-        child: Scaffold(
-          drawer: BuildDrawer.buildDrawer(context),
-          key: _scaffoldKey,
-          body: SafeArea(
-            child: CustomScrollView(
-              slivers: [
-                SliverAppBar(
-                  automaticallyImplyLeading: false,
-                  leading: InkWell(
-                    onTap: () {
-                      _scaffoldKey.currentState!.openDrawer();
-                    },
-                    child: Icon(
-                      Icons.menu,
-                      color: Colors.white,
-                    ),
-                  ),
-                  title: TextWidget(
-                    title: controller.state.providerName,
-                    textColor: AppColors.textFieldBgColor,
-                    fontSize: 25,
-                  ),
-                  actions: [
-                    Obx(
-                          () {
-                        return IconButton(
-                          onPressed: () {
-                            controller.handleLogout();
-                            // Get.offAllNamed(AppRoutes.logInScreen);
-                          },
-                          icon: controller.state.logoutLoading.value
-                              ? Container(
-                              child: Center(
-                                  child: CircularProgressIndicator(
-                                    color: Colors.white,
-                                  )))
-                              : Icon(
-                            Icons.logout_outlined,
-                            color: AppColors.textFieldBgColor,
-                          ),
-                        );
-                      },
-                    ),
-                  ],
-                  backgroundColor: AppColors.iconsColor.withOpacity(0.9),
-                  pinned:
-                  true, // to ensure the AppBar remains visible at the top
-                  floating:
-                  true, // to show/hide AppBar when scrolling up/down
-                  bottom: PreferredSize(
-                    preferredSize:
-                    Size.fromHeight(50.0), // Set this appropriately
-                    child: TabBar(
-                      labelColor: AppColors.textFieldBgColor,
-                      unselectedLabelColor:
-                      AppColors.textFieldBgColor.withOpacity(0.5),
-                      indicatorColor: AppColors.textFieldBgColor,
-                      labelStyle: GoogleFonts.poppins(
-                        fontSize: 14,
-                      ),
-                      tabs: [
-                        Tab(text: 'Offerings'),
-                        Tab(text: 'ORDERS'),
-                        Tab(text: 'Packages'),
-                      ],
-                    ),
-                  ),
+          ? Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(
+                  color: AppColors.iconsColor,
                 ),
-                SliverFillRemaining(
-                  child: TabBarView(
-                    children: [
-                      ScheduleOffersView(),
-                      OrdersView(),
-                      ServicePackagesView(),
-                      // DashBoardView(),
-                      // OrderHomeView(),
-                      // InventoryView(),
+              ),
+            )
+          : DefaultTabController(
+              length: 3,
+              child: Scaffold(
+                drawer: BuildDrawer.buildDrawer(context),
+                key: _scaffoldKey,
+                body: SafeArea(
+                  child: CustomScrollView(
+                    slivers: [
+                      SliverAppBar(
+                        automaticallyImplyLeading: false,
+                        leading: InkWell(
+                          onTap: () {
+                            _scaffoldKey.currentState!.openDrawer();
+                          },
+                          child: Icon(
+                            Icons.menu,
+                            color: Colors.white,
+                          ),
+                        ),
+                        title: TextWidget(
+                          title: controller.state.providerName,
+                          textColor: AppColors.textFieldBgColor,
+                          fontSize: 25,
+                        ),
+                        actions: [
+                          InkWell(
+                            onTap: () {
+                              Get.toNamed(AppPages.providerProfileView);
+                            },
+                            child: Container(
+                              height: 50,
+                              width: 50,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100),
+                                border: Border.all(
+                                    width: 2, color: AppColors.iconsColor),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+
+                                child: controller.state.imgUrl == ''
+                                    ? Icon(
+                                        Icons.person_2_rounded,
+                                        color: AppColors.iconsColor,
+                                      )
+                                    : Image(
+                                  image: NetworkImage(controller.state.imgUrl
+                                      .toString()),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 10,),
+                        ],
+                        backgroundColor: AppColors.iconsColor.withOpacity(0.9),
+                        pinned: true,
+                        // to ensure the AppBar remains visible at the top
+                        floating: true,
+                        // to show/hide AppBar when scrolling up/down
+                        bottom: PreferredSize(
+                          preferredSize:
+                              Size.fromHeight(50.0), // Set this appropriately
+                          child: TabBar(
+                            labelColor: AppColors.textFieldBgColor,
+                            unselectedLabelColor:
+                                AppColors.textFieldBgColor.withOpacity(0.5),
+                            indicatorColor: AppColors.textFieldBgColor,
+                            labelStyle: GoogleFonts.poppins(
+                              fontSize: 14,
+                            ),
+                            tabs: [
+                              Tab(text: 'Offerings'),
+                              Tab(text: 'ORDERS'),
+                              Tab(text: 'Packages'),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SliverFillRemaining(
+                        child: TabBarView(
+                          children: [
+                            ScheduleOffersView(),
+                            OrdersView(),
+                            ServicePackagesView(),
+                            // DashBoardView(),
+                            // OrderHomeView(),
+                            // InventoryView(),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
-              ],
-            ),
-          ),
-        ),
-      );
+              ),
+            );
     });
   }
 }

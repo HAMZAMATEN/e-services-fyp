@@ -104,7 +104,7 @@ class BuildDrawer {
             title: 'Log Out',
             onPress: () async {
               Navigator.pop(context);
-
+              con.handleLogout();
             },
           ),
           SizedBox(

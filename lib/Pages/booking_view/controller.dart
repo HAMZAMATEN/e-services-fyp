@@ -187,6 +187,9 @@ class BookingController extends GetxController {
           .set(bookingModel.toJson())
           .then((value) {
             // checkAlreadyBooked(id);
+        state.addressCon.clear();
+        state.selectedLatLng.value = LatLng(32.082466, 72.669128);
+        state.selectedAddress.value = '';
         print('success');
         Snackbar.showSnackBar(
             'Success', "Successfully scheduled.", Icons.done_all);

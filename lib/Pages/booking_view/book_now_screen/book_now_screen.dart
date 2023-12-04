@@ -121,7 +121,6 @@ class BookNowView extends GetView<BookingController> {
                         title: "Confirm ",
                         onPress: () {
                           if (controller.state.addressCon.text.isEmpty ||
-
                               controller.state.selectedAddress.value.isEmpty) {
                             Snackbar.showSnackBar(
                                 'Error',
