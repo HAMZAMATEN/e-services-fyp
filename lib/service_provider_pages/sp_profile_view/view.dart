@@ -1,12 +1,13 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:e_services_fyp/Pages/profile_view/update/update.dart';
 import 'package:e_services_fyp/res/colors.dart';
 import 'package:e_services_fyp/res/text_widget.dart';
+import 'package:e_services_fyp/service_provider_pages/Orders/Screens/scheduled/view.dart';
 import 'package:e_services_fyp/service_provider_pages/sp_profile_view/controller.dart';
 import 'package:e_services_fyp/service_provider_pages/sp_profile_view/update/update.dart';
 import 'package:e_services_fyp/utils/compnents/round_button.dart';
+import 'package:e_services_fyp/utils/routes/routes.dart';
 import 'package:e_services_fyp/utils/routes/routesNames.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -134,28 +135,84 @@ class SpProfileView extends GetView<SpProfileController> {
                           height: 20,
                         ),
 
+                        // ListTile(
+                        //   leading: Icon(
+                        //     Icons.wallet,
+                        //     color: Colors.indigoAccent,
+                        //     size: 30,
+                        //   ),
+                        //   title: InkWell(
+                        //     onTap: () {
+                        //     },
+                        //     child: TextWidget(
+                        //       title: 'Wallet Balance',
+                        //       textColor: Colors.black,
+                        //       fontSize: 18,
+                        //       fontWeight: FontWeight.bold,
+                        //     ),
+                        //   ),
+                        //   trailing: TextWidget(
+                        //     title: '\$100.00',
+                        //     textColor: Colors.black,
+                        //     fontSize: 18,
+                        //     fontWeight: FontWeight.bold,
+                        //   ),
+                        // ),
                         ListTile(
                           leading: Icon(
-                            Icons.wallet,
+                            Icons.edit,
                             color: Colors.indigoAccent,
                             size: 30,
                           ),
                           title: InkWell(
                             onTap: () {
+                              // Get.toNamed(AppPages.u);
+                              Get.to(()=>SpUpdateScreen());
                             },
                             child: TextWidget(
-                              title: 'Wallet Balance',
+                              title: 'Edit Profile',
                               textColor: Colors.black,
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          trailing: TextWidget(
-                            title: '\$100.00',
-                            textColor: Colors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                          trailing: Icon(
+                            Icons.arrow_forward_ios_rounded,
+                            size: 20,
+                            color: Colors.indigoAccent,
                           ),
+                          onTap: () {
+                            // Get.toNamed(AppPages.directOrdersView);
+                            Get.to(()=>SpUpdateScreen());
+                          },
+                        ),
+                        ListTile(
+                          leading: Icon(
+                            Icons.schedule,
+                            color: Colors.indigoAccent,
+                            size: 30,
+                          ),
+                          title: InkWell(
+                            onTap: () {
+                              // Get.toNamed(AppPages.scheduledServicesView);
+                              Get.to(()=>ScheduledOrdersView());
+                            },
+                            child: TextWidget(
+                              title: 'Scheduled Orders',
+                              textColor: Colors.black,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          trailing: Icon(
+                            Icons.arrow_forward_ios_rounded,
+                            size: 20,
+                            color: Colors.indigoAccent,
+                          ),
+                          onTap: () {
+                            Get.to(()=>ScheduledOrdersView());
+                            // Get.to(()=>ScheduledOrdersView());
+                          },
                         ),
 
                         ListTile(
@@ -166,10 +223,11 @@ class SpProfileView extends GetView<SpProfileController> {
                           ),
                           title: InkWell(
                             onTap: () {
-                              Get.toNamed(AppPages.scheduledServicesView);
+                              // Get.toNamed(AppPages.scheduledServicesView);
+                              Get.toNamed(AppPages.directOrdersView);
                             },
                             child: TextWidget(
-                              title: 'Scheduled Services',
+                              title: 'Direct Bookings',
                               textColor: Colors.black,
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -180,55 +238,37 @@ class SpProfileView extends GetView<SpProfileController> {
                             size: 20,
                             color: Colors.indigoAccent,
                           ),
-                          onTap: () {},
+                          onTap: () {
+                            // Get.to(()=>ScheduledOrdersView());
+                            Get.toNamed(AppPages.directOrdersView);
+                            // Get.to(()=>ScheduledOrdersView());
+                          },
                         ),
 
-                        ListTile(
-                          leading: Icon(
-                            Icons.favorite,
-                            color: Colors.indigoAccent,
-                            size: 30,
-                          ),
-                          title: InkWell(
-                            onTap: () {
-                            },
-                            child: TextWidget(
-                              title: 'Favourite Providers',
-                              textColor: Colors.black,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          trailing: Icon(
-                            Icons.arrow_forward_ios_rounded,
-                            size: 20,
-                            color: Colors.indigoAccent,
-                          ),
-                          onTap: () {},
-                        ),
-                        ListTile(
-                          leading: Icon(
-                            Icons.password_outlined,
-                            color: Colors.indigoAccent,
-                            size: 30,
-                          ),
-                          title: InkWell(
-                            onTap: () {
-                            },
-                            child: TextWidget(
-                              title: 'Change Password',
-                              textColor: Colors.black,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          trailing: Icon(
-                            Icons.arrow_forward_ios_rounded,
-                            size: 20,
-                            color: Colors.indigoAccent,
-                          ),
-                          onTap: () {},
-                        ),
+
+                        // ListTile(
+                        //   leading: Icon(
+                        //     Icons.password_outlined,
+                        //     color: Colors.indigoAccent,
+                        //     size: 30,
+                        //   ),
+                        //   title: InkWell(
+                        //     onTap: () {
+                        //     },
+                        //     child: TextWidget(
+                        //       title: 'Change Password',
+                        //       textColor: Colors.black,
+                        //       fontSize: 18,
+                        //       fontWeight: FontWeight.bold,
+                        //     ),
+                        //   ),
+                        //   trailing: Icon(
+                        //     Icons.arrow_forward_ios_rounded,
+                        //     size: 20,
+                        //     color: Colors.indigoAccent,
+                        //   ),
+                        //   onTap: () {},
+                        // ),
                         //
                         ListTile(
                           leading: Icon(
