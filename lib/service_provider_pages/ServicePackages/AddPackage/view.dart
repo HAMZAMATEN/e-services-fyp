@@ -130,7 +130,7 @@ class AddPackageView extends GetView<AddPackageController> {
                           SizedBox(height: 12),
                           CustomTextField(
                             contr: controller.state.hourlyRateController,
-                            descrip: 'Hourly Rate in Rs',
+                            descrip: 'Hourly Rate in \$ s',
                             textInputAction: TextInputAction.next,
                             keyboardType: TextInputType.number,
                             obsecure: false,

@@ -24,7 +24,7 @@ class HomeView extends GetView<HomeController> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   final con = Get.lazyPut<HomeController>(() => HomeController());
-  final PageController pageController = PageController(viewportFraction: 0.8);
+  // final PageController pageController = PageController(viewportFraction: 0.8);
 
   @override
   Widget build(BuildContext context) {
