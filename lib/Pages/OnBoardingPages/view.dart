@@ -12,7 +12,8 @@ class OnBoardingView extends GetView<OnBoardingController> {
     return Scaffold(
         backgroundColor: Colors.white,
         body: SafeArea(
-          child: Stack(children: [
+          child: Stack(
+              children: [
             PageView.builder(
                 controller: controller.pageController,
                 onPageChanged: controller.currentPage,
@@ -133,7 +134,7 @@ class OnBoardingView extends GetView<OnBoardingController> {
                             color: AppColors.iconsColor,
                         ),
                       ),
-                      Icon(Icons.keyboard_tab,color: AppColors.grey,size: 30,),
+                      // Icon(Icons.keyboard_tab,color: AppColors.grey,size: 30,),
 
                     ],
                   ),
